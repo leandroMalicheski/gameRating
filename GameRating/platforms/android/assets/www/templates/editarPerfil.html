@@ -1,0 +1,33 @@
+<body ng-app="app.controllers">
+<ion-view title="Editar Perfil" id="page16">
+    <ion-content padding="true" class="has-header" ng-controller="editarPerfilCtrl">
+    <div>
+        <button type="button" ng-click="salvar(perfil)" id="editarPerfil-button32" class=" button button-stable  icon ion-android-done "></button>
+    </div>
+        <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
+           <img src="">
+        </div>
+        <div>
+            <label class="item item-input " id="editarPerfil-input18" name="nome">
+                <input type="text" placeholder ={{perfilAtualMock.nome}} ng-model="perfil.nome">
+            </label>
+            <label class="item item-input " id="editarPerfil-input20" name="email">
+                <input type="text" placeholder ={{perfilAtualMock.email}} ng-model="perfil.email">
+            </label>
+            <label class="item item-input " id="editarPerfil-input22" name="usuario">
+                <input type="text" placeholder ={{perfilAtualMock.usuario}} ng-model="perfil.usuario">
+            </label>
+            <label class="item item-input " id="editarPerfil-input23" name="senha">
+                <input type="password" placeholder ={{perfilAtualMock.senha}} ng-model="perfil.senha">
+            </label>
+            <label class="item item-input " id="editarPerfil-input24" name="confimarSenha">
+                <input type="password" placeholder ={{perfilAtualMock.senhaI}} ng-model="perfil.senha">
+            </label>
+            <label class="item item-input item-stacked-label " id="editarPerfil-input25" name="perguntaResposta">
+                <span class="input-label">Qual o nome do seu cachorro ?</span>
+                <input type="text" placeholder ={{perfilAtualMock.resposta}} ng-model="perfil.resposta">
+            </label>
+        </div>
+    </ion-content>
+</ion-view>
+</body>

@@ -1,0 +1,33 @@
+<body ng-app="app.controllers">
+<ion-view title="Perfil" id="page9">
+    <ion-content padding="true" class="has-header" ng-controller="perfilCtrl">
+        <div>
+            <button type="button" ng-click="disable()" id="perfil-button16" class=" button button-stable  icon ion-eye "></button>
+        	<a ui-sref="menu.editarPerfil" id="perfil-button13" class=" button button-stable  icon ion-android-create "></a>
+        </div>
+        <br>
+		<div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
+			<img src="">
+		</div>
+        <br>
+        <div>
+            <label class="item item-input " id="perfil-input12" name="nome">
+                <input type="text" value={{perfilMock.nome}} disabled>
+            </label>
+            <label class="item item-input " id="perfil-input13" name="email">
+                <input type="text" value={{perfilMock.email}} disabled>
+            </label>
+            <label class="item item-input " id="perfil-input14" name="usuario">
+                <input type="text" value={{perfilMock.usuario}} disabled>
+            </label>
+            <label class="item item-input " id="perfil-input15" name="senha">
+                <input type="password" placeholder="*************" disabled>
+            </label>
+            <label class="item item-input item-stacked-label " id="perfil-input17" name="perguntaResposta">
+                <span class="input-label">Qual o nome do seu cachorro ?</span>
+                <input type="text" value={{perfilMock.resposta}} disabled>
+            </label>
+        </div>
+    </ion-content>
+</ion-view>
+</body>
