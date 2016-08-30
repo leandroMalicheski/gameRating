@@ -1,10 +1,6 @@
 <body ng-app="app.controllers">
 <ion-view title="Meus Tópicos" id="page10">
     <ion-content padding="true" class="has-header" ng-controller="meusTPicosCtrl">
-        <button id="meusTPicos-button18" class=" button button-stable  icon ion-eye "></button>
-        <button id="meusTPicos-button17" class=" button button-stable  icon ion-android-delete "></button>
-        <div>
-        </div>
         <ion-list id="meusTPicos-list2">
 	       <ion-item ng-repeat="topico in topicosMock" ui-sref="menu.editarTPico({id:{{topico.id}}})" class="item-icon-right" >
 	       		{{topico.titulo}}

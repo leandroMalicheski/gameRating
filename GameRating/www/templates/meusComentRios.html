@@ -1,14 +1,11 @@
+<body ng-app="app.controllers">
 <ion-view title="Meus Comentários" id="page13">
-    <ion-content padding="true" class="has-header">
-        <button id="meusComentRios-button30" class=" button button-stable  icon ion-eye "></button>
-        <button id="meusComentRios-button31" class=" button button-stable  icon ion-android-delete "></button>
-        <ion-list id="meusComentRios-list5">
-            <ion-item class="item-icon-right  " id="meusComentRios-list-item24" ui-sref="menu.editarComentRio">Descobri como fazer isso
-                <i class="icon ion-android-checkbox-outline-blank"></i>
-            </ion-item>
-            <ion-item class="item-icon-right  " id="meusComentRios-list-item26">Não descobri
-                <i class="icon ion-android-checkbox-outline-blank"></i>
-            </ion-item>
+    <ion-content padding="true" class="has-header" ng-controller="meusComentRios2Ctrl">
+        <ion-list id="meusComentRios-list5" >
+           <ion-item ng-repeat="comentario in comentariosMock" ui-sref="menu.editarComentRio({id:{{comentario.id}}})" class="item-icon-right" >
+	       		{{comentario.corpo}}
+           </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>
+</body>

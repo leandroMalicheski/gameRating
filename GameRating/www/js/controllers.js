@@ -17,7 +17,11 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
+	
+	$scope.search = function(){		
+		console.log("Chamei o Botão!!")
+		console.log($scope.search.value)
+	}
 
 }])
       
@@ -65,7 +69,7 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 	console.log("Carreguei a parada!")
-	$scope.perfilAtualMock = {nome:"leandro",email:"leandro.Malicheski@gmail.com",usuario:"leandroMalicheski",resposta:"Bob",imagePath:"teste",senha:"123",senhaI:"123"}
+	$scope.perfil = {nome:"leandro",email:"leandro.Malicheski@gmail.com",usuario:"leandroMalicheski",resposta:"Bob",imagePath:"teste",senha:"123",senhaI:"123"}
 	console.log($scope.perfilAtualMock)
 	
 	$scope.salvar = function(perfil){
@@ -90,27 +94,28 @@ function ($scope, $stateParams) {
 	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
 	console.log("Carreguei a parada!")
 	console.log($scope.topicosMock)
-	
-	$scope.topicoSelecionado = function(topico){
-		console.log("selecionei esse cara:")
-		console.log(topico)
-	}
-
 }])
    
 .controller('tPicosOcultosCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
-
+	var id = $stateParams.id
+	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
+	
+	console.log("cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
 }])
    
 .controller('meusComentRiosCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
+	var id = $stateParams.id
+	$scope.comentariosMock = [{id:1,corpo:"Corpo do comentario 1"},{id:2,corpo:"Corpo do comentario 2"},{id:3,corpo:"Corpo do comentario 3"}]
+	
+	console.log("cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
 
 }])
    
@@ -118,24 +123,37 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
-
+	var id = $stateParams.id
+	$scope.comentariosMock = [{id:1,corpo:"Corpo do comentario 1",checked:true},{id:2,corpo:"Corpo do comentario 2",checked:false},{id:3,corpo:"Corpo do comentario 3",checked:false}]
+	
+	console.log("cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
+	
+	$scope.ocultar = function(){
+		console.log("Vou ocultar o comentario")
+	}
+	
+	$scope.remover = function(){
+		console.log("Vou remover o comentario")
+	}
 }])
    
 .controller('meusComentRios2Ctrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
-
+	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
+	console.log("Carreguei a parada!")
+	console.log($scope.topicosMock)
 }])
    
 .controller('comentRiosOcultos2Ctrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
-
+	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
+	console.log("Carreguei a parada!")
+	console.log($scope.topicosMock)
 }])
    
 .controller('editarTPicoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -173,8 +191,30 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+	var id = $stateParams.id
+	$scope.cometarioMock = {id:1,corpo:"Corpo do Comentario"}
+	
+	console.log("cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
 
-
+	$scope.ocultar = function(){
+		console.log("Vou ocultar o Comentario")
+	}
+	$scope.addLink = function(topicoNovo){
+		console.log("Vou adicionar um link")
+		console.log(topicoNovo)
+	}
+	$scope.remover = function(){
+		console.log("Vou remover o Comentario")
+	}
+	$scope.adicionarImagem = function(topicoNovo){
+		console.log("Vou adicionar Imagem o Comentario")
+		console.log(topicoNovo)
+	}
+	$scope.salvar = function(topicoNovo){
+		console.log("Vou salvar o Comentario")
+		console.log(topicoNovo)
+	}
 }])
    
 .controller('cadastrarJogoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

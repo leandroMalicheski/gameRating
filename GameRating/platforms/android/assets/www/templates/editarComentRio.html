@@ -1,13 +1,18 @@
+<body ng-app="app.controllers">
 <ion-view title="Editar Comentário" id="page14">
-    <ion-content padding="true" class="has-header">
-        <button id="editarComentRio-button10" class=" button button-stable  icon ion-android-arrow-back "></button>
-        <button id="editarComentRio-button34" class=" button button-stable  icon ion-android-attach "></button>
-        <button id="editarComentRio-button35" class=" button button-stable  icon ion-link "></button>
-        <button id="editarComentRio-button26" class=" button button-stable  icon ion-android-done "></button>
+    <ion-content padding="true" class="has-header" ng-controller="editarComentRioCtrl">
+        <div> 
+			<button ng-click="ocultar()" type="button" id="editarTPico-button21" class=" button button-stable  icon ion-eye "></button>
+	        <button ng-click="remover()" type="button" id="editarTPico-button19" class=" button button-stable  icon ion-android-delete "></button>
+	        <button ng-click="adicionarImagem(cometarioMock)" type="button" id="editarTPico-button22" class=" button button-stable  icon ion-android-attach "></button>
+	        <button ng-click="addLink(cometarioMock)" type="button" id="editarTPico-button23" class=" button button-stable  icon ion-link "></button>
+	        <button ng-click="salvar(cometarioMock)" type="button" id="editarTPico-button20" class=" button button-stable  icon ion-android-done "></button>
+        </div>
         <form id="editarComentRio-form10" class="list ">
             <label class="item item-input " id="editarComentRio-input21" name="titulo">
-                <input type="text" placeholder="Descobri como fazer isso">
+                <input type="text" ng-model="cometarioMock.corpo" value="{{cometarioMock.titulo}}">
             </label>
         </form>
     </ion-content>
 </ion-view>
+</body>

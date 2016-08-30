@@ -105,7 +105,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.meusComentRios', {
-    url: '/meusComentarios',
+    url: '/meusComentarios?id',
     views: {
       'side-menu21': {
         templateUrl: 'templates/meusComentRios.html',
@@ -115,7 +115,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.comentRiosOcultos', {
-    url: '/comentariosOcultos',
+    url: '/comentariosOcultos?id',
     views: {
       'side-menu21': {
         templateUrl: 'templates/comentRiosOcultos.html',
@@ -155,7 +155,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.editarComentRio', {
-    url: '/editarComentario',
+    url: '/editarComentario?id',
     views: {
       'side-menu21': {
         templateUrl: 'templates/editarComentRio.html',
