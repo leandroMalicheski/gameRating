@@ -1,33 +1,33 @@
+<body ng-app="app.controllers">
 <ion-view title="Cadastrar Jogo" id="page18">
-    <ion-content padding="true" class="has-header">
-        <button id="cadastrarJogo-button42" class=" button button-stable  icon ion-android-arrow-back "></button>
-        <button id="cadastrarJogo-button43" class=" button button-stable  icon ion-android-done "></button>
-        <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    <ion-content padding="true" class="has-header" ng-controller="cadastrarJogoCtrl">
+        <div>
+        	<button type="button" ng-click="cadastrar(jogo)" id="cadastrarJogo-button43" class=" button button-stable  icon ion-android-done "></button>
         </div>
-        <form id="cadastrarJogo-form15" class="list ">
+        <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
+            <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
+        </div>
+        <div id="cadastrarJogo-form15" >
             <label class="item item-input " id="cadastrarJogo-input32">
-                <input type="text" placeholder="Titulo">
+                <input type="text" ng-model="jogo.titulo" placeholder="titulo">
             </label>
             <label class="item item-input " id="cadastrarJogo-input33">
-                <input type="text" placeholder="Descrição">
+                <input type="text" ng-model="jogo.descricao" placeholder="Descrição">
             </label>
             <h3 id="cadastrarJogo-heading2" style="color:#000000;">Rating</h3>
-            <ion-item class="range range-positive " id="cadastrarJogo-range1">Gráfico
-                <input type="range" value="3" min="0" max="10">
-            </ion-item>
-            <ion-item class="range range-positive " id="cadastrarJogo-range2">Jogabilidade
-                <input type="range" value="5" min="0" max="10">
+            <ion-item class="range range-positive " id="cadastrarJogo-range2">Jogabilidade {{jogo.ratingJogabilidade}}
+                <input type="range" ng-model="jogo.ratingJogabilidade" value="{{jogo.ratingJogabilidade}}" min="0" max="10">
             </ion-item>
             <ion-item class="range range-positive " id="cadastrarJogo-range3">Diversão
-                <input type="range" value="9" min="0" max="10">
+                <input type="range" ng-model="jogo.ratingDiversao" value="9" min="0" max="10">
             </ion-item>
             <ion-item class="range range-positive " id="cadastrarJogo-range4">Audio
-                <input type="range" value="5" min="0" max="10">
+                <input type="range" ng-model="jogo.ratingAudio" value="5" min="0" max="10">
             </ion-item>
             <ion-item class="range range-positive " id="cadastrarJogo-range5">Imersão
-                <input type="range" value="10" min="0" max="10">
+                <input type="range" ng-model="jogo.ratingImersao" value="10" min="0" max="10">
             </ion-item>
-        </form>
+        </div>
     </ion-content>
 </ion-view>
+</body>

@@ -238,7 +238,7 @@ angular.module('app.routes', [])
     controller: 'tPicoCtrl'
   })
 
-$urlRouterProvider.otherwise('/side-menu/home')
+$urlRouterProvider.otherwise('/login')
 
   
 

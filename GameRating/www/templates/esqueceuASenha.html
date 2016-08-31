@@ -1,3 +1,4 @@
+<body ng-app="app.controllers">
 <ion-view title="Esqueceu a Senha" id="page7">
     <ion-content padding="true" class="has-header">
         <form id="esqueceuASenha-form5" class="list ">
@@ -11,10 +12,11 @@
                 <p>Qual é o nome do seu cachorro ?</p>
             </div>
             <label class="item item-input " id="esqueceuASenha-input10">
-                <input type="text" placeholder="Ex. Bob">
+                <input type="text" placeholder="Ex. Bob" ng-model="resposta">
             </label>
         </form>
-        <a ui-sref="login" id="esqueceuASenha-button11" class=" button button-assertive  ">Cancelar</a>
-        <button id="esqueceuASenha-button9" class=" button button-balanced  ">Enviar</button>
+        <a ui-sref="login" id="esqueceuASenha-button11" class=" button button-stable  ">Cancelar</a>
+        <button type="button" ng-click="solicitarSenha(resposta)" id="esqueceuASenha-button9" class=" button button-stable  ">Enviar</button>
     </ion-content>
 </ion-view>
+</body>
