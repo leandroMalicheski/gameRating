@@ -5,13 +5,14 @@ angular.module('app.controllers', [])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 	console.log("Carreguei a Home!")
-	var showJogos = false;
-	$scope.jogos = {};
-	$scope.search = function(){		
+	$scope.jogosMock;
+	$scope.showJogos = false;
+	
+	$scope.search = function(busca){		
 		console.log("Chamei a Busca")
-		console.log($scope.search.value)
-		showJogos = true;
-		$scope.jogos = [{id:1,titulo:"Hardline"},{id:2,titulo:"Hardline 2"}]
+		console.log(busca)
+		$scope.showJogos = true;
+		$scope.jogosMock = [{id:1,titulo:"Hardline"},{id:2,titulo:"Hardline 2"}]
 	}
 
 }])
@@ -252,15 +253,69 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
-
+	console.log("Carreguei o jogo")
+	var id = $stateParams.id
+	$scope.jogoMock
+	
+	console.log("Cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
+	
+	$scope.carregarJogo = function(){
+		console.log("Carreguei o jogo com id abaixo:")
+		console.log($stateParams.id)
+		$scope.jogoMock = {id:1,titulo:"Battlefield Hardline",
+							descricao:"é um videojogo do genero first-person shooter, produzido pela Visceral Games em colaboração com a EA Digital Illusions CE e publicado pela Electronic Arts.",
+							dataLancamento:"17 de março de 2015",	
+							plataformas:"PlayStation 4, Xbox One, PlayStation 3, Xbox 360, Microsoft Windows",
+							desenvolvedores:"Visceral Games, EA Digital Illusions CE, Criterion Games"
+							}		
+	}
+	
+	$scope.editarJogo = function(){
+		console.log("Vou editar o jogo com o id:")
+		console.log($stateParams.id)
+		
+	}
+	
+	$scope.editarJogo = function(){
+		console.log("Vou ocultar o jogo com o id:")
+		console.log($stateParams.id)
+	}
+	
 }])
    
 .controller('jogo2Ctrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
+	console.log("Carreguei o jogo")
+	var id = $stateParams.id
+	$scope.jogoMock
+	
+	console.log("Cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
+	
+	$scope.carregarJogo = function(){
+		console.log("Carreguei o jogo com id abaixo:")
+		console.log($stateParams.id)
+		$scope.jogoMock = {id:1,titulo:"Battlefield Hardline",
+							descricao:"é um videojogo do genero first-person shooter, produzido pela Visceral Games em colaboração com a EA Digital Illusions CE e publicado pela Electronic Arts.",
+							dataLancamento:"17 de março de 2015",	
+							plataformas:"PlayStation 4, Xbox One, PlayStation 3, Xbox 360, Microsoft Windows",
+							desenvolvedores:"Visceral Games, EA Digital Illusions CE, Criterion Games"
+							}		
+	}
+	
+	$scope.editarJogo = function(){
+		console.log("Vou editar o jogo com o id:")
+		console.log($stateParams.id)
+		
+	}
+	
+	$scope.editarJogo = function(){
+		console.log("Vou ocultar o jogo com o id:")
+		console.log($stateParams.id)
+	}
 
 }])
    
@@ -268,7 +323,35 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
+	console.log("Carreguei o jogo")
+	var id = $stateParams.id
+	$scope.jogoMock
+	
+	console.log("Cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
+	
+	$scope.carregarJogo = function(){
+		console.log("Carreguei o jogo com id abaixo:")
+		console.log($stateParams.id)
+		$scope.jogoMock = {id:1,titulo:"Battlefield Hardline",
+							descricao:"é um videojogo do genero first-person shooter, produzido pela Visceral Games em colaboração com a EA Digital Illusions CE e publicado pela Electronic Arts.",
+							dataLancamento:"17 de março de 2015",	
+							plataformas:"PlayStation 4, Xbox One, PlayStation 3, Xbox 360, Microsoft Windows",
+							desenvolvedores:"Visceral Games, EA Digital Illusions CE, Criterion Games",
+							topicos:[{id:1,titulo:"topico1"},{id:2,titulo:"topico2"},{id:3,titulo:"topico3"}]
+							}		
+	}
+	
+	$scope.editarJogo = function(){
+		console.log("Vou editar o jogo com o id:")
+		console.log($stateParams.id)
+		
+	}
+	
+	$scope.editarJogo = function(){
+		console.log("Vou ocultar o jogo com o id:")
+		console.log($stateParams.id)
+	}
 
 }])
    
@@ -311,7 +394,25 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
-
+	console.log("Carreguei o Tópico")
+	var id = $stateParams.id
+	$scope.topicoMock
+	
+	console.log("Cheguei e estou com id abaixo:")
+	console.log($stateParams.id)
+	
+	$scope.carregarTopico = function(){
+		$scope.topicoMock = {id:1,titulo:"Tópico1",
+				corpo:"Sem comentarios",
+				comentarios:[{id:1,usuario:"Eu",corpo:"nao vou comentar"},
+				             {id:2,usuario:"outro",corpo:"comentei"},
+				             {id:3,usuario:"OutroCara", corpor:"Sei la"}]
+				}		
+	}
+	
+	$scope.gravarComentario = function(comentario){
+		console.log("Comentario recebido :")
+		console.log(comentario.corpo)
+	}
 }])
  

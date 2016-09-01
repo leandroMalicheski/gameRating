@@ -1,19 +1,30 @@
 <body ng-app="app.controllers">
 <ion-view title="Home" id="page1">
     <ion-content padding="true" class="has-header" ng-controller="homeCtrl">
-        <form id="home-form2" class="list" ng-submit="search()">
+        <div id="home-form2" class="list">
            <div>
 	           <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" placeholder="Jogos" ng-model="search.value">
+                <input type="search" placeholder="Jogos" ng-model="busca">
                 </label>
             </div>
-        </form>
-        <h3 id="home-heading1" style="color:#000000;">Bem Vindo ao App Game Rating!</h3>
-        <div id="home-markdown1" style="color:#000000;">
-            <p>Pesquise e aprenda mais sobre seu jogo favorito.</p>
-
-            <p>Crie tópicos, Comente e divida experiências.</p>
+            <button type="button" ng-click="search(busca)" class=" button button-stable  button-full ">Buscar</button>
+        </div>
+        <div ng-hide="showJogos">
+	        <h3 id="home-heading1" style="color:#000000;">Bem Vindo ao App Game Rating!</h3>
+	        <div id="home-markdown1" style="color:#000000;" >
+	            <p>Pesquise e aprenda mais sobre seu jogo favorito.</p>
+	
+	            <p>Crie tópicos, Comente e divida experiências.</p>
+	        </div>
+        </div>
+        <div class="list" ng-show="showJogos">
+        	<div ng-repeat="jogo in jogosMock">
+    			<a class="item item-thumbnail-left" ui-sref="menu.jogo2({id:{{jogo.id}}})">
+      				<img src="../img/defaultImage.jpg">
+      				<h2>{{jogo.titulo}}</h2>
+    			</a>
+        	</div>
         </div>
     </ion-content>
 </ion-view>

@@ -1,19 +1,23 @@
+<body ng-app="app.controllers">
 <ion-view title="Tópico" id="page15">
-    <ion-content padding="true" class="has-header">
-        <button id="tPico-button12" class=" button button-stable  icon ion-android-arrow-back "></button>
-        <h1 id="tPico-heading9" style="color:#000000;">Tópico 1</h1>
+    <ion-content padding="true" class="has-header" ng-controller="tPicoCtrl" ng-init="carregarTopico()">
+        <h1 id="tPico-heading9" style="color:#000000;">{{topicoMock.titulo}}</h1>
         <div id="tPico-markdown10" style="color:#000000;">
-            <p>Este é o Tópico 1</p>
+            <p>{{topicoMock.corpo}}</p>
         </div>
-        <form id="tPico-form11" class="list ">
-            <ion-item class="item-thumbnail-left  " id="tPico-list-item15">
-                <h2>Jeremias</h2>
-                <p>comentario sobre o forum</p>
+        <div ng-repeat="comentario in topicoMock.comentarios">
+        	<ion-item class="item-thumbnail-left  " id="tPico-list-item15">
+                <img src="../img/defaultImage.jpg">
+                <h2>{{comentario.usuario}}</h2>
+                <p>{{comentario.corpo}}</p>
             </ion-item>
-            <label class="item item-input " id="tPico-input9">
-                <input type="text" placeholder="Escreva seu comentario">
-            </label>
-        </form>
-        <button id="tPico-button24" class=" button button-stable  button-block ">Enviar</button>
+        </div>
+        <div>
+        	<label class="item item-input " id="tPico-input9">
+        	   <input ng-model="comentario.corpo" type="text" placeholder="Escreva seu comentario">
+    	    </label>
+	        <button ng-click="gravarComentario(comentario)" type="button" id="tPico-button24" class=" button button-stable  button-block ">Enviar</button>
+        </div>
     </ion-content>
 </ion-view>
+</body>

@@ -174,22 +174,34 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('jogo', {
-    url: '/jogoRating',
-    templateUrl: 'templates/jogo.html',
-    controller: 'jogoCtrl'
+  .state('menu.jogo', {
+    url: '/jogoRating?id',
+    views: {
+        'side-menu21': {
+        	templateUrl: 'templates/jogo.html',
+        	controller: 'jogoCtrl'
+        }
+    }
   })
 
-  .state('jogo2', {
-    url: '/jogo',
-    templateUrl: 'templates/jogo2.html',
-    controller: 'jogo2Ctrl'
+  .state('menu.jogo2', {
+    url: '/jogo?id',
+    views: {
+        'side-menu21': {
+          templateUrl: 'templates/jogo2.html',
+          controller: 'jogo2Ctrl'
+        }
+      }
   })
 
-  .state('jogo3', {
-    url: '/jogoForum',
-    templateUrl: 'templates/jogo3.html',
-    controller: 'jogo3Ctrl'
+  .state('menu.jogo3', {
+    url: '/jogoForum?id',
+    views: {
+        'side-menu21': {
+        	templateUrl: 'templates/jogo3.html',
+        	controller: 'jogo3Ctrl'
+        }
+    }
   })
 
   .state('menu.configuraEs', {
@@ -232,10 +244,14 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('tPico', {
-    url: '/topico',
-    templateUrl: 'templates/tPico.html',
-    controller: 'tPicoCtrl'
+  .state('menu.tPico', {
+    url: '/topico?id',
+    views: {
+        'side-menu21': {
+        	templateUrl: 'templates/tPico.html',
+        	controller: 'tPicoCtrl'
+        }
+    }
   })
 
 $urlRouterProvider.otherwise('/login')
