@@ -1,27 +1,25 @@
-<ion-view title="Perfil Usuário" id="page17">
-    <ion-content padding="true" class="has-header">
-        <button id="perfilUsuRio-button33" class=" button button-stable  icon ion-android-arrow-back "></button>
-        <button id="perfilUsuRio-button41" class=" button button-stable  icon ion-android-star "></button>
-        <button id="perfilUsuRio-button40" class=" button button-stable  icon ion-ios-settings "></button>
-        <button id="perfilUsuRio-button38" class=" button button-stable  icon ion-android-close "></button>
-        <a ui-sref="menu.editarPerfil" id="perfilUsuRio-button39" class=" button button-stable  icon ion-android-lock "></a>
-        <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
+<body ng-app="app.controllers">
+<ion-view title="Perfil Usuário">
+    <ion-content padding="true" class="has-header" ng-controller="perfilUsuRioCtrl" ng-init="carregarPerfilUsuario()">
+	    <div>
+	        <button type="button" ng-click="transformarModeradorPopup()" class=" button button-stable  icon ion-android-star "></button>
+	        <button type="button" ng-click="alterarSenhaPopup()" class=" button button-stable  icon ion-ios-settings "></button>
+	        <button type="button" ng-click="desabilitarPopup()" class=" button button-stable  icon ion-android-close "></button>
+	        <button type="button" ng-click="bloquearPopup()" class=" button button-stable  icon ion-android-lock "></button>
+	    </div>
+        <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
-        <h2 id="perfilUsuRio-heading3" style="color:#000000;">Outro Usuário</h2>
-        <div id="perfilUsuRio-markdown5" style="color:#000000;">
+        <div>
+        	<h2 style="color:#000000;">{{perfil.usuario}}</h2>
             <p>
-                <strong>Tópicos:</strong>2</p>
-        </div>
-        <div id="perfilUsuRio-markdown6" style="color:#000000;">
-            <p>
-                <strong>Comentários:</strong>35</p>
-        </div>
-        <div id="perfilUsuRio-markdown7" style="color:#000000;">
-            <p>
-                <strong>15</strong>
+            	<strong>Tópicos: </strong>{{perfil.topicos}}
             </p>
+            <p>
+            	<strong>Comentários: </strong>{{perfil.comentarios}}</p>
         </div>
-        <button id="perfilUsuRio-button44" class=" button button-light  icon-right ion-thumbsup ">15</button>
+        <button type="button" ng-click="dislike()" class=" button button-light  icon-right ion-thumbsdown ">{{perfil.dislikes}}</button>
+        <button type="button" ng-click="like()" class=" button button-light  icon-right ion-thumbsup ">{{perfil.likes}}</button>
     </ion-content>
 </ion-view>
+</body>

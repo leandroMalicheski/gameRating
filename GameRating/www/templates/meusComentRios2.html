@@ -1,7 +1,7 @@
 <body ng-app="app.controllers">
-<ion-view title="Meus Comentários" id="page12">
-    <ion-content padding="true" class="has-header" ng-controller="meusComentRios2Ctrl">
-        <ion-list id="meusComentRios2-list4">
+<ion-view title="Meus Comentários">
+    <ion-content padding="true" class="has-header" ng-controller="meusComentRios2Ctrl" ng-init="carregarTopicos()">
+        <ion-list>
 	       <ion-item ng-repeat="topico in topicosMock" ui-sref="menu.meusComentRios({id:{{topico.id}}})" class="item-icon-right" >
 	       		{{topico.titulo}}
            </ion-item>

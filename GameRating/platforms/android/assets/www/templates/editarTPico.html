@@ -1,19 +1,19 @@
 <body ng-app="app.controllers">
-<ion-view title="Editar Tópico" id="page11">
-    <ion-content padding="true" class="has-header" ng-controller="editarTPicoCtrl">
+<ion-view title="Editar Tópico">
+    <ion-content padding="true" class="has-header" ng-controller="editarTPicoCtrl" ng-init="carregarTopico()">
 		<div>
-	        <button ng-click="fechar()" type="button" id="editarTPico-button21" class=" button button-stable  icon ion-eye "></button>
-	        <button ng-click="remover()" type="button" id="editarTPico-button19" class=" button button-stable  icon ion-android-delete "></button>
-	        <button ng-click="adicionarImagem(topicoMock)" type="button" id="editarTPico-button22" class=" button button-stable  icon ion-android-attach "></button>
-	        <button ng-click="addLink(topicoMock)" type="button" id="editarTPico-button23" class=" button button-stable  icon ion-link "></button>
-	        <button ng-click="salvar(topicoMock)" type="button" id="editarTPico-button20" class=" button button-stable  icon ion-android-done "></button>
+	        <button ng-click="fecharPopup()" type="button" class=" button button-stable  icon ion-eye "></button>
+	        <button ng-click="removerPopup()" type="button" class=" button button-stable  icon ion-android-delete "></button>
+	        <button ng-click="adicionarImagem(topicoMock)" type="button" class=" button button-stable  icon ion-android-attach "></button>
+	        <button ng-click="addLinkPopup(topicoMock)" type="button" class=" button button-stable  icon ion-link "></button>
+	        <button ng-click="salvarPopup(topicoMock)" type="button" class=" button button-stable  icon ion-android-done "></button>
 		</div>       
-        <form id="editarTPico-form9" class="list ">
-            <label class="item item-input " id="editarTPico-input19" name="titulo">
+        <form class="list">
+            <label class="item item-input">
                 <input type="text" ng-model="topicoMock.titulo" value="{{topicoMock.titulo}}">
             </label>
-            <label class="item item-input " id="editarTPico-textarea1" name="texto">
-                <span class="input-label"></span><textarea ng-model="topicoMock.corpo">{{topicoMock.corpo}}</textarea>
+            <label class="item item-input">
+                <textarea ng-model="topicoMock.corpo">{{topicoMock.corpo}}</textarea>
             </label>
         </form>
     </ion-content>

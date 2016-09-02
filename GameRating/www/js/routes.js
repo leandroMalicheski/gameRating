@@ -59,7 +59,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.perfilUsuRio', {
-    url: '/perfilUsuario',
+    url: '/perfilUsuario?id',
     views: {
       'side-menu21': {
         templateUrl: 'templates/perfilUsuRio.html',

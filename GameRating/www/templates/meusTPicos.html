@@ -1,7 +1,7 @@
 <body ng-app="app.controllers">
-<ion-view title="Meus Tópicos" id="page10">
-    <ion-content padding="true" class="has-header" ng-controller="meusTPicosCtrl">
-        <ion-list id="meusTPicos-list2">
+<ion-view title="Meus Tópicos">
+    <ion-content padding="true" class="has-header" ng-controller="meusTPicosCtrl" ng-init="carregarTopicos()">
+        <ion-list>
 	       <ion-item ng-repeat="topico in topicosMock" ui-sref="menu.editarTPico({id:{{topico.id}}})" class="item-icon-right" >
 	       		{{topico.titulo}}
            </ion-item>
