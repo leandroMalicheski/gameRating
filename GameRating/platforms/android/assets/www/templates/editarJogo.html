@@ -1,0 +1,43 @@
+<body ng-app="app.controllers">
+<ion-view title="Editar Jogo">
+    <ion-content padding="true" class="has-header" ng-controller="editarJogoCtrl" ng-init="carregarJogo()">
+        <div>
+        	<button type="button" ng-click="salvarPopup(jogoMock)" class=" button button-stable  icon ion-android-done "></button>
+        </div>
+        <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
+            <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
+        </div>
+        <div>
+            <label class="item item-input ">
+                <input type="text" ng-model="jogoMock.titulo" value="{{jogoMock.titulo}}">
+            </label>
+            <label class="item item-input ">
+                <input type="text" ng-model="jogoMock.descricao" value="{{jogoMock.descricao}} ">
+            </label>
+            <label class="item item-input ">
+                <input type="text" ng-model="jogoMock.dataLancamento" value="{{jogoMock.dataLancamento}}">
+            </label>
+            <label class="item item-input ">
+                <input type="text" ng-model="jogoMock.plataformas" value="{{jogoMock.plataformas}}">
+            </label>
+            <label class="item item-input ">
+                <input type="text" ng-model="jogoMock.desenvolvedores" value="{{jogoMock.desenvolvedores}}">
+            </label>
+            
+            <h3 style="color:#000000;">Rating</h3>
+            <ion-item class="range range-positive ">Jogabilidade {{jogoMock.ratingJogabilidade}}
+                <input type="range" ng-model="jogoMock.ratingJogabilidade" value="{{jogoMock.ratingJogabilidade}}" min="0" max="10">
+            </ion-item>
+            <ion-item class="range range-positive ">Diversão {{jogoMock.ratingDiversao}}
+                <input type="range" ng-model="jogoMock.ratingDiversao" value="{{jogoMock.ratingDiversao}}" min="0" max="10">
+            </ion-item>
+            <ion-item class="range range-positive ">Audio {{jogoMock.ratingAudio}}
+                <input type="range" ng-model="jogoMock.ratingAudio" value="{{jogoMock.ratingAudio}}" min="0" max="10">
+            </ion-item>
+            <ion-item class="range range-positive ">Imersão {{jogoMock.ratingImersao}}
+                <input type="range" ng-model="jogoMock.ratingImersao" value="{{jogoMock.ratingImersao}}" min="0" max="10">
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>
+</body>
