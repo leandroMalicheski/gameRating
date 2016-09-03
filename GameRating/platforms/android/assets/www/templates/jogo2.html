@@ -1,32 +1,22 @@
 <body ng-app="app.controllers">
-<ion-view title="Jogo" id="page27">
+<ion-view title="Jogo" >
     <ion-content padding="true" class="has-header" ng-controller="jogo2Ctrl" ng-init="carregarJogo()">
         <div>
-    	    <button type="button" ng-click="ocultarJogo()" id="jogo2-button62" class=" button button-stable  icon ion-eye "></button>
-	        <button type="button" ng-click="editarJogo()" id="jogo2-button63" class=" button button-stable  icon ion-edit "></button>
+    	    <button type="button" ng-click="ocultarPopup()" class=" button button-stable  icon ion-eye "></button>
+	        <button ui-sref="menu.editarJogo({id:{{jogoMock.id}}})" class=" button button-stable  icon ion-edit "></button>
         </div>
-        <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
+            <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
         </div>
-        <h3 id="jogo2-heading8" style="color:#000000;">{{jogo.titulo}}</h3>
-        <form id="jogo2-form21" class="list ">
-            <div id="jogo2-markdown11" style="color:#000000;">
-                <p>
-                    <strong>{{jogoMock.titulo}}</strong>
-                	{{jogoMock.descricao}}    
-                </p>
-                <p>
-                    <strong>Data de lançamento inicial:</strong>{{jogoMock.dataLancamento}}</p>
-
-                <p>
-                    <strong>Plataformas:</strong>{{jogoMock.plataformas}}</p>
-
-                <p>
-                    <strong>Desenvolvedores:</strong>{{jogoMock.desenvolvedores}}</p>
-            </div>
-        </form>
-        <div id="jogo2-button-bar2" class=" button-bar ">
-           	<button id="jogo2-button64" class=" button button-stable  button-block ">Jogo</button>
+        <h3 style="color:#000000;">{{jogo.titulo}}</h3>
+        <div class="list " style="color:#000000;">
+			<p><strong>{{jogoMock.titulo}}</strong>{{jogoMock.descricao}}</p>
+			<p><strong>Data de lançamento:</strong>{{jogoMock.dataLancamento}}</p>
+			<p><strong>Plataformas:</strong>{{jogoMock.plataformas}}</p>
+			<p><strong>Desenvolvedores:</strong>{{jogoMock.desenvolvedores}}</p>
+        </div>
+        <div class=" button-bar ">
+           	<button class=" button button-stable  button-block ">Jogo</button>
         	<a ui-sref="menu.jogo({id:{{jogoMock.id}}})" id="jogo2-button65" class=" button button-stable  button-block ">Rate</a>
             <a ui-sref="menu.jogo3({id:{{jogoMock.id}}})" id="jogo2-button66" class=" button button-stable  button-block ">Forum</a>
 		</div>

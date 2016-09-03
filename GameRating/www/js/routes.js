@@ -253,6 +253,26 @@ angular.module('app.routes', [])
         }
     }
   })
+  
+  .state('menu.editarJogo', {
+    url: '/editarJogo?id',
+    views: {
+        'side-menu21': {
+        	templateUrl: 'templates/editarJogo.html',
+        	controller: 'editarJogoCtrl'
+        }
+    }
+  })
+  
+  .state('menu.cadastrarTopico', {
+    url: '/cadastrarTopico?id',
+    views: {
+        'side-menu21': {
+        	templateUrl: 'templates/cadastrarTopico.html',
+        	controller: 'cadastrarTopicoCtrl'
+        }
+    }
+  })
 
 $urlRouterProvider.otherwise('/login')
 
