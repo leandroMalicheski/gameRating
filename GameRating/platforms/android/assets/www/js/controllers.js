@@ -1,18 +1,40 @@
 angular.module('app.controllers', [])
   
-.controller('homeCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$stateParams', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $ionicPopup) {
 	console.log("Carreguei a Home!")
 	$scope.jogosMock;
 	$scope.showJogos = false;
 	
 	$scope.search = function(busca){		
-		console.log("Chamei a Busca")
-		console.log(busca)
-		$scope.showJogos = true;
-		$scope.jogosMock = [{id:1,titulo:"Hardline"},{id:2,titulo:"Hardline 2"}]
+		if(busca === undefined){
+			$scope.buscaVaziaPopup()
+		}else{
+			console.log("Chamei a Busca")
+			console.log(busca)
+			if(busca === "bf"){
+				$scope.showJogos = true;
+				$scope.jogosMock = [{id:1,titulo:"Hardline"},{id:2,titulo:"Hardline 2"}]			
+			}else{
+				$scope.jogoNaoEncotradoPopup()
+			}
+		}
+	}
+	
+	$scope.buscaVaziaPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Busca Vazia',
+			template: 'Favor informar um jogo'
+		});
+	}
+	
+	$scope.jogoNaoEncotradoPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Jogo Não Encontrado',
+			template: 'Nenhum jogo foi encontrado para esta busca'
+		});
 	}
 
 }])
@@ -40,30 +62,163 @@ function ($scope, $stateParams) {
 
 }])
       
-.controller('loginCtrl', ['$scope', '$stateParams', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $state) {
-	console.log("Carreguei o Login")
-	
+function ($scope, $stateParams, $state, $ionicPopup) {	
+		
 	$scope.login = function(usuario){
-		console.log("Vou validar o usuario abaixo:")
-		console.log(usuario)	
-		$state.go("menu.home", {});
+		if(usuario === undefined){
+			$scope.loginSenhaInvalido()			
+		}
+		else if($scope.validaLogin(usuario)){
+			$state.go("menu.home", {})		
+		}else{
+			$scope.loginSenhaInvalido()
+		}
+	}
+	
+	$scope.validaLogin = function(usuario){
+		if(usuario.login === undefined){
+			console.log("Login vazio")
+			return false
+		}else if(usuario.senha === undefined){
+			console.log("Senha vazia")
+			return false
+		}else{
+			console.log("Vou validar o usuario abaixo:")
+			console.log(usuario)
+			return true;			
+		} 
+	}
+	
+	$scope.loginSenhaInvalido = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Login Invalido',
+			template: 'Login e Senha incorretos/vazios'
+		});
 	}
 
 }])
    
-.controller('cadastroCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('cadastroCtrl', ['$scope', '$stateParams', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $ionicPopup) {
 	console.log("Carreguei a Tela de Cadastro")
 	
-	$scope.cadastrar = function(usuario){
-		console.log("Vou cadastrar esse usuario:")
-		console.log(usuario)
+	$scope.carregarImagem = function(){
+		console.log("carregarImagem")
 	}
+	
+	$scope.cadastrar = function(usuario){
+		if(usuario === undefined){
+			$scope.preenchaCamposPopup()
+		}else if($scope.validaCampos(usuario)){
+			console.log("Vou cadastrar esse usuario:")
+			console.log(usuario)			
+		}
+	}
+	
+	$scope.validaCampos = function(usuario){
+		var validade = true
+		if(usuario.nome === undefined){
+			$scope.preenchaCamposPopup()
+			validade = false
+		}else
+		if (!$scope.validaEmail(usuario.email)){
+			validade = false
+		}else
+		if (!$scope.validaUsuario(usuario.login)){
+			validade = false
+		}else
+		if (!$scope.validaSenha(usuario)){
+			validade = false
+		}else
+		if (usuario.resposta === undefined){
+			$scope.preenchaCamposPopup()
+			validade = false
+		}
+		return validade
+	}
+	
+	$scope.validaSenha = function(usuario){
+		var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+		if(usuario.senha === undefined && usuario.confirmacaoSenha === undefined){
+			$scope.preenchaCamposPopup()
+			return false
+		}else if (usuario.senha === usuario.senhaConfirmacao){
+			if(mediumRegex.test(usuario.senha)){
+				return true
+			}else{
+				$scope.senhaFracaPopup()
+			}
+		}else{
+			$scope.senhasDiferentesPopup()
+		}
+	}
+	
+	$scope.senhasDiferentesPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Senhas Diferentes',
+			template: 'Tenha certeza que suas senhas sejam iguais'
+		});
+	}
+	
+	$scope.senhaFracaPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Senha Fraca',
+			template: 'Tenha certeza que sua senha contém Caracteres Especiais, Numeros e letras maiúsculas e minúsculas'
+		});
+	}
+	
+	$scope.validaEmail = function(email){
+		if(email === undefined){
+			$scope.preenchaCamposPopup()
+			return false
+		}else{
+			if (email.indexOf('@') === -1 || email.indexOf('.com') === -1){
+				$scope.emailInvalidoPopup()
+				return false
+			}else{
+				return true
+			}
+		}
+	}
+	
+	$scope.validaUsuario = function(usuario){
+		if(usuario === undefined){
+			$scope.preenchaCamposPopup()
+		}else{
+			if(usuario === "leandro"){
+				return true
+			}else{
+				$scope.usuarioInvalidoPopup()
+			}			
+		}
+	}
+	
+	$scope.usuarioInvalidoPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Usuário Inválido',
+			template: 'O usuário já encontra-se em uso'
+		});
+	}
+	
+	$scope.emailInvalidoPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Email Inválido',
+			template: 'Favor preenchar um email válido'
+		});
+	}
+	
+	$scope.preenchaCamposPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Campos Obrigatórios',
+			template: 'Preencha os campos Obrigatórios'
+		});
+	}
+	
 }])
    
 .controller('perfilCtrl', ['$scope', '$stateParams', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -131,30 +286,21 @@ function ($scope, $stateParams, $ionicPopup) {
 	
 	
 	$scope.alterarSenhaPopup = function(){
-		$scope.data = {}
-		var myPopup = $ionicPopup.show({
-		       title: 'Alterar a senha',
-		       template: 'Nova Senha:<input type="password" ng-model="data.senha"> <br> Confirmar Nova Senha:<input type="password" ng-model="data.confirmarSenha" > ',
-		       scope: $scope,
-		       buttons: [{
-		           text: 'Cancel'
-		        }, {
-		        	text: '<b>Salvar</b>',
-		            type: 'button-positive',
-		            onTap: function(e) {
-			            if (!$scope.data.senha) {
-			            	e.preventDefault();
-			            } else {
-			            	$scope.alterarSenha($scope.data)
-			            }
-		           }
-		        }, ]
-		});
+			var confirmPopup = $ionicPopup.confirm({
+			       title: 'Alterar Senha',
+			       template: 'Deseja alterar a senha do usuario ?'
+			     });
+			confirmPopup.then(function(res) {
+				if(res) {
+					$scope.alterarSenha();
+				} else {
+					console.log('Cancelar');
+				}
+			});
 	}
 	
-	$scope.alterarSenha = function(data){
+	$scope.alterarSenha = function(){
 		console.log("Vou alterar a Senha:")
-		console.log(data)
 	}
 	
 	$scope.desabilitarPopup = function(){
@@ -240,6 +386,33 @@ function ($scope, $stateParams, $ionicPopup) {
 			});
 	}
 	
+	$scope.alterarSenhaPopup = function(){
+		$scope.data = {}
+		var myPopup = $ionicPopup.show({
+		       title: 'Alterar a senha',
+		       template: 'Nova Senha:<input type="password" ng-model="data.senha"> <br> Confirmar Nova Senha:<input type="password" ng-model="data.confirmarSenha" > <br> Antiga Senha:<input type="password" ng-model="data.senhaAntiga" > ',
+		       scope: $scope,
+		       buttons: [{
+		           text: 'Cancel'
+		        }, {
+		        	text: '<b>Salvar</b>',
+		            type: 'button-positive',
+		            onTap: function(e) {
+			            if (!$scope.data.senha) {
+			            	e.preventDefault();
+			            } else {
+			            	$scope.alterarSenha($scope.data)
+			            }
+		           }
+		        }, ]
+		});
+	}
+	
+	$scope.alterarSenha = function(data){
+		console.log("Vou Alterar a senha")
+		console.log(data)
+	}
+	
 	$scope.salvar = function(perfil){
 		console.log("vou Salvar esse cara!")
 		console.log(perfil)
@@ -251,15 +424,38 @@ function ($scope, $stateParams, $ionicPopup) {
 
 }])
    
-.controller('esqueceuASenhaCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('esqueceuASenhaCtrl', ['$scope', '$stateParams',  '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $ionicPopup) {
 	console.log("carreguei a Tela de Esqueci minha senha")
 	
 	$scope.solicitarSenha = function(resposta) {
-		console.log("Vou enviar uma senha, a resposta foi:")
-		console.log(resposta)
+		if(resposta === undefined){
+			$scope.informeRespostaPopup()
+		}else{
+			if($scope.validaResposta(resposta)){
+				console.log("Vou enviar uma senha, a resposta foi:")
+				console.log(resposta)			
+			}else{
+				$scope.informeRespostaPopup()
+			}
+		}		
+	}
+	
+	$scope.validaResposta = function(resposta){
+		if(resposta === "dog"){
+			return true
+		}else{
+			return false;
+		}
+	}
+	
+	$scope.informeRespostaPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Resposta inválida',
+			template: 'Resposta incorreta ou vazia'
+		});
 	}
 
 }])
@@ -400,7 +596,7 @@ function ($scope, $stateParams, $ionicPopup) {
 		$scope.data = {}
 		var myPopup = $ionicPopup.show({
 		       title: 'Adicionar Link',
-		       template: 'Link:<input type="password" ng-model="data.link" placeholder="cole o link aqui">',
+		       template: 'Link:<input type="text" ng-model="data.link" placeholder="cole o link aqui">',
 		       scope: $scope,
 		       buttons: [{
 		           text: 'Cancel'
@@ -466,7 +662,7 @@ function ($scope, $stateParams, $ionicPopup) {
 		$scope.data = {}
 		var myPopup = $ionicPopup.show({
 		       title: 'Adicionar Link',
-		       template: 'Link:<input type="password" ng-model="data.link" placeholder="cole o link aqui">',
+		       template: 'Link:<input type="text" ng-model="data.link" placeholder="cole o link aqui">',
 		       scope: $scope,
 		       buttons: [{
 		           text: 'Cancel'
