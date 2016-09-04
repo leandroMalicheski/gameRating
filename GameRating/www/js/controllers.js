@@ -1,8 +1,6 @@
 angular.module('app.controllers', [])
   
 .controller('homeCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPopup) {
 	console.log("Carreguei a Home!")
 	$scope.jogosMock;
@@ -39,32 +37,44 @@ function ($scope, $stateParams, $ionicPopup) {
 
 }])
    
-.controller('buscarUsuRioCtrl', ['$scope', '$stateParams', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('buscarUsuRioCtrl', ['$scope', '$stateParams', '$ionicPopup', 
+function ($scope, $stateParams, $ionicPopup) {
 	console.log("Carreguei a Tela de buscar usuario!")
-	$scope.search = function(){		
-		console.log("Chamei a Busca")
-		console.log($scope.search.value)
-	}
-	
-	console.log("Carreguei a Home!")
 	$scope.usuariosMock;
 	$scope.showUsuarios = false;
 	
 	$scope.search = function(busca){		
-		console.log("Chamei a Busca")
-		console.log(busca)
-		$scope.showUsuarios = true;
-		$scope.usuariosMock = [{id:1,usuario:"Eu"},{id:2,usuario:"Outro"}]
+		if(busca === undefined){
+			$scope.buscaVaziaPopup()
+		}else{
+			console.log("Chamei a Busca")
+			console.log(busca)
+			if(busca === "eu"){
+				$scope.showUsuarios = true;
+				$scope.usuariosMock = [{id:1,usuario:"Eu"},{id:2,usuario:"Outro"}]
+			}else{
+				$scope.usuarioNaoEncotradoPopup()
+			}
+		}
+	}
+	
+	$scope.buscaVaziaPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Busca Vazia',
+			template: 'Favor informar um usuário'
+		});
+	}
+	
+	$scope.usuarioNaoEncotradoPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Jogo Não Encontrado',
+			template: 'Nenhum jogo foi encontrado para esta busca'
+		});
 	}
 
 }])
       
 .controller('loginCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $state, $ionicPopup) {	
 		
 	$scope.login = function(usuario){
@@ -210,8 +220,16 @@ function ($scope, $stateParams, $ionicPopup) {
 	
 	$scope.transformarModerador = function(){
 		console.log("Vou transformar ou remover em moderador")
+		$scope.usuarioModeradorPopup()
 	}
 	
+	$scope.usuarioModeradorPopup = function(){
+		var moderador = "transformado"
+			var alertPopup = $ionicPopup.alert({
+				title: 'Transformar em moderador',
+				template: 'O usuário foi '+moderador+' com sucesso'
+		});
+	}
 	
 	$scope.alterarSenhaPopup = function(){
 			var confirmPopup = $ionicPopup.confirm({
@@ -220,7 +238,7 @@ function ($scope, $stateParams, $ionicPopup) {
 			     });
 			confirmPopup.then(function(res) {
 				if(res) {
-					$scope.alterarSenha();
+					$scope.alterarSenha()
 				} else {
 					console.log('Cancelar');
 				}
@@ -229,6 +247,14 @@ function ($scope, $stateParams, $ionicPopup) {
 	
 	$scope.alterarSenha = function(){
 		console.log("Vou alterar a Senha:")
+		$scope.senhaEncaminhadaPopup()
+	}
+	
+	$scope.senhaEncaminhadaPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+				title: 'Alterar Senha',
+				template: 'Uma senha foi enviada ao usuário com sucesso'
+		});
 	}
 	
 	$scope.desabilitarPopup = function(){
@@ -248,6 +274,15 @@ function ($scope, $stateParams, $ionicPopup) {
 	
 	$scope.desabilitar = function(){
 		console.log("Vou desabilitar ou Habilitar")
+		$scope.usuarioDesabilitadoPopup()
+	}
+	
+	$scope.usuarioDesabilitadoPopup = function(){
+		var desabilitar = "desabilitado"
+			var alertPopup = $ionicPopup.alert({
+				title: 'Desabilitar',
+				template: 'O usuário foi '+desabilitar+' com sucesso'
+		});
 	}
 	
 	$scope.bloquearPopup = function(){
@@ -267,6 +302,15 @@ function ($scope, $stateParams, $ionicPopup) {
 	
 	$scope.bloquear = function(){
 		console.log("Vou bloquear ou desbloquear")
+		$scope.usuarioBloqueadoPopup()
+	}
+	
+	$scope.usuarioBloqueadoPopup = function(){
+		var bloquear = "bloqueado"
+			var alertPopup = $ionicPopup.alert({
+				title: 'Desabilitar',
+				template: 'O usuário foi '+bloquear+' com sucesso'
+		});
 	}
 	
 	$scope.like = function (){
@@ -277,6 +321,7 @@ function ($scope, $stateParams, $ionicPopup) {
 		console.log("Depois:")
 		console.log($scope.perfil.likes)
 	}
+	
 	$scope.dislike = function (){
 		console.log("Vou dar dislike")
 		console.log("Antes:")
@@ -458,15 +503,28 @@ function ($scope, $stateParams) {
 	
 }])
    
-.controller('tPicosOcultosCtrl', ['$scope', '$stateParams', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-	var id = $stateParams.id
+.controller('tPicosOcultosCtrl', ['$scope', '$stateParams', '$ionicPopup',
+function ($scope, $stateParams, $ionicPopup) {
 	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
-	console.log("Carreguei a Tela de Topicos Ocultos")
-	console.log("Cheguei e estou com id abaixo:")
-	console.log($stateParams.id)
+	
+	$scope.removerOcultacaoPopup = function(comentarios){
+		var confirmPopup = $ionicPopup.confirm({
+		       title: 'Remover Ocultação',
+		       template: 'Gostaria de remover a ocultação deste(s) Tópicos ?'
+		     });
+		confirmPopup.then(function(res) {
+			if(res) {
+				$scope.removerOcultacao(comentarios);
+			} else {
+				console.log('Cancelar');
+			}
+		});
+	}
+	
+	$scope.removerOcultacao = function(comentarios){
+		console.log("Vou remover a ocultação deste(s) jogos o jogo com o id:")
+		console.log(comentarios)
+	}
 }])
    
 .controller('meusComentRiosCtrl', ['$scope', '$stateParams', 
@@ -481,28 +539,35 @@ function ($scope, $stateParams) {
 	}
 }])
    
-.controller('comentRiosOcultosCtrl', ['$scope', '$stateParams', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('comentRiosOcultosCtrl', ['$scope', '$stateParams', '$ionicPopup',
+function ($scope, $stateParams, $ionicPopup) {
 	var id = $stateParams.id
 	$scope.comentariosMock = [{id:1,corpo:"Corpo do comentario 1",checked:true},{id:2,corpo:"Corpo do comentario 2",checked:false},{id:3,corpo:"Corpo do comentario 3",checked:false}]
 	console.log("Carreguei a Tela de Comentarios Ocultos")
 	console.log("cheguei e estou com id abaixo:")
 	console.log($stateParams.id)
 	
-	$scope.ocultar = function(){
-		console.log("Vou ocultar o comentario")
+	$scope.removerOcultacaoPopup = function(comentarios){
+		var confirmPopup = $ionicPopup.confirm({
+		       title: 'Remover Ocultação',
+		       template: 'Gostaria de remover a ocultação deste(s) comentários ?'
+		     });
+		confirmPopup.then(function(res) {
+			if(res) {
+				$scope.removerOcultacao(comentarios);
+			} else {
+				console.log('Cancelar');
+			}
+		});
 	}
 	
-	$scope.remover = function(){
-		console.log("Vou remover o comentario")
+	$scope.removerOcultacao = function(comentarios){
+		console.log("Vou remover a ocultação deste(s) jogos o jogo com o id:")
+		console.log(comentarios)
 	}
 }])
    
 .controller('meusComentRios2Ctrl', ['$scope', '$stateParams', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 	$scope.topicosMock
 	
@@ -523,10 +588,8 @@ function ($scope, $stateParams) {
 	console.log($scope.topicosMock)
 }])
    
-.controller('editarTPicoCtrl', ['$scope', '$stateParams','$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopup) {
+.controller('editarTPicoCtrl', ['$scope', '$stateParams','$ionicPopup', '$state', '$ionicHistory', 
+function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory) {
 	$scope.topicoMock
 	
 	$scope.carregarTopico = function(){
@@ -553,6 +616,15 @@ function ($scope, $stateParams, $ionicPopup) {
 	
 	$scope.fechar = function(){
 		console.log("Vou fechar o Tópico")
+		$scope.topicoFechadoPopup()
+	}
+	
+	$scope.topicoFechadoPopup = function(){
+		var fechar = "fechado"
+		var alertPopup = $ionicPopup.alert({
+			title: 'Fechar Tópico',
+			template: 'O tópico foi '+fechar+' com sucesso'
+		});
 	}
 	
 	$scope.removerPopup = function (){
@@ -569,8 +641,21 @@ function ($scope, $stateParams, $ionicPopup) {
 		});
 	}
 	
+	$scope.topicoRemovidoPopup = function(){
+		var remover = "removido"
+		var alertPopup = $ionicPopup.alert({
+			title: 'Fechar Tópico',
+			template: 'O tópico foi '+remover+' com sucesso'
+		});
+	}
+	
 	$scope.remover = function(){
 		console.log("Vou remover o Tópico")
+		$scope.topicoRemovidoPopup()
+		$ionicHistory.nextViewOptions({
+			disableBack: true
+		});
+		$state.go('menu.meusTPicos',{})
 	}
 	
 	$scope.addLinkPopup = function(topicoNovo){
@@ -612,11 +697,24 @@ function ($scope, $stateParams, $ionicPopup) {
 		});
 		confirmPopup.then(function(res) {
 			if(res) {
-				$scope.salvar(topicoNovo);
+				if($scope.validaCampos(topicoNovo)){
+					$scope.salvar(topicoNovo);
+					alteracoesSalvasPopup($ionicPopup)
+				}else{
+					preenchaCamposPopup($ionicPopup)
+				}
 			} else {
 				console.log('Cancelar');
 			}
 		});
+	}
+	
+	$scope.validaCampos = function(topicoNovo){
+		if(topicoNovo.titulo === undefined || topicoNovo.titulo === "" || topicoNovo.corpo === undefined || topicoNovo.corpo === ""){
+			return false
+		}else{
+			return true
+		}
 	}
 	
 	$scope.salvar = function(topicoNovo){
@@ -626,10 +724,8 @@ function ($scope, $stateParams, $ionicPopup) {
 
 }])
    
-.controller('editarComentRioCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopup) {
+.controller('editarComentRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicHistory', '$state',  
+function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state) {
 	$scope.cometarioMock
 
 	$scope.carregarComentario = function(){
@@ -639,7 +735,7 @@ function ($scope, $stateParams, $ionicPopup) {
 		console.log($stateParams.id)		
 	}
 	
-	$scope.addLinkPopup = function(topicoNovo){
+	$scope.addLinkPopup = function(comentarioNovo){
 		$scope.data = {}
 		var myPopup = $ionicPopup.show({
 		       title: 'Adicionar Link',
@@ -654,17 +750,17 @@ function ($scope, $stateParams, $ionicPopup) {
 			            if (!$scope.data.link) {
 			            	e.preventDefault();
 			            } else {
-			            	topicoNovo.corpo = topicoNovo.corpo + ' ' + $scope.data.link  
-			            	$scope.addLink(topicoNovo)
+			            	comentarioNovo.corpo = comentarioNovo.corpo + ' ' + $scope.data.link  
+			            	$scope.addLink(comentarioNovo)
 			            }
 		           }
 		        }, ]
 		});
 	}
 	
-	$scope.addLink = function(topicoNovo){
+	$scope.addLink = function(comentarioNovo){
 		console.log("Vou adicionar um link")
-		console.log(topicoNovo)
+		console.log(comentarioNovo)
 	}
 	
 	$scope.removerPopup = function (){
@@ -675,15 +771,31 @@ function ($scope, $stateParams, $ionicPopup) {
 		confirmPopup.then(function(res) {
 			if(res) {
 				$scope.remover();
+				
 			} else {
 				console.log('Cancelar');
 			}
 		});
 	}
 	
+	$scope.comentarioRemovidoPopup = function(){
+		var remover = "removido"
+		var alertPopup = $ionicPopup.alert({
+			title: 'Remover Comentário',
+			template: 'O comentário foi '+remover+' com sucesso'
+		});
+	}
+	
 	$scope.remover = function(){
 		console.log("Vou remover o Comentario")
+		$scope.comentarioRemovidoPopup()
+		$ionicHistory.nextViewOptions({
+			disableBack: true
+		});
+		$state.go('menu.meusComentRios2',{})
 	}
+	
+	
 	
 	$scope.adicionarImagem = function(topicoNovo){
 		console.log("Vou adicionar Imagem o Comentario")
@@ -698,6 +810,7 @@ function ($scope, $stateParams, $ionicPopup) {
 		confirmPopup.then(function(res) {
 			if(res) {
 				$scope.salvar(topicoNovo);
+				alteracoesSalvasPopup($ionicPopup)
 			} else {
 				console.log('Cancelar');
 			}
@@ -710,15 +823,31 @@ function ($scope, $stateParams, $ionicPopup) {
 	}
 }])
    
-.controller('cadastrarJogoCtrl', ['$scope', '$stateParams', 
+.controller('cadastrarJogoCtrl', ['$scope', '$stateParams', '$ionicPopup', 
 
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $ionicPopup) {
 	console.log("Carreguei a Tela de Cadastro de Jogo")
 	
 	$scope.cadastrar = function(jogo){
-		console.log("Recebi este jogo:")
+		if(validaJogo($scope.jogoMock, $ionicPopup)){
+			$scope.salvar(jogo);					
+		}else{
+			preenchaCamposPopup($ionicPopup)
+		}
+	}
+	
+	$scope.salvar = function(jogo){
+		console.log("Vou salvar o jogo")
 		console.log(jogo)
+		$scope.jogoSalvoPopup()
+	}
+	
+	$scope.jogoSalvoPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Jogo Adicionado',
+			template: 'O jogo foi adicionado com sucesso'
+		});
 	}
 
 }])
@@ -873,21 +1002,51 @@ function ($scope, $stateParams, $ionicPopup) {
 
 }])
    
-.controller('configuraEsCtrl', ['$scope', '$stateParams', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('configuraEsCtrl', ['$scope', '$stateParams', '$ionicPopup',
+function ($scope, $stateParams, $ionicPopup) {
 }])
    
-.controller('tempoDeFechamentoCtrl', ['$scope', '$stateParams', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('tempoDeFechamentoCtrl', ['$scope', '$stateParams', '$ionicPopup', 
+function ($scope, $stateParams, $ionicPopup) {
 	console.log("Carreguei a Tela de Tempo de Fechamento Minimo")
+	$scope.tempo = {}
+	$scope.carregarTempo = function(){
+		$scope.tempo.dias = 3
+	}
+	
+	$scope.salvarPopup = function(tempo){
+		var confirmPopup = $ionicPopup.confirm({
+		       title: 'Tempo de fechamento',
+		       template: 'Gostaria de salvar esta quantidade de dias ?'
+		});
+		confirmPopup.then(function(res) {
+			if(res) {
+				if(tempo === undefined){
+					preenchaCamposPopup($ionicPopup)
+				}else{
+					if(tempo.dias > 0){
+						$scope.salvar(tempo)
+					}else{
+						$scope.tempoEmDiasInvalidoPopup()
+					}					
+				}
+			} else {
+				console.log('Cancelar');
+			}
+		});
+	}
+	
+	$scope.tempoEmDiasInvalidoPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Dia inválido',
+			template: 'Por gentileza informar um valor maior que 0'
+		});
+	}
 	
 	$scope.salvar = function(tempo){
 		console.log("Recebi esse tempo:")
 		console.log(tempo)
+		alteracoesSalvasPopup($ionicPopup)
 	}
 
 }])
@@ -920,7 +1079,7 @@ function ($scope, $stateParams, $ionicPopup, $state) {
 	}
 	
 	$scope.gravarComentario = function(comentario){
-		if(comentario === undefined || comentario === ""){
+		if(comentario.corpo === undefined || comentario.corpo === ""){
 			preenchaCamposPopup($ionicPopup)
 		}else{
 			console.log("Comentario recebido :")
@@ -952,7 +1111,7 @@ function ($scope, $stateParams, $ionicPopup, $state) {
 			            if (!$scope.data.link) {
 			            	e.preventDefault();
 			            } else {
-			            	comentario = comentario + ' ' + $scope.data.link  
+			            	comentario.corpo = comentario.corpo + ' ' + $scope.data.link  
 			            	$scope.addLink(comentario)
 			            }
 		           }
@@ -972,8 +1131,6 @@ function ($scope, $stateParams, $ionicPopup, $state) {
 }])
 
 .controller('editarJogoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $state, $ionicPopup) {	
 	$scope.jogoMock	
 	$scope.carregarJogo = function(){
@@ -998,8 +1155,12 @@ function ($scope, $stateParams, $state, $ionicPopup) {
 		     });
 		confirmPopup.then(function(res) {
 			if(res) {
-				$scope.salvar(jogo);
-				alteracoesSalvasPopup($ionicPopup)
+				if(validaJogo($scope.jogoMock, $ionicPopup)){
+					$scope.salvar(jogo);					
+				}else{
+					preenchaCamposPopup($ionicPopup)
+				}
+				
 			} else {
 				console.log('Cancelar');
 			}
@@ -1009,6 +1170,7 @@ function ($scope, $stateParams, $state, $ionicPopup) {
 	$scope.salvar = function(jogo){
 		console.log("Vou salvar o jogo")
 		console.log(jogo)
+		alteracoesSalvasPopup($ionicPopup)
 	}
 }])
 
@@ -1168,4 +1330,15 @@ this.alteracoesSalvasPopup = function(ionicPopup){
 		title: 'Alterações Salvas',
 		template: 'Suas alterações foram salvas com sucesso'
 	});
+}
+this.validaJogo = function(jogoMock, ionicPopup){
+	if(jogoMock === undefined){
+		return false
+	}else{
+		if(jogoMock.titulo === undefined || jogoMock.titulo === "" || jogoMock.descricao === undefined || jogoMock.descricao === "" || jogoMock.dataLancamento === undefined || jogoMock.dataLancamento === "" || jogoMock.plataformas === undefined || jogoMock.plataformas === "" || jogoMock.desenvolvedores === undefined || jogoMock.desenvolvedores === ""){
+			return false
+		}else{
+			return true
+		}		
+	}
 }

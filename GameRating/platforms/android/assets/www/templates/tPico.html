@@ -10,6 +10,7 @@
         <div style="color:#000000;">
             <p>{{topicoMock.corpo}}</p>
         </div>
+        
         <div ng-repeat="comentario in topicoMock.comentarios">
         	<ion-item class="item-thumbnail-left" >
                 <img src="../img/defaultImage.jpg">
@@ -17,9 +18,10 @@
                 <p>{{comentario.corpo}}</p>
             </ion-item>
         </div>
+        
         <div>
         	<label class="item item-input">
-        	   <input ng-model="comentario" value="{{comentario}}" type="text" placeholder="Escreva seu comentario">
+        	   <input ng-model="comentario.corpo" value="{{comentario.corpo}}" type="text" placeholder="Escreva seu comentario">
     	    </label>
 	        <button ng-click="gravarComentario(comentario)" type="button" class=" button button-stable  button-block ">Enviar</button>
         </div>

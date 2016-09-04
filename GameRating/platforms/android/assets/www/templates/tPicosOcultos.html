@@ -2,8 +2,7 @@
 <ion-view title="Tópicos Ocultos" id="page19">
     <ion-content padding="true" class="has-header" ng-controller="tPicosOcultosCtrl"">
         <div>
-	        <button ng-click="ocultar()" type="button" id="tPicosOcultos-button46" class=" button button-stable  icon ion-eye "></button>
-	         <button ng-click="remover()" type="button" id="tPicosOcultos-button47" class=" button button-stable  icon ion-android-delete "></button>
+	        <button ng-click="removerOcultacaoPopup(topicosMock)" type="button"  id="comentRiosOcultos-button48" class=" button button-stable  icon ion-eye "></button>
         </div>
          <ion-checkbox ng-repeat="topico in topicosMock"
                       ng-model="topico.checked" 
