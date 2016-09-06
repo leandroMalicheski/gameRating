@@ -1,7 +1,7 @@
 angular.module('app.controllers', [])
   
-.controller('homeCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-function ($scope, $stateParams, $ionicPopup) {
+.controller('homeCtrl', ['$scope', '$stateParams', '$ionicPopup', '$http', 
+function ($scope, $stateParams, $ionicPopup, $http) {
 	console.log("Carreguei a Home!")
 	$scope.jogosMock;
 	$scope.showJogos = false;
@@ -13,8 +13,12 @@ function ($scope, $stateParams, $ionicPopup) {
 			console.log("Chamei a Busca")
 			console.log(busca)
 			if(busca === "bf"){
-				$scope.showJogos = true;
-				$scope.jogosMock = [{id:1,titulo:"Hardline"},{id:2,titulo:"Hardline 2"}]			
+				var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+				$http.get("http://localhost:8080/listJogos", headers).success(function(data) {
+					console.log(data);
+					$scope.jogosMock = data;
+					$scope.showJogos = true;
+				}); 			
 			}else{
 				$scope.jogoNaoEncotradoPopup()
 			}
