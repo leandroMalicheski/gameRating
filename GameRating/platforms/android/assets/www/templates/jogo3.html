@@ -3,23 +3,23 @@
     <ion-content padding="true" class="has-header">
         <div>
     	    <button type="button" ng-click="ocultarPopup()" class=" button button-stable  icon ion-eye "></button>
-	        <button ui-sref="menu.editarJogo({id:{{jogoMock.id}}})" class=" button button-stable  icon ion-edit "></button>
-	        <button ui-sref="menu.cadastrarTopico({id:{{jogoMock.id}}})" class=" button button-stable  icon ion-plus "></button>
+	        <button ui-sref="menu.editarJogo(jogoMock.id)" class=" button button-stable  icon ion-edit "></button>
+	        <button ui-sref="menu.cadastrarTopico(jogoMock.id)" class=" button button-stable  icon ion-plus "></button>
         </div>
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
             <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
         </div>
         <h3 style="color:#000000;">{{jogoMock.titulo}}</h3>
         <ion-list>
-	        <ion-item ng-repeat="topico in jogoMock.topicos" class="item-icon-right" ui-sref="menu.tPico({id:{{topico.id}}})">
-		       		{{topico.titulo}}
+	        <ion-item ng-repeat="topico in topicos" class="item-icon-right" ui-sref="menu.tPico({id:topico.id})">
+		       		{{topico.title}}
 	        </ion-item>
 		</ion-list>
            
         <div class=" button-bar ">
-        	<a ui-sref="menu.jogo2({id:{{jogoMock.id}}})" class=" button button-stable  button-block ">Jogo</a>
-         	<a ui-sref="menu.jogo({id:{{jogoMock.id}}})" class=" button button-stable  button-block ">Rate</a>
-      		<button id="jogo3-button72" class=" button button-stable  button-block ">Forum</button>
+        	<a ui-sref="menu.jogo2(jogoMock.id)" class=" button button-stable  button-block ">Jogo</a>
+         	<a ui-sref="menu.jogo(jogoMock.id)" class=" button button-stable  button-block ">Rate</a>
+      		<button class=" button button-stable  button-block ">Forum</button>
         </div>
     </ion-content>
 </ion-view>

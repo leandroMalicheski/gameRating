@@ -10,18 +10,16 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 		if(busca === undefined){
 			$scope.buscaVaziaPopup()
 		}else{
-			console.log("Chamei a Busca")
-			console.log(busca)
-			if(busca === "bf"){
-				var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-				$http.get("http://localhost:8080/listJogos", headers).success(function(data) {
-					console.log(data);
+			var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+			var request = "http://localhost:8080/listJogos?busca="+busca
+			$http.get(request, headers).success(function(data) {
+				if(data.length === 0){
+					$scope.jogoNaoEncotradoPopup()
+				}else{
 					$scope.jogosMock = data;
-					$scope.showJogos = true;
-				}); 			
-			}else{
-				$scope.jogoNaoEncotradoPopup()
-			}
+					$scope.showJogos = true;											
+				}
+			});
 		}
 	}
 	
@@ -78,22 +76,30 @@ function ($scope, $stateParams, $ionicPopup) {
 
 }])
       
-.controller('loginCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', 
-function ($scope, $stateParams, $state, $ionicPopup) {	
+.controller('loginCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$http', '$window',
+function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {	
 		
 	$scope.login = function(usuario){
 		if(usuario === undefined){
 			$scope.loginSenhaInvalido()			
 		}
 		else if($scope.validaLogin(usuario)){
-			$state.go("menu.home", {})		
+			var headers = {headers : {'Content-Type' : 'application/json'}};
+			$http.post("http://localhost:8080/login", usuario, headers).success(function(data) {
+				if(data === null || data === undefined || data === ""){
+					$scope.loginSenhaInvalido()
+				}else{
+					$window.localStorage['userOn'] = JSON.stringify(data);
+					$state.go("menu.home", {})											
+				}
+			});
 		}else{
 			$scope.loginSenhaInvalido()
 		}
 	}
 	
 	$scope.validaLogin = function(usuario){
-		if(usuario.login === undefined || usuario.login === "" || usuario.senha === undefined || usuario.senha === ""){
+		if(usuario.login === undefined || usuario.login === "" || usuario.password === undefined || usuario.password === ""){
 			return false
 		}else{
 			console.log("Vou validar o usuario abaixo:")
@@ -856,28 +862,17 @@ function ($scope, $stateParams, $ionicPopup) {
 
 }])
    
-.controller('jogoCtrl', ['$scope', '$stateParams', '$ionicPopup',
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,$ionicPopup) {
-	console.log("Carreguei o jogo")
+.controller('jogoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$http',
+function ($scope, $stateParams,$ionicPopup, $http) {
 	var id = $stateParams.id
 	$scope.jogoMock
 	
 	$scope.carregarJogo = function(){
-		console.log("Carreguei o jogo com id abaixo:")
-		console.log($stateParams.id)
-		$scope.jogoMock = {id:1,titulo:"Battlefield Hardline",
-			descricao:"é um videojogo do genero first-person shooter, produzido pela Visceral Games em colaboração com a EA Digital Illusions CE e publicado pela Electronic Arts.",
-			dataLancamento:"17 de março de 2015",	
-			plataformas:"PlayStation 4, Xbox One, PlayStation 3, Xbox 360, Microsoft Windows",
-			desenvolvedores:"Visceral Games, EA Digital Illusions CE, Criterion Games",
-			ratingJogabilidade:5,
-			ratingDiversao:2,
-			ratingAudio:6,
-			ratingImersao:9,
-			ratingMedio:7
-			}			
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/getJogoById?id="+id
+		$http.get(request, headers).success(function(data) {
+			$scope.jogoMock = data;
+		});			
 	}
 	
 	$scope.salvarRatingPopup = function(jogo){
@@ -896,13 +891,18 @@ function ($scope, $stateParams,$ionicPopup) {
 	}
 	
 	$scope.salvarRate = function(jogo){
-		console.log("Vou calcular e salvar o rate do jogo")
-		console.log(jogo)
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/saveGameRate", jogo, headers).success(function(data) {
+			$scope.jogoMock = data;
+		});
 		
 	}
 	
 	$scope.ocultarPopup = function(){
-		var ocultar = "ocultar"
+		var ocultar = "remover a ocultação"
+		if($scope.jogoMock.isVisible){
+			ocultar = "ocultar"
+		}
 		var confirmPopup = $ionicPopup.confirm({
 		       title: 'Ocultar Jogo',
 		       template: 'Gostaria de ' + ocultar + ' este jogo ?'
@@ -917,75 +917,32 @@ function ($scope, $stateParams,$ionicPopup) {
 	}
 	
 	$scope.ocultar = function(){
-		console.log("Vou ocultar o jogo com o id:")
-		console.log($stateParams.id)
-	}
-	
-}])
-   
-.controller('jogo2Ctrl', ['$scope', '$stateParams','$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopup) {
-	console.log("Carreguei o jogo")
-	var id = $stateParams.id
-	$scope.jogoMock
-	
-	$scope.carregarJogo = function(){
-		console.log("Carreguei o jogo com id abaixo:")
-		console.log($stateParams.id)
-		$scope.jogoMock = {id:1,titulo:"Battlefield Hardline",
-							descricao:"é um videojogo do genero first-person shooter, produzido pela Visceral Games em colaboração com a EA Digital Illusions CE e publicado pela Electronic Arts.",
-							dataLancamento:"17 de março de 2015",	
-							plataformas:"PlayStation 4, Xbox One, PlayStation 3, Xbox 360, Microsoft Windows",
-							desenvolvedores:"Visceral Games, EA Digital Illusions CE, Criterion Games"
-							}		
-	}
-	
-	this.ocultarPopup = function(ionicPopup){
-		var ocultar = "ocultar"
-		var confirmPopup = ionicPopup.confirm({
-		       title: 'Ocultar Jogo',
-		       template: 'Gostaria de ' + ocultar + ' este jogo ?'
-		     });
-		confirmPopup.then(function(res) {
-			if(res) {
-				jogo2Ctrl.ocultar();
-			} else {
-				console.log('Cancelar');
-			}
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/hideGame", $scope.jogoMock, headers).success(function(data) {
+			$scope.jogoMock = data;
 		});
 	}
 	
-	$scope.ocultar = function(){
-		console.log("Vou ocultar o jogo com o id:")
-		console.log($stateParams.id)
-	}
-
 }])
    
-.controller('jogo3Ctrl', ['$scope', '$stateParams','$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopup) {
-	console.log("Carreguei o jogo")
-	var id = $stateParams.id
+.controller('jogo2Ctrl', ['$scope', '$stateParams','$ionicPopup', '$http', 
+function ($scope, $stateParams, $ionicPopup, $http) {
 	$scope.jogoMock
+	var id = $stateParams.id
 	
 	$scope.carregarJogo = function(){
-		console.log("Carreguei o jogo com id abaixo:")
-		console.log($stateParams.id)
-		$scope.jogoMock = {id:1,titulo:"Battlefield Hardline",
-							descricao:"é um videojogo do genero first-person shooter, produzido pela Visceral Games em colaboração com a EA Digital Illusions CE e publicado pela Electronic Arts.",
-							dataLancamento:"17 de março de 2015",	
-							plataformas:"PlayStation 4, Xbox One, PlayStation 3, Xbox 360, Microsoft Windows",
-							desenvolvedores:"Visceral Games, EA Digital Illusions CE, Criterion Games",
-							topicos:[{id:1,titulo:"topico1"},{id:2,titulo:"topico2"},{id:3,titulo:"topico3"}]
-							}		
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/getJogoById?id="+id
+		$http.get(request, headers).success(function(data) {
+			$scope.jogoMock = data;
+		});	
 	}
 	
 	$scope.ocultarPopup = function(){
-		var ocultar = "ocultar"
+		var ocultar = "remover a ocultação"
+		if($scope.jogoMock.isVisible){
+			ocultar = "ocultar"
+		}
 		var confirmPopup = $ionicPopup.confirm({
 		       title: 'Ocultar Jogo',
 		       template: 'Gostaria de ' + ocultar + ' este jogo ?'
@@ -1000,8 +957,55 @@ function ($scope, $stateParams, $ionicPopup) {
 	}
 	
 	$scope.ocultar = function(){
-		console.log("Vou ocultar o jogo com o id:")
-		console.log($stateParams.id)
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/hideGame", $scope.jogoMock, headers).success(function(data) {
+			$scope.jogoMock = data;
+		});
+	}
+
+}])
+   
+.controller('jogo3Ctrl', ['$scope', '$stateParams','$ionicPopup', '$http', 
+function ($scope, $stateParams, $ionicPopup, $http) {
+	var id = $stateParams.id
+	$scope.jogoMock
+	$scope.topicos
+	
+	$scope.carregarJogo = function(){
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/getJogoById?id="+id
+		$http.get(request, headers).success(function(data) {
+			$scope.jogoMock = data;
+		});
+		var request = "http://localhost:8080/getTopicsByGameId?id="+id
+		$http.get(request, headers).success(function(data) {
+			$scope.topicos = data;
+		});		
+	}
+	
+	$scope.ocultarPopup = function(){
+		var ocultar = "remover a ocultação"
+		if($scope.jogoMock.isVisible){
+			ocultar = "ocultar"
+		}
+		var confirmPopup = $ionicPopup.confirm({
+		       title: 'Ocultar Jogo',
+		       template: 'Gostaria de ' + ocultar + ' este jogo ?'
+		     });
+		confirmPopup.then(function(res) {
+			if(res) {
+				$scope.ocultar();
+			} else {
+				console.log('Cancelar');
+			}
+		});
+	}
+	
+	$scope.ocultar = function(){
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/hideGame", $scope.jogoMock, headers).success(function(data) {
+			$scope.jogoMock = data;
+		});
 	}
 
 }])
@@ -1067,19 +1071,21 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('tPicoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', 
-function ($scope, $stateParams, $ionicPopup, $state) {
+.controller('tPicoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http',
+function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	$scope.topicoMock
+	$scope.comentarios
+	var id = $stateParams.id
 	$scope.carregarTopico = function(){
-		
-		console.log("Cheguei e estou com id abaixo:")
-		console.log($stateParams.id)
-		$scope.topicoMock = {id:1,titulo:"Tópico1",
-				corpo:"Sem comentarios",
-				comentarios:[{id:1,usuario:"Eu",corpo:"nao vou comentar"},
-				             {id:2,usuario:"outro",corpo:"comentei"},
-				             {id:3,usuario:"OutroCara", corpor:"Sei la"}]
-				}		
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/getTopicById?id="+id
+		$http.get(request, headers).success(function(data) {
+			$scope.topicoMock = data;
+		});
+		var request = "http://localhost:8080/getCommentsByTopicId?id="+id
+		$http.get(request, headers).success(function(data) {
+			$scope.comentarios = data;
+		});
 	}
 	
 	$scope.gravarComentario = function(comentario){

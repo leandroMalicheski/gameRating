@@ -6,22 +6,22 @@
 	        <button ng-click="addLinkPopup(comentario)" type="button" class=" button button-stable  icon ion-link "></button>
         </div>
         
-        <h1 style="color:#000000;">{{topicoMock.titulo}}</h1>
+        <h1 style="color:#000000;">{{topicoMock.title}}</h1>
         <div style="color:#000000;">
-            <p>{{topicoMock.corpo}}</p>
+            <p>{{topicoMock.body}}</p>
         </div>
         
-        <div ng-repeat="comentario in topicoMock.comentarios">
+        <div ng-repeat="comentario in comentarios">
         	<ion-item class="item-thumbnail-left" >
                 <img src="../img/defaultImage.jpg">
-                <h2>{{comentario.usuario}}</h2>
-                <p>{{comentario.corpo}}</p>
+                <h2>{{comentario.user}}</h2>
+                <p>{{comentario.body}}</p>
             </ion-item>
         </div>
         
         <div>
         	<label class="item item-input">
-        	   <input ng-model="comentario.corpo" value="{{comentario.corpo}}" type="text" placeholder="Escreva seu comentario">
+        	   <input ng-model="comentario.body" type="text" placeholder="Escreva seu comentario">
     	    </label>
 	        <button ng-click="gravarComentario(comentario)" type="button" class=" button button-stable  button-block ">Enviar</button>
         </div>
