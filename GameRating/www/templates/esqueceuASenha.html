@@ -1,22 +1,28 @@
 <body ng-app="app.controllers">
-<ion-view title="Esqueceu a Senha" id="page7">
+<ion-view title="Esqueceu a Senha">
     <ion-content padding="true" class="has-header">
-        <form id="esqueceuASenha-form5" class="list ">
-            <div id="esqueceuASenha-markdown2" style="color:#000000;font-size:15px;">
+        <div class="list ">
+            <div style="color:#000000;font-size:15px;">
                 <p>Para solicitar a
                     <strong>alteração de senha
-                    </strong>Informe a resposta para a pergunta abaixo:</p>
+                    </strong>Informe os dados abaixo:</p>
             </div>
-            <div class="spacer" style="height: 100px;"></div>
-            <div id="esqueceuASenha-markdown3" style="color:#000000;">
+            <div class="spacer" style="height: 50px;"></div>
+            <label class="item item-input ">
+                <input type="text" placeholder="login" ng-model="usuario.login">
+            </label>
+            <label class="item item-input ">
+                <input type="text" placeholder="email" ng-model="usuario.email">
+            </label>
+            <div style="color:#000000;">
                 <p>Qual é o nome do seu cachorro ?</p>
             </div>
-            <label class="item item-input " id="esqueceuASenha-input10">
-                <input type="text" placeholder="Ex. Bob" ng-model="resposta">
+            <label class="item item-input ">
+                <input type="text" placeholder="Ex. Bob" ng-model="usuario.passwordTip">
             </label>
-        </form>
-        <a ui-sref="login" id="esqueceuASenha-button11" class=" button button-stable  ">Cancelar</a>
-        <button type="button" ng-click="solicitarSenha(resposta)" id="esqueceuASenha-button9" class=" button button-stable  ">Enviar</button>
+        </div>
+        <a ui-sref="login" class=" button button-stable">Cancelar</a>
+        <button type="button" ng-click="solicitarSenha(usuario)" class=" button button-stable  ">Enviar</button>
     </ion-content>
 </ion-view>
 </body>

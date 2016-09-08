@@ -86,7 +86,7 @@ function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {
 		else if($scope.validaLogin(usuario)){
 			var headers = {headers : {'Content-Type' : 'application/json'}};
 			$http.post("http://localhost:8080/login", usuario, headers).success(function(data) {
-				if(data === null || data === undefined || data === ""){
+				if(data.login === null){
 					$scope.loginSenhaInvalido()
 				}else{
 					$window.localStorage['userOn'] = JSON.stringify(data);
@@ -117,12 +117,8 @@ function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {
 
 }])
    
-.controller('cadastroCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopup, $state) {
-	console.log("Carreguei a Tela de Cadastro")
-	
+.controller('cadastroCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http',
+function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	$scope.carregarImagem = function(){
 		console.log("carregarImagem")
 	}
@@ -131,9 +127,10 @@ function ($scope, $stateParams, $ionicPopup, $state) {
 		if(usuario === undefined){
 			preenchaCamposPopup($ionicPopup)
 		}else if($scope.validaCampos(usuario)){
-			console.log("Vou cadastrar esse usuario:")
-			console.log(usuario)
-			$scope.usuarioCadastradoPopup()						
+			var headers = {headers : {'Content-Type' : 'application/json'}};
+			$http.post("http://localhost:8080/addUser", usuario, headers).success(function(data) {
+				$scope.usuarioCadastradoPopup()																	
+			});
 		}
 	}
 	
@@ -153,18 +150,16 @@ function ($scope, $stateParams, $ionicPopup, $state) {
 	
 	$scope.validaCampos = function(usuario){
 		var validade = true
-		if(usuario.nome === undefined){
+		if(usuario.name === undefined){
 			preenchaCamposPopup($ionicPopup)
 			validade = false
 		}else if (!validaEmail(usuario.email, $ionicPopup)){
 			validade = false
-		}else if (!validaUsuario(usuario.login, $ionicPopup)){
+		}else if (validaUsuario(usuario.login, $ionicPopup, $http)){
 			validade = false
-		}else
-		if (!validaSenha(usuario, $ionicPopup)){
+		}else if (!validaSenha(usuario, $ionicPopup)){
 			validade = false
-		}else
-		if (usuario.resposta === undefined){
+		}else if (usuario.passwordTip === undefined){
 			preenchaCamposPopup($ionicPopup)
 			validade = false
 		}
@@ -173,8 +168,6 @@ function ($scope, $stateParams, $ionicPopup, $state) {
 }])
    
 .controller('perfilCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPopup) {
 	$scope.perfilMock;
 	
@@ -456,44 +449,38 @@ function ($scope, $stateParams, $ionicPopup, $state) {
 
 }])
    
-.controller('esqueceuASenhaCtrl', ['$scope', '$stateParams',  '$ionicPopup', '$state', 
-function ($scope, $stateParams, $ionicPopup, $state) {
+.controller('esqueceuASenhaCtrl', ['$scope', '$stateParams',  '$ionicPopup', '$state', '$http',
+function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	console.log("carreguei a Tela de Esqueci minha senha")
 	
-	$scope.solicitarSenha = function(resposta) {
-		if(resposta === undefined || resposta === ""){
+	$scope.solicitarSenha = function(usuario) {
+		if(usuario === undefined || usuario.passwordTip === undefined || usuario.passwordTip === "" || usuario.login === undefined || usuario.login === "" || usuario.email === undefined || usuario.email === ""){
 			preenchaCamposPopup($ionicPopup)
 		}else{
-			if($scope.validaResposta(resposta)){
-				console.log("Vou enviar uma senha, a resposta foi:")
-				console.log(resposta)
-				$scope.senhaGeradaPopup()
-			}else{
-				$scope.informeRespostaPopup()
-			}
+			var headers = {headers : {'Content-Type' : 'application/json'}};
+			$http.post("http://localhost:8080/userDataValidation", usuario, headers).success(function(data) {
+				if(data.login === null){
+					$scope.informeRespostaPopup()
+				} else{
+					$http.post("http://localhost:8080/updateUserPassword", usuario, headers).success(function(data) {
+						$scope.senhaGeradaPopup(data.passwordGenerated)																	
+					});					
+				}																	
+			});
 		}		
 	}
 	
-	$scope.senhaGeradaPopup = function(){
-		var senhaGerada = "!@#QWE123qwe" 
+	$scope.senhaGeradaPopup = function(senhaGerada){
 		var alertPopup = $ionicPopup.alert({
 			title: 'Senha Gerada',
 			template: 'Sua nova senha é: ' + senhaGerada
 		});
 	}
 	
-	$scope.validaResposta = function(resposta){
-		if(resposta === "dog"){
-			return true
-		}else{
-			return false;
-		}
-	}
-	
 	$scope.informeRespostaPopup = function(){
 		var alertPopup = $ionicPopup.alert({
-			title: 'Resposta inválida',
-			template: 'Resposta incorreta'
+			title: 'Dados inválidos',
+			template: 'Os dados informados não correspondem ao usuário'
 		});
 	}
 
@@ -834,8 +821,6 @@ function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state) {
 }])
    
 .controller('cadastrarJogoCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPopup) {
 	console.log("Carreguei a Tela de Cadastro de Jogo")
 	
@@ -866,13 +851,73 @@ function ($scope, $stateParams, $ionicPopup) {
 function ($scope, $stateParams,$ionicPopup, $http) {
 	var id = $stateParams.id
 	$scope.jogoMock
+	$scope.icon1Rate = 'ion-android-star-outline'
+	$scope.icon2Rate = 'ion-android-star-outline'
+	$scope.icon3Rate = 'ion-android-star-outline'
+	$scope.icon4Rate = 'ion-android-star-outline'
+	$scope.icon5Rate = 'ion-android-star-outline'
 	
 	$scope.carregarJogo = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var request = "http://localhost:8080/getJogoById?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.jogoMock = data;
+			switch (data.ratingMedio) {
+            case 1:
+            	$scope.star1Rate()
+                break;
+            case 2:
+            	$scope.star2Rate()
+                break;
+            case 3:
+            	$scope.star3Rate()
+                break;
+            case 4:
+            	$scope.star4Rate()
+                break;
+            case 5:
+            	$scope.star5Rate()
+                break;
+            default:
+
+			}
 		});			
+	}
+	
+	$scope.star1Rate = function(){
+		$scope.icon1Rate = 'ion-android-star'
+		$scope.icon2Rate = 'ion-android-star-outline'
+		$scope.icon3Rate = 'ion-android-star-outline'
+		$scope.icon4Rate = 'ion-android-star-outline'
+		$scope.icon5Rate = 'ion-android-star-outline'
+	}
+	$scope.star2Rate = function(){
+		$scope.icon1Rate = 'ion-android-star'
+		$scope.icon2Rate = 'ion-android-star'
+		$scope.icon3Rate = 'ion-android-star-outline'
+		$scope.icon4Rate = 'ion-android-star-outline'
+		$scope.icon5Rate = 'ion-android-star-outline'
+	}
+	$scope.star3Rate = function(){
+		$scope.icon1Rate = 'ion-android-star'
+		$scope.icon2Rate = 'ion-android-star'
+		$scope.icon3Rate = 'ion-android-star'
+		$scope.icon4Rate = 'ion-android-star-outline'
+		$scope.icon5Rate = 'ion-android-star-outline'
+	}
+	$scope.star4Rate = function(){
+		$scope.icon1Rate = 'ion-android-star'
+		$scope.icon2Rate = 'ion-android-star'
+		$scope.icon3Rate = 'ion-android-star'
+		$scope.icon4Rate = 'ion-android-star'
+		$scope.icon5Rate = 'ion-android-star-outline'
+	}
+	$scope.star5Rate = function(){
+		$scope.icon1Rate = 'ion-android-star'
+		$scope.icon2Rate = 'ion-android-star'
+		$scope.icon3Rate = 'ion-android-star'
+		$scope.icon4Rate = 'ion-android-star'
+		$scope.icon5Rate = 'ion-android-star'
 	}
 	
 	$scope.salvarRatingPopup = function(jogo){
@@ -1071,8 +1116,8 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('tPicoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http',
-function ($scope, $stateParams, $ionicPopup, $state, $http) {
+.controller('tPicoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http', '$window',
+function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	$scope.topicoMock
 	$scope.comentarios
 	var id = $stateParams.id
@@ -1089,11 +1134,15 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	}
 	
 	$scope.gravarComentario = function(comentario){
-		if(comentario.corpo === undefined || comentario.corpo === ""){
+		if(comentario.body === undefined || comentario.body === ""){
 			preenchaCamposPopup($ionicPopup)
 		}else{
-			console.log("Comentario recebido :")
-			console.log(comentario)
+			user = JSON.parse($window.localStorage['userOn'] || '[]');
+			comentario.userId = user.id
+			comentario.topicId = id
+			comentario.user = user.name
+			$scope.comentarios.push(comentario)
+			
 			$scope.comentarioAdicionado()
 			$state.go('menu.tPico',$stateParams.id)
 		}
@@ -1121,7 +1170,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 			            if (!$scope.data.link) {
 			            	e.preventDefault();
 			            } else {
-			            	comentario.corpo = comentario.corpo + ' ' + $scope.data.link  
+			            	comentario.body = comentario.body + ' ' + $scope.data.link  
 			            	$scope.addLink(comentario)
 			            }
 		           }
@@ -1287,15 +1336,19 @@ this.emailInvalidoPopup = function(ionicPopup){
 		template: 'Favor preenchar um email válido'
 	});
 }
-this.validaUsuario = function(usuario, ionicPopup){
+this.validaUsuario = function(usuario, ionicPopup, http){
 	if(usuario === undefined){
 		preenchaCamposPopup(ionicPopup)
 	}else{
-		if(usuario === "leandro"){
-			return true
-		}else{
-			usuarioInvalidoPopup(ionicPopup)
-		}			
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/userLoginValidation?login="+usuario
+		http.get(request, headers).success(function(data) {
+			if(data.login === null){
+				return true									
+			}else{
+				usuarioInvalidoPopup(ionicPopup)
+			}
+		});		
 	}
 }
 this.usuarioInvalidoPopup = function(ionicPopup){
@@ -1307,11 +1360,11 @@ this.usuarioInvalidoPopup = function(ionicPopup){
 
 this.validaSenha = function(usuario, ionicPopup){
 	var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
-	if(usuario.senha === undefined && usuario.confirmacaoSenha === undefined){
+	if(usuario.passwor === undefined && usuario.passwordConfirm === undefined){
 		preenchaCamposPopup(ionicPopup)
 		return false
-	}else if (usuario.senha === usuario.senhaConfirmacao){
-		if(mediumRegex.test(usuario.senha)){
+	}else if (usuario.password === usuario.passwordConfirm){
+		if(mediumRegex.test(usuario.password)){
 			return true
 		}else{
 			senhaFracaPopup(ionicPopup)

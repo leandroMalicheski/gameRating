@@ -1,32 +1,32 @@
 <body ng-app="app.controllers">
-<ion-view title="Cadastro" id="page6">
+<ion-view title="Cadastro">
     <ion-content padding="true" class="has-header" ng-controller="cadastroCtrl">
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
         <a ng-click="carregarImagem()">
             <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
         </a>
         </div>
-        <div id="cadastro-form3" class="list ">
-            <label class="item item-input " id="cadastro-input3" name="nome">
-                <input type="text" placeholder="Nome *" ng-model="usuario.nome">
+        <div class="list ">
+            <label class="item item-input ">
+                <input type="text" placeholder="Nome *" ng-model="usuario.name">
             </label>
-            <label class="item item-input " id="cadastro-input4" name="email">
+            <label class="item item-input ">
                 <input type="email" placeholder="Email *" ng-model="usuario.email">
             </label>
-            <label class="item item-input " id="cadastro-input5" name="usuario">
+            <label class="item item-input ">
                 <input type="text" placeholder="Usuário *" ng-model="usuario.login">
             </label>
-            <label class="item item-input " id="cadastro-input6" name="senha">
-                <input type="password" placeholder="Senha *" ng-model="usuario.senha">
+            <label class="item item-input ">
+                <input type="password" placeholder="Senha *" ng-model="usuario.password">
             </label>
-            <label class="item item-input " id="cadastro-input7" name="confimarSenha">
-                <input type="password" placeholder="Confirmar Senha *" ng-model="usuario.senhaConfirmacao">
+            <label class="item item-input ">
+                <input type="password" placeholder="Confirmar Senha *" ng-model="usuario.passwordConfirm">
             </label>
-            <label class="item item-input " id="cadastro-input8" name="perguntaResposta">
-                <input type="text" placeholder="Qual o nome do seu cachorro ? *" ng-model="usuario.resposta">
+            <label class="item item-input ">
+                <input type="text" placeholder="Qual o nome do seu cachorro ? *" ng-model="usuario.passwordTip">
             </label>
             <div style="margin-right:-20px;">
-                <button type="button" ng-click="cadastrar(usuario)" id="cadastro-button8" style="left:-10px;" class=" button button-stable  button-full ">Cadastrar</button>
+                <button type="button" ng-click="cadastrar(usuario)" style="left:-10px;" class=" button button-stable  button-full ">Cadastrar</button>
             </div>
         </div>
     </ion-content>
