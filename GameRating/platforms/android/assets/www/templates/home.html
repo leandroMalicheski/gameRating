@@ -1,4 +1,4 @@
-<body ng-app="app.controllers">
+<body ng-app="app.homeController">
 	<ion-view title="Home"> 
 	<ion-content padding="true" class="has-header" ng-controller="homeCtrl">
 	<div class="list">
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<div class="list" ng-show="showJogos">
-		<div ng-repeat="jogo in jogosMock">
+		<div ng-repeat="jogo in jogos">
 			<a class="item item-thumbnail-left"	ui-sref="menu.jogo2({id:{{jogo.id}}})"> 
 				<img src="../img/defaultImage.jpg">
 				<h2>{{jogo.name}}</h2>

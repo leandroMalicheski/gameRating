@@ -1,4 +1,4 @@
-<body ng-app="app.controllers">
+<body ng-app="app.jogoRateController">
 <ion-view title="Jogo">
     <ion-content padding="true" class="has-header" ng-controller="jogoCtrl" ng-init="carregarJogo()">
        <div>
@@ -11,16 +11,20 @@
         </div>
         <h3 style="color:#000000;">{{jogoMock.name}}</h3>
         <div>
-            <button type="button" class="button button-stable icon" ng-click="star1Rate()" ng-class="icon1Rate"></button>
-            <button type="button" class="button button-stable icon" ng-click="star2Rate()" ng-class="icon2Rate"></button>
-            <button type="button" class="button button-stable icon" ng-click="star3Rate()" ng-class="icon3Rate"></button>
-            <button type="button" class="button button-stable icon" ng-click="star4Rate()" ng-class="icon4Rate"></button>
-            <button type="button" class="button button-stable icon" ng-click="star5Rate()" ng-class="icon5Rate"></button>
+            <button type="button" class="button button-stable icon" ng-class="icon1Rate"></button>
+            <button type="button" class="button button-stable icon" ng-class="icon2Rate"></button>
+            <button type="button" class="button button-stable icon" ng-class="icon3Rate"></button>
+            <button type="button" class="button button-stable icon" ng-class="icon4Rate"></button>
+            <button type="button" class="button button-stable icon" ng-class="icon5Rate"></button>
         </div>
         <h3 style="color:#000000;">Rating</h3>
-		<ion-item class="range range-positive ">Jogabilidade {{jogoMock.ratingJogabilidade}}
-			<input type="range" ng-model="jogoMock.ratingJogabilidade" value="{{jogoMock.ratingJogabilidade}}" min="0" max="10">
-		</ion-item>
+		<label>Jogabilidade {{jogoMock.ratingJogabilidade}}</label><br>
+		<button type="button" ng-click="definirJRate1()" class="button button-stable icon" ng-class="icon1JRate"></button>
+        <button type="button" ng-click="definirJRate2()" class="button button-stable icon" ng-class="icon2JRate"></button>
+        <button type="button" ng-click="definirJRate3()" class="button button-stable icon" ng-class="icon3JRate"></button>
+        <button type="button" ng-click="definirJRate4()" class="button button-stable icon" ng-class="icon4JRate"></button>
+        <button type="button" ng-click="definirJRate5()" class="button button-stable icon" ng-class="icon5JRate"></button>
+
 		<ion-item class="range range-positive ">Diversão {{jogoMock.ratingDiversao}}
 			<input type="range" ng-model="jogoMock.ratingDiversao" value="{{jogoMock.ratingDiversao}}" min="0" max="10">
 		</ion-item>
