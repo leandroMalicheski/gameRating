@@ -6,12 +6,16 @@
 	        <button ng-click="addLinkPopup(comentario)" type="button" class=" button button-stable  icon ion-link "></button>
         </div>
         
-        <h1 style="color:#000000;">{{topicoMock.title}}</h1>
+        <h1 style="color:#000000;">{{topico.title}}</h1>
         <div style="color:#000000;">
-            <p>{{topicoMock.body}}</p>
+            <p>{{topico.body}}</p>
         </div>
-        
-        <div ng-repeat="comentario in comentarios">
+        <div class="spacer" style="height: 50px;"></div>
+        <div style="color: #000000;" ng-hide="showComments">
+			<p>Ainda não há comentários para este Tópico.</p>
+			<p>Crie um, Comente e divida experiências.</p>
+		</div>
+        <div ng-show="showComments" ng-repeat="comentario in comentarios">
         	<ion-item class="item-thumbnail-left" >
                 <img src="../img/defaultImage.jpg">
                 <h2>{{comentario.user}}</h2>

@@ -1,24 +1,24 @@
-<body ng-app="app.controllers">
+<body ng-app="app.jogoController">
 <ion-view title="Jogo" >
     <ion-content padding="true" class="has-header" ng-controller="jogo2Ctrl" ng-init="carregarJogo()">
         <div>
     	    <button type="button" ng-click="ocultarPopup()" class=" button button-stable  icon ion-eye "></button>
-	        <button ui-sref="menu.editarJogo(jogoMock.id)" class=" button button-stable  icon ion-edit "></button>
+	        <button ui-sref="menu.editarJogo({id:jogo.id})" class=" button button-stable  icon ion-edit "></button>
         </div>
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
             <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
         </div>
-        <h3 style="color:#000000;">{{jogoMock.name}}</h3>
+        <h3 style="color:#000000;">{{jogo.name}}</h3>
         <div class="list " style="color:#000000;">
-			<p><strong>{{jogoMock.name}} </strong>{{jogoMock.description}}</p>
-			<p><strong>Data de lançamento:</strong>{{jogoMock.launchDate}}</p>
-			<p><strong>Plataformas:</strong>{{jogoMock.platforms}}</p>
-			<p><strong>Desenvolvedores:</strong>{{jogoMock.devs}}</p>
+			<p><strong>{{jogo.name}} </strong>{{jogo.description}}</p>
+			<p><strong>Data de lançamento:</strong>{{jogo.launchDate}}</p>
+			<p><strong>Plataformas:</strong>{{jogo.platforms}}</p>
+			<p><strong>Desenvolvedores:</strong>{{jogo.devs}}</p>
         </div>
         <div class=" button-bar ">
            	<button class=" button button-stable  button-block ">Jogo</button>
-        	<a ui-sref="menu.jogo({id:jogoMock.id})" class=" button button-stable  button-block ">Rate</a>
-            <a ui-sref="menu.jogo3({id:jogoMock.id})" class=" button button-stable  button-block ">Forum</a>
+        	<a ui-sref="menu.jogo({id:jogo.id})" class=" button button-stable  button-block ">Rate</a>
+            <a ui-sref="menu.jogo3({id:jogo.id})" class=" button button-stable  button-block ">Forum</a>
 		</div>
     </ion-content>
 </ion-view>

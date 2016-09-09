@@ -1,17 +1,17 @@
-<body ng-app="app.controllers">
+<body ng-app="app.cadastroTopicoController">
 <ion-view title="Adicionar Tópico">
     <ion-content padding="true" class="has-header" ng-controller="cadastrarTopicoCtrl">
 		<div>
-	        <button ng-click="adicionarImagem(topicoMock)" type="button" class=" button button-stable  icon ion-android-attach "></button>
-	        <button ng-click="addLinkPopup(topicoMock)" type="button" class=" button button-stable  icon ion-link "></button>
-	        <button ng-click="salvarPopup(topicoMock)" type="button" class=" button button-stable  icon ion-android-done "></button>
+	        <button ng-click="adicionarImagem(topico)" type="button" class=" button button-stable  icon ion-android-attach "></button>
+	        <button ng-click="addLinkPopup(topico)" type="button" class=" button button-stable  icon ion-link "></button>
+	        <button ng-click="salvarPopup(topico)" type="button" class=" button button-stable  icon ion-android-done "></button>
 		</div>       
         <form class="list">
             <label class="item item-input">
-                <input type="text" ng-model="topicoMock.titulo" placeholder="Titulo do Tópico *">
+                <input type="text" ng-model="topico.title" placeholder="Titulo do Tópico *">
             </label>
             <label class="item item-input">
-                <textarea ng-model="topicoMock.corpo" placeholder="Corpo do Tópico *">{{topicoMock.corpo}}</textarea>
+                <textarea ng-model="topico.body" placeholder="Corpo do Tópico *"></textarea>
             </label>
         </form>
     </ion-content>

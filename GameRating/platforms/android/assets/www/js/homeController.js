@@ -6,11 +6,11 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	$scope.showJogos = false;
 	
 $scope.search = function(busca){		
-	if(busca === undefined){
+	if(busca === undefined || busca === ""){
 		$scope.buscaVaziaPopup()
 	}else{
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/listJogos?busca="+busca
+		var request = "http://localhost:8080/listGamesByName?search="+busca
 		$http.get(request, headers).success(function(data) {
 			if(data.length === 0){
 				$scope.jogoNaoEncotradoPopup()
