@@ -86,37 +86,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 		return validade
 	}	
 }])
-   
-.controller('perfilCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-function ($scope, $stateParams, $ionicPopup) {
-	$scope.perfilMock;
-	
-	$scope.desabilitarPopup = function(){
-		var desabilitar = "desabilitar"
-			var confirmPopup = $ionicPopup.confirm({
-			       title: 'Desabilitar perfil',
-			       template: 'Quer ' + desabilitar + ' o seu perfil ?'
-			     });
-			confirmPopup.then(function(res) {
-				if(res) {
-					$scope.disable();
-				} else {
-					console.log('Cancelar');
-				}
-			});
-	}
-	
-	$scope.disable = function(){
-		console.log("Vou Desabilitar Você!!")
-	}
-	$scope.carregarPerfil = function(){
-		console.log("Carreguei o Perfil do usuario")
-		$scope.perfilMock = {nome:"leandro",email:"leandro.Malicheski@gmail.com",usuario:"leandroMalicheski",resposta:"Bob",imagePath:"teste"}
-		console.log($scope.perfilMock)
-	}	
-	
-}])
-  
+
 .controller('perfilUsuRioCtrl', ['$scope', '$stateParams', '$ionicPopup', 
 function ($scope, $stateParams, $ionicPopup) {
 	$scope.perfil

@@ -72,7 +72,6 @@ $scope.salvarRatingPopup = function(jogo){
 	confirmPopup.then(function(res) {
 		if(res) {
 			$scope.salvarRate(jogo);
-			alteracoesSalvasPopup($ionicPopup)
 		} else {
 			console.log('Cancelar');
 		}
