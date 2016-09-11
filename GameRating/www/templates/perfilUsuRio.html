@@ -1,4 +1,4 @@
-<body ng-app="app.controllers">
+<body ng-app="app.pefilUsuarioController">
 <ion-view title="Perfil Usuário">
     <ion-content padding="true" class="has-header" ng-controller="perfilUsuRioCtrl" ng-init="carregarPerfilUsuario()">
 	    <div>
@@ -11,12 +11,12 @@
             <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
         </div>
         <div>
-        	<h2 style="color:#000000;">{{perfil.usuario}}</h2>
+        	<h2 style="color:#000000;">{{perfil.login}}</h2>
             <p>
-            	<strong>Tópicos: </strong>{{perfil.topicos}}
+            	<strong>Tópicos: </strong>{{perfil.topics}}
             </p>
             <p>
-            	<strong>Comentários: </strong>{{perfil.comentarios}}</p>
+            	<strong>Comentários: </strong>{{perfil.comments}}</p>
         </div>
         <button type="button" ng-click="dislike()" class=" button button-light  icon-right ion-thumbsdown ">{{perfil.dislikes}}</button>
         <button type="button" ng-click="like()" class=" button button-light  icon-right ion-thumbsup ">{{perfil.likes}}</button>
