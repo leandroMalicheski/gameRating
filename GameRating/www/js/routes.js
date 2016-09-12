@@ -12,6 +12,7 @@ angular.module('app.routes', [])
 
       .state('menu.home', {
     url: '/home',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/home.html',
@@ -22,6 +23,7 @@ angular.module('app.routes', [])
 
   .state('menu.buscarUsuRio', {
     url: '/buscarUsuario',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/buscarUsuRio.html',
@@ -32,24 +34,28 @@ angular.module('app.routes', [])
 
   .state('menu', {
     url: '/side-menu',
+    cache: false,
     templateUrl: 'templates/menu.html',
     abstract:true
   })
 
   .state('login', {
     url: '/login',
+    cache: false,
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
 
   .state('cadastro', {
     url: '/cadastro',
+    cache: false,
     templateUrl: 'templates/cadastro.html',
     controller: 'cadastroCtrl'
   })
 
   .state('menu.perfil', {
     url: '/perfil',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/perfil.html',
@@ -60,6 +66,7 @@ angular.module('app.routes', [])
 
   .state('menu.perfilUsuRio', {
     url: '/perfilUsuario?id',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/perfilUsuRio.html',
@@ -70,6 +77,7 @@ angular.module('app.routes', [])
 
   .state('menu.editarPerfil', {
     url: '/editarPerfil',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/editarPerfil.html',
@@ -80,12 +88,14 @@ angular.module('app.routes', [])
 
   .state('esqueceuASenha', {
     url: '/esqueceuSenha',
+    cache: false,
     templateUrl: 'templates/esqueceuASenha.html',
     controller: 'esqueceuASenhaCtrl'
   })
 
   .state('menu.meusTPicos', {
     url: '/meusTopicos',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/meusTPicos.html',
@@ -96,6 +106,7 @@ angular.module('app.routes', [])
 
   .state('menu.tPicosOcultos', {
     url: '/topicosOcultos',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/tPicosOcultos.html',
@@ -106,6 +117,7 @@ angular.module('app.routes', [])
 
   .state('menu.meusComentRios', {
     url: '/meusComentarios?id',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/meusComentRios.html',
@@ -116,6 +128,7 @@ angular.module('app.routes', [])
 
   .state('menu.comentRiosOcultos', {
     url: '/comentariosOcultos?id',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/comentRiosOcultos.html',
@@ -126,6 +139,7 @@ angular.module('app.routes', [])
 
   .state('menu.meusComentRios2', {
     url: '/meusTopicosComentario',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/meusComentRios2.html',
@@ -136,6 +150,7 @@ angular.module('app.routes', [])
 
   .state('menu.comentRiosOcultos2', {
     url: '/topicosComentariosOcultos',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/comentRiosOcultos2.html',
@@ -146,6 +161,7 @@ angular.module('app.routes', [])
 
   .state('menu.editarTPico', {
     url: '/editarTopico?id',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/editarTPico.html',
@@ -156,6 +172,7 @@ angular.module('app.routes', [])
 
   .state('menu.editarComentRio', {
     url: '/editarComentario?id',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/editarComentRio.html',
@@ -166,6 +183,7 @@ angular.module('app.routes', [])
 
   .state('menu.cadastrarJogo', {
     url: '/cadastrarJogo',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/cadastrarJogo.html',
@@ -176,6 +194,7 @@ angular.module('app.routes', [])
 
   .state('menu.jogo', {
     url: '/jogoRating?id',
+    cache: false,
     views: {
         'side-menu21': {
         	templateUrl: 'templates/jogo.html',
@@ -186,6 +205,7 @@ angular.module('app.routes', [])
 
   .state('menu.jogo2', {
     url: '/jogo?id',
+    cache: false,
     views: {
         'side-menu21': {
           templateUrl: 'templates/jogo2.html',
@@ -196,6 +216,7 @@ angular.module('app.routes', [])
 
   .state('menu.jogo3', {
     url: '/jogoForum?id',
+    cache: false,
     views: {
         'side-menu21': {
         	templateUrl: 'templates/jogo3.html',
@@ -206,6 +227,7 @@ angular.module('app.routes', [])
 
   .state('menu.configuraEs', {
     url: '/configuracoes',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/configuraEs.html',
@@ -216,6 +238,7 @@ angular.module('app.routes', [])
 
   .state('menu.tempoDeFechamento', {
     url: '/fechamentoTopico',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/tempoDeFechamento.html',
@@ -226,6 +249,7 @@ angular.module('app.routes', [])
 
   .state('menu.calculoDeRate', {
     url: '/calculoRate',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/calculoDeRate.html',
@@ -236,6 +260,7 @@ angular.module('app.routes', [])
 
   .state('menu.relatRios', {
     url: '/relatorios',
+    cache: false,
     views: {
       'side-menu21': {
         templateUrl: 'templates/relatRios.html',
@@ -246,6 +271,7 @@ angular.module('app.routes', [])
 
   .state('menu.tPico', {
     url: '/topico?id',
+    cache: false,
     views: {
         'side-menu21': {
         	templateUrl: 'templates/tPico.html',
@@ -256,6 +282,7 @@ angular.module('app.routes', [])
   
   .state('menu.editarJogo', {
     url: '/editarJogo?id',
+    cache: false,
     views: {
         'side-menu21': {
         	templateUrl: 'templates/editarJogo.html',
@@ -266,6 +293,7 @@ angular.module('app.routes', [])
   
   .state('menu.cadastrarTopico', {
     url: '/cadastrarTopico?id',
+    cache: false,
     views: {
         'side-menu21': {
         	templateUrl: 'templates/cadastrarTopico.html',
@@ -275,7 +303,4 @@ angular.module('app.routes', [])
   })
 
 $urlRouterProvider.otherwise('/login')
-
-  
-
 });

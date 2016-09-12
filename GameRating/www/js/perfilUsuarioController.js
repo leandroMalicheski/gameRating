@@ -1,7 +1,10 @@
 angular.module('app.pefilUsuarioController', [])
-.controller('perfilUsuRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$http',
-function ($scope, $stateParams, $ionicPopup, $http) {
+.controller('perfilUsuRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$http', '$window',
+function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.perfil
+	$scope.thumbsupDisable = false;
+	$scope.thumbsdownDisable = false;
+	
 	var id = $stateParams.id
 	$scope.carregarPerfilUsuario = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
@@ -9,14 +12,53 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 		$http.get(request, headers).success(function(data) {
 			if(data.length !== 0){
 				$scope.perfil = data
+				user = JSON.parse($window.localStorage['userOn'] || '[]');
+				params =  {params: {profileId: data.id,userId:user.id}}
+				$http.get('http://localhost:8080/checkReputation',params, headers).success(function(data) {
+					if(data.reputation !== ""){
+						if(data.reputation === 0 || data.reputation === '0'){
+							$scope.thumbsupDisable = true;
+						}else{
+							$scope.thumbsdownDisable = true;
+						}
+					}
+				});
+			}
+		});
+	}
+	
+	$scope.like = function (){
+		$scope.thumbsupDisable = true;
+		$scope.thumbsdownDisable = false;
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		user = JSON.parse($window.localStorage['userOn'] || '[]');
+		parameters = {params: {profileId: $scope.perfil.id,userId:user.id}}
+		$http.get("http://localhost:8080/giveLike",parameters, headers).success(function(data) {
+			if(data.login !== "" || data.login !== null){
+				$scope.perfil = data	
+			}
+		});
+	}
+	
+	$scope.dislike = function (){
+		$scope.thumbsupDisable = false;
+		$scope.thumbsdownDisable = true;
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		user = JSON.parse($window.localStorage['userOn'] || '[]');
+		parameters = {params: {profileId: $scope.perfil.id,userId:user.id}}
+		$http.get("http://localhost:8080/giveDislike",parameters, headers).success(function(data) {
+			if(data.login !== "" || data.login !== null){
+				$scope.perfil = data	
 			}
 		});
 	}
 	
 	$scope.transformarModerador = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateUserProfile", $scope.perfil, headers).success(function(data) {});
-		$scope.usuarioModeradorPopup()
+		$http.post("http://localhost:8080/updateUserProfile", $scope.perfil, headers).success(function(data) {
+			$scope.perfil = data
+			$scope.usuarioModeradorPopup()
+		});
 	}
 	
 	$scope.alterarSenha = function(){
@@ -28,24 +70,28 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.desabilitar = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/disableUser", $scope.perfil, headers).success(function(data) {});
-		$scope.usuarioDesabilitadoPopup()
+		$http.post("http://localhost:8080/disableUser", $scope.perfil, headers).success(function(data) {
+			$scope.perfil = data;
+			$scope.usuarioDesabilitadoPopup()
+		});
 	}
 	
 	$scope.bloquear = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/blockUser", $scope.perfil, headers).success(function(data) {});
-		$scope.usuarioBloqueadoPopup()
+		$http.post("http://localhost:8080/blockUser", $scope.perfil, headers).success(function(data) {
+			$scope.perfil = data
+			$scope.usuarioBloqueadoPopup()
+		});
 	}
 	
 	$scope.transformarModeradorPopup = function(){
 		var moderador = "adicionar"
-		if($scope.profile == 1){
+		if($scope.perfil.profile == 1){
 			moderador = "remover"
 		}
 		var confirmPopup = $ionicPopup.confirm({
 		       title: 'Transformar em moderador',
-		       template: 'Gostaria de' + moderador + ' o status de moderador do usuario ?'
+		       template: 'Gostaria de ' + moderador + ' o status de moderador do usuario ?'
 		     });
 		confirmPopup.then(function(res) {
 			if(res) {
@@ -86,7 +132,7 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.desabilitarPopup = function(){
 		var habilitado = "habilitar" 
-		if(perfil.visible){
+		if($scope.perfil.visible){
 			habilitado = "desabilitar"
 		}
 		var confirmPopup = $ionicPopup.confirm({
@@ -104,7 +150,7 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.usuarioDesabilitadoPopup = function(){
 		var desabilitar = "desabilitado"							
-		if(perfil.visible){
+		if($scope.perfil.visible){
 			delabilitar = "habilitado"
 		}
 			var alertPopup = $ionicPopup.alert({
@@ -115,7 +161,7 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.bloquearPopup = function(){
 		var bloquear = "bloquear" 
-		if(perfil.blocked){
+		if($scope.perfil.blocked){
 			habilitado = "desbloquear"
 		}
 		var confirmPopup = $ionicPopup.confirm({
@@ -133,30 +179,12 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.usuarioBloqueadoPopup = function(){
 		var bloquear = "desbloqueado" 
-		if(perfil.blocked){
+		if($scope.perfil.blocked){
 			habilitado = "desbloquear"
 		}
 		var alertPopup = $ionicPopup.alert({
 				title: 'Desabilitar',
 				template: 'O usuário foi '+bloquear+' com sucesso'
 		});
-	}
-	
-	$scope.like = function (){
-		console.log("Vou dar like")
-		console.log("Antes:")
-		console.log($scope.perfil.likes)
-		$scope.perfil.likes = $scope.perfil.likes+1
-		console.log("Depois:")
-		console.log($scope.perfil.likes)
-	}
-	
-	$scope.dislike = function (){
-		console.log("Vou dar dislike")
-		console.log("Antes:")
-		console.log($scope.perfil.dislikes)
-		$scope.perfil.dislikes = $scope.perfil.dislikes+1
-		console.log("Depois:")
-		console.log($scope.perfil.dislikes)
 	}
 }])
