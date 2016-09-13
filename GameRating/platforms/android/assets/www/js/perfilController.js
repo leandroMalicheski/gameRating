@@ -1,12 +1,13 @@
 angular.module('app.perfilController', [])
 
-.controller('perfilCtrl', ['$scope', '$stateParams', '$ionicPopup', '$window',
-function ($scope, $stateParams, $ionicPopup, $window) {
+.controller('perfilCtrl', ['$scope', '$stateParams', '$ionicPopup', '$window', '$http',
+function ($scope, $stateParams, $ionicPopup, $window, $http) {
 	$scope.perfil;
+	$scope.disableIcon = "ion-eye"
 	
 	$scope.desabilitarPopup = function(){
 		var desabilitar = "desabilitar"
-		if(!perfil.visible){
+		if(!$scope.perfil.visible){
 			desabilitar = "habilitar"
 		}
 		var confirmPopup = $ionicPopup.confirm({
@@ -23,14 +24,21 @@ function ($scope, $stateParams, $ionicPopup, $window) {
 	}
 	
 	$scope.disable = function(){
-		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/disableUser?id="+$scope.perfil
-		$http.get(request, headers).success(function(data) {
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/disableUser", $scope.perfil, headers).success(function(data) {
 			$scope.perfil = data
+			if($scope.perfil.visible){
+				$scope.disableIcon = "ion-eye"
+			}else{
+				$scope.disableIcon = "ion-eye-disabled"
+			}
 		});
 	}
 	$scope.carregarPerfil = function(){
 		$scope.perfil = JSON.parse($window.localStorage['userOn'] || '[]');
+		if(!$scope.perfil.visible){
+			$scope.disableIcon = "ion-eye-disabled"
+		}
 	}	
 	
 }])

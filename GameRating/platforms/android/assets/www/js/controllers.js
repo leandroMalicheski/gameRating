@@ -36,117 +36,6 @@ function ($scope, $stateParams, $ionicPopup) {
 	}
 
 }])
-
-.controller('editarPerfilCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', 
-function ($scope, $stateParams, $ionicPopup, $state) {
-	$scope.perfil
-	$scope.carregarPerfil = function(){
-		console.log("Carreguei o perfil editar o Perfil")
-		$scope.perfil = {nome:"leandro",email:"leandro.Malicheski@gmail.com",usuario:"leandroMalicheski",resposta:"Bob",imagePath:"teste",senha:"123",senhaI:"123"}
-		console.log($scope.perfil)
-	}
-	
-	$scope.salvarPopup = function(perfil){
-			var confirmPopup = $ionicPopup.confirm({
-			       title: 'Salvar',
-			       template: 'Quer salvar suas alterações ?'
-			     });
-			confirmPopup.then(function(res) {
-				if(res) {
-					if($scope.validaCampos(perfil)){
-						alteracoesSalvasPopup($ionicPopup)
-						$scope.salvar(perfil);	
-						$state.go('menu.editarPerfil',{})
-					}
-				} else {
-					console.log('Cancelar');
-				}
-			});
-	}
-	
-	$scope.validaCampos = function(perfil){
-		if(perfil.nome === undefined || perfil.nome === ""){
-			preenchaCamposPopup($ionicPopup)
-		}else if (validaEmail(perfil.email, $ionicPopup)){
-			return true
-		}else if (perfil.resposta === undefined || perfil.resposta === ""){
-			preenchaCamposPopup($ionicPopup)
-		}else{
-			return true
-		}
-	}
-	
-	$scope.alterarSenhaPopup = function(){
-		$scope.data = {}
-		var myPopup = $ionicPopup.show({
-		       title: 'Alterar a senha',
-		       template: 'Nova Senha:<input type="password" ng-model="data.senha"> <br> Confirmar Nova Senha:<input type="password" ng-model="data.confirmarSenha" > <br> Antiga Senha:<input type="password" ng-model="data.senhaAntiga" > ',
-		       scope: $scope,
-		       buttons: [{
-		           text: 'Cancel'
-		        }, {
-		        	text: '<b>Salvar</b>',
-		            type: 'button-positive',
-		            onTap: function(e) {
-			            if (!$scope.data.senha) {
-			            	e.preventDefault();
-			            } else {
-			            	if($scope.validaSenhas($scope.data)){
-			            		$scope.alterarSenha($scope.data)			            		
-			            		alteracoesSalvasPopup($ionicPopup)
-			            	}else{
-			            		alterarSenhaPopup()
-			            	}
-			            }
-		           }
-		        }, ]
-		});
-	}
-	
-	$scope.validaSenhas = function(data){
-		var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
-		if(data.senha === undefined || data.senha === "" || data.confirmarSenha === undefined || data.confirmarSenha === "" || data.senhaAntiga === undefined || data.senhaAntiga === ""){
-			preenchaCamposPopup($ionicPopup)
-			return false
-		}else if (data.senha === data.confirmarSenha ){
-			if(data.senhaAntiga === $scope.perfil.senha){
-				if(mediumRegex.test(data.senha)){
-					return true
-				}else{
-					senhaFracaPopup($ionicPopup)
-					return false
-				}	
-			}else{
-				$scope.senhaAntigaInvalidaPopup($ionicPopup)
-			}
-		}else{
-			senhasDiferentesPopup($ionicPopup)
-			return false
-		}
-	}
-	
-	$scope.senhaAntigaInvalidaPopup = function(ionicPopup){
-		var alertPopup = ionicPopup.alert({
-			title: 'Senha Antiga Inválida',
-			template: 'A senha antiga encontra-se incorreta'
-		});
-	}
-	
-	$scope.alterarSenha = function(data){
-		console.log("Vou Alterar a senha")
-		console.log(data)
-	}
-	
-	$scope.salvar = function(perfil){
-		console.log("vou Salvar esse cara!")
-		console.log(perfil)
-	}
-	
-	$scope.carregarImagem = function(){
-		console.log("Carregar Imagem")
-	}
-
-}])
    
 .controller('esqueceuASenhaCtrl', ['$scope', '$stateParams',  '$ionicPopup', '$state', '$http',
 function ($scope, $stateParams, $ionicPopup, $state, $http) {
@@ -161,7 +50,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 				if(data.login === null){
 					$scope.informeRespostaPopup()
 				} else{
-					$http.post("http://localhost:8080/updateUserPassword", usuario, headers).success(function(data) {
+					$http.post("http://localhost:8080/generateUserPassword", usuario, headers).success(function(data) {
 						$scope.senhaGeradaPopup(data.passwordGenerated)																	
 					});					
 				}																	
@@ -183,20 +72,6 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 		});
 	}
 
-}])
-   
-.controller('meusTPicosCtrl', ['$scope', '$stateParams', 
-function ($scope, $stateParams) {
-	$scope.topicosMock 
-	
-	$scope.carregarTopicos = function(){
-		console.log("Carreguei os Topicos")
-		$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
-		console.log($scope.topicosMock)		
-	}
-	
-	
-	
 }])
    
 .controller('tPicosOcultosCtrl', ['$scope', '$stateParams', '$ionicPopup',
@@ -263,21 +138,7 @@ function ($scope, $stateParams, $ionicPopup) {
 	}
 }])
    
-.controller('meusComentRios2Ctrl', ['$scope', '$stateParams', 
-function ($scope, $stateParams) {
-	$scope.topicosMock
-	
-	$scope.carregarTopicos = function (){
-		$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
-		console.log("Carreguei a Tela dos meus topicos/comentarios")
-		console.log($scope.topicosMock)		
-	}
-	
-}])
-   
 .controller('comentRiosOcultos2Ctrl', ['$scope', '$stateParams', 
-
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
 	console.log("Carreguei a tela de Comentarios Ocultos")

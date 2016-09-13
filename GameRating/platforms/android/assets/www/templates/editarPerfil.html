@@ -1,5 +1,5 @@
-<body ng-app="app.controllers">
-<ion-view title="Editar Perfil" id="page16">
+<body ng-app="app.editarPerfilController">
+<ion-view title="Editar Perfil">
     <ion-content padding="true" class="has-header" ng-controller="editarPerfilCtrl" ng-init="carregarPerfil()">
     <div>
     	<button type="button" ng-click="alterarSenhaPopup()" class=" button button-stable  icon ion-ios-settings "></button>
@@ -12,20 +12,17 @@
         </div>
         <div>
             <label class="item item-input">
-                <input type="text" value ={{perfil.nome}} ng-model="perfil.nome">
+                <input type="text" value ={{perfil.name}} ng-model="perfil.name">
             </label>
             <label class="item item-input">
                 <input type="email" value ={{perfil.email}} ng-model="perfil.email">
             </label>
             <label class="item item-input">
-                <input type="text" value ={{perfil.usuario}} ng-model="perfil.usuario" disabled>
-            </label>
-            <label class="item item-input">
-                <input type="password" value ={{perfil.senha}} ng-model="perfil.senha" disabled>
+                <input type="text" value ={{perfil.login}} ng-model="perfil.login" disabled>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Qual o nome do seu cachorro ?</span>
-                <input type="text" value ={{perfil.resposta}} ng-model="perfil.resposta">
+                <input type="text" value ={{perfil.passwordTip}} ng-model="perfil.passwordTip">
             </label>
         </div>
     </ion-content>
