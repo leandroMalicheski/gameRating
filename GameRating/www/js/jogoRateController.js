@@ -4,6 +4,7 @@ angular.module('app.jogoRateController', [])
 function ($scope, $stateParams,$ionicPopup, $http,$window) {
 	var id = $stateParams.id
 	$scope.jogo
+	$scope.gameDisable = "ion-eye"
 	$scope.isInsert = false;
 	
 	$scope.icon1Rate = 'ion-android-star-outline'
@@ -46,15 +47,16 @@ $scope.carregarJogo = function(){
 			$http.get(request, headers).success(function(data2) {
 				$scope.jogo = data2;
 				$scope.isInsert = true;
-				
 				$scope.definirRate(data2)
 				$scope.definirJogabilidadeRate(data2)
 				$scope.definirDiversaoRate(data2)
 				$scope.definirAudioRate(data2)
 				$scope.definirImersaoRate(data2)
+				$scope.checkVisibleClass($scope.jogo.isVisible)
 			});	
 		}else{
 			$scope.jogo = data
+			$scope.checkVisibleClass($scope.jogo.isVisible)
 			$scope.definirRate(data)
 			$scope.definirJogabilidadeRate(data)
 			$scope.definirDiversaoRate(data)
@@ -115,8 +117,17 @@ $scope.ocultar = function(){
 	var headers = {headers : {'Content-Type' : 'application/json'}};
 	$http.post("http://localhost:8080/hideGame", $scope.jogo, headers).success(function(data) {
 		$scope.jogo = data
+		$scope.checkVisibleClass($scope.jogo.isVisible)
 		alteracoesSalvasPopup($ionicPopup)
 	});
+}
+
+$scope.checkVisibleClass = function(visibility){
+	if(visibility){
+		$scope.gameDisable = "ion-eye"
+	}else{
+		$scope.gameDisable = "ion-eye-disabled"
+	}
 }
    
 $scope.definirRate = function(data){

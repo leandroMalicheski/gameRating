@@ -2,6 +2,7 @@ angular.module('app.jogoController', [])
 .controller('jogo2Ctrl', ['$scope', '$stateParams','$ionicPopup', '$http', 
 function ($scope, $stateParams, $ionicPopup, $http) {
 	$scope.jogo
+	$scope.gameDisable = "ion-eye"
 	var id = $stateParams.id
 	
 	$scope.carregarJogo = function(){
@@ -9,7 +10,16 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 		var request = "http://localhost:8080/getJogoById?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.jogo = data;
+			$scope.checkVisibleClass($scope.jogo.isVisible)
 		});	
+	}
+	
+	$scope.checkVisibleClass = function(visibility){
+		if(visibility){
+			$scope.gameDisable = "ion-eye"
+		}else{
+			$scope.gameDisable = "ion-eye-disabled"
+		}
 	}
 	
 	$scope.ocultarPopup = function(){
@@ -34,6 +44,11 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		$http.post("http://localhost:8080/hideGame", $scope.jogo, headers).success(function(data) {
 			$scope.jogo = data
+			if($scope.jogo.isVisible){
+				$scope.gameDisable = "ion-eye"
+			}else{
+				$scope.gameDisable = "ion-eye-disabled"
+			}
 			alteracoesSalvasPopup($ionicPopup)
 		});
 	}

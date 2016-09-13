@@ -16,10 +16,19 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 				if(data.length !== 0){
 					$scope.topicos = data;
 					$scope.showTopics = true
+					$scope.checkVisibleClass($scope.jogo.isVisible)
 				}
 			});	
 		});
 			
+	}
+	
+	$scope.checkVisibleClass = function(visibility){
+		if(visibility){
+			$scope.gameDisable = "ion-eye"
+		}else{
+			$scope.gameDisable = "ion-eye-disabled"
+		}
 	}
 	
 	$scope.ocultarPopup = function(){
@@ -44,6 +53,11 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		$http.post("http://localhost:8080/hideGame", $scope.jogo, headers).success(function(data) {
 			$scope.jogo = data
+			if($scope.jogo.isVisible){
+				$scope.gameDisable = "ion-eye"
+			}else{
+				$scope.gameDisable = "ion-eye-disabled"
+			}
 			alteracoesSalvasPopup($ionicPopup)
 		});
 	}

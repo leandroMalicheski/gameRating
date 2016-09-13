@@ -1,19 +1,19 @@
-<body ng-app="app.controllers">
+<body ng-app="app.editarTopicoController">
 <ion-view title="Editar Tópico">
     <ion-content padding="true" class="has-header" ng-controller="editarTPicoCtrl" ng-init="carregarTopico()">
 		<div>
-	        <button ng-click="fecharPopup()" type="button" class=" button button-stable  icon ion-eye "></button>
+	        <button ng-click="fecharPopup()" type="button" class=" button button-stable  icon" ng-class="topicoDisable"></button>
 	        <button ng-click="removerPopup()" type="button" class=" button button-stable  icon ion-android-delete "></button>
-	        <button ng-click="adicionarImagem(topicoMock)" type="button" class=" button button-stable  icon ion-android-attach "></button>
-	        <button ng-click="addLinkPopup(topicoMock)" type="button" class=" button button-stable  icon ion-link "></button>
-	        <button ng-click="salvarPopup(topicoMock)" type="button" class=" button button-stable  icon ion-android-done "></button>
+	        <button ng-click="adicionarImagem(topico)" type="button" class=" button button-stable  icon ion-android-attach "></button>
+	        <button ng-click="addLinkPopup(topico)" type="button" class=" button button-stable  icon ion-link "></button>
+	        <button ng-click="salvarPopup(topico)" type="button" class=" button button-stable  icon ion-android-done "></button>
 		</div>       
         <form class="list">
             <label class="item item-input">
-                <input type="text" ng-model="topicoMock.titulo" value="{{topicoMock.titulo}}">
+                <input type="text" ng-model="topico.title" value="{{topico.title}}">
             </label>
             <label class="item item-input">
-                <textarea ng-model="topicoMock.corpo">{{topicoMock.corpo}}</textarea>
+                <textarea ng-model="topico.body">{{topico.body}}</textarea>
             </label>
         </form>
     </ion-content>
