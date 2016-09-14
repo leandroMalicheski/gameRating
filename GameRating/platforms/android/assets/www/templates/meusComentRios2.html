@@ -1,7 +1,10 @@
 <body ng-app="app.controllers">
 <ion-view title="Meus Comentários">
     <ion-content padding="true" class="has-header" ng-controller="meusComentRios2Ctrl" ng-init="carregarTopicos()">
-        <ion-list>
+       <div style="color: #000000; text-align: center" ng-hide="showTopicos">
+			<p>Você não possui comentários ainda.</p>
+	   </div>
+       <ion-list ng-show="showTopicos">
 	       <ion-item ng-repeat="topico in topicos" ui-sref="menu.meusComentRios({id:{{topico.id}}})" class="item-icon-right" >
 	       		{{topico.title}}
            </ion-item>

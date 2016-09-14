@@ -2,14 +2,14 @@
 <ion-view title="Editar Comentário">
     <ion-content padding="true" class="has-header" ng-controller="editarComentRioCtrl" ng-init="carregarComentario()">
         <div> 
-			<button ng-click="removerPopup()" type="button" id="editarTPico-button19" class=" button button-stable  icon ion-android-delete "></button>
-	        <button ng-click="adicionarImagem(cometarioMock)" type="button" id="editarTPico-button22" class=" button button-stable  icon ion-android-attach "></button>
-	        <button ng-click="addLinkPopup(cometarioMock)" type="button" id="editarTPico-button23" class=" button button-stable  icon ion-link "></button>
-	        <button ng-click="salvarPopup(cometarioMock)" type="button" id="editarTPico-button20" class=" button button-stable  icon ion-android-done "></button>
+			<button ng-click="removerPopup()" type="button" class=" button button-stable  icon ion-android-delete "></button>
+	        <button ng-click="adicionarImagem(cometario)" type="button" class=" button button-stable  icon ion-android-attach "></button>
+	        <button ng-click="addLinkPopup(cometario)" type="button" class=" button button-stable  icon ion-link "></button>
+	        <button ng-click="salvarPopup(cometario)" type="button" class=" button button-stable  icon ion-android-done "></button>
         </div>
         <div class="list ">
             <label class="item item-input">
-                <input type="text" ng-model="cometarioMock.corpo" value="{{cometarioMock.corpo}}">
+                <input type="text" ng-model="cometario.body" value="{{cometario.body}}">
             </label>
         </div>
     </ion-content>

@@ -3,9 +3,9 @@ angular.module('app.editarTopicoController', [])
 function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http) {
 	$scope.topico
 	$scope.topicoLocked = "ion-unlocked"
+	var id = $stateParams.id
 		
 	$scope.carregarTopico = function(){
-		var id = $stateParams.id
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var request = "http://localhost:8080/getTopicById?id="+id
 		$http.get(request, headers).success(function(data) {
@@ -14,31 +14,26 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http) {
 		});
 	}
 	
-	$scope.fecharPopup = function (){
-		var fechar = "fechar"
-			var confirmPopup = $ionicPopup.confirm({
-			       title: 'Fechar Topico',
-			       template: 'Quer ' + fechar + ' este topico ?'
-			     });
-			confirmPopup.then(function(res) {
-				if(res) {
-					$scope.fechar();
-				} else {
-					console.log('Cancelar');
-				}
-			});
+	$scope.salvar = function(topicoNovo){
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/updateTopic", $scope.topico, headers).success(function(data) {});
 	}
 	
 	$scope.fechar = function(){
-		console.log("Vou fechar o Tópico")
-		$scope.topicoFechadoPopup()
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/updateCloseStatus", $scope.topico, headers).success(function(data) {
+			$scope.topico = data;
+			$scope.checkVisibleClass($scope.topico.closed)
+			$scope.topicoFechadoPopup()
+		});
 	}
-	
-	$scope.topicoFechadoPopup = function(){
-		var fechar = "fechado"
-		var alertPopup = $ionicPopup.alert({
-			title: 'Fechar Tópico',
-			template: 'O tópico foi '+fechar+' com sucesso'
+
+	$scope.remover = function(){
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/removeTopic", $scope.topico, headers).success(function(data) {
+			$scope.topicoRemovidoPopup()
+			$ionicHistory.nextViewOptions({disableBack: true});
+			$state.go('menu.meusTPicos',{})
 		});
 	}
 	
@@ -57,20 +52,39 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http) {
 	}
 	
 	$scope.topicoRemovidoPopup = function(){
-		var remover = "removido"
 		var alertPopup = $ionicPopup.alert({
 			title: 'Fechar Tópico',
-			template: 'O tópico foi '+remover+' com sucesso'
+			template: 'O tópico foi removido com sucesso'
 		});
 	}
 	
-	$scope.remover = function(){
-		console.log("Vou remover o Tópico")
-		$scope.topicoRemovidoPopup()
-		$ionicHistory.nextViewOptions({
-			disableBack: true
+	$scope.fecharPopup = function (){
+		var fechar = "fechar"
+		if($scope.topico.closed){
+			fechar = "reabrir"
+		}
+		var confirmPopup = $ionicPopup.confirm({
+		       title: 'Fechar Topico',
+		       template: 'Gostaria de ' + fechar + ' este topico ?'
 		});
-		$state.go('menu.meusTPicos',{})
+		confirmPopup.then(function(res) {
+			if(res) {
+				$scope.fechar();
+			} else {
+				console.log('Cancelar');
+			}
+		});
+	}
+	
+	$scope.topicoFechadoPopup = function(){
+		var	fechar = "reaberto"
+		if($scope.topico.closed){
+			fechar = "fechado"
+		}
+		var alertPopup = $ionicPopup.alert({
+			title: 'Fechar Tópico',
+			template: 'O tópico foi '+fechar+' com sucesso'
+		});
 	}
 	
 	$scope.addLinkPopup = function(topicoNovo){
@@ -88,18 +102,13 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http) {
 			            if (!$scope.data.link) {
 			            	e.preventDefault();
 			            } else {
-			            	topicoNovo.corpo = topicoNovo.corpo + ' ' + $scope.data.link  
-			            	$scope.addLink(topicoNovo)
+			            	topicoNovo.body = topicoNovo.body + ' ' + $scope.data.link  
 			            }
 		           }
 		        }, ]
 		});
 	}
 	
-	$scope.addLink = function(topicoNovo){
-		console.log("Vou adicionar um link")
-		console.log(topicoNovo)
-	}
 	$scope.adicionarImagem = function(topicoNovo){
 		console.log("Vou adicionar Imagem o Tópico")
 		console.log(topicoNovo)
@@ -125,16 +134,11 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http) {
 	}
 	
 	$scope.validaCampos = function(topicoNovo){
-		if(topicoNovo.titulo === undefined || topicoNovo.titulo === "" || topicoNovo.corpo === undefined || topicoNovo.corpo === ""){
+		if(topicoNovo.title === undefined || topicoNovo.title === "" || topicoNovo.body === undefined || topicoNovo.body === ""){
 			return false
 		}else{
 			return true
 		}
-	}
-	
-	$scope.salvar = function(topicoNovo){
-		console.log("Vou salvar o Tópico")
-		console.log(topicoNovo)
 	}
 	
 	$scope.checkVisibleClass = function(locked){

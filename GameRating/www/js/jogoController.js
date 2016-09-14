@@ -42,7 +42,7 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.ocultar = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/hideGame", $scope.jogo, headers).success(function(data) {
+		$http.post("http://localhost:8080/updateVisibility", $scope.jogo, headers).success(function(data) {
 			$scope.jogo = data
 			if($scope.jogo.isVisible){
 				$scope.gameDisable = "ion-eye"

@@ -10,7 +10,10 @@ function ($scope, $stateParams, $http, $window) {
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var request = "http://localhost:8080/getUserCommentedTopics?id="+$scope.user.id
 		$http.get(request, headers).success(function(data) {
-			$scope.topicos = data
+			if(data.length > 0) {
+				$scope.topicos = data
+				$scope.showTopicos = true;
+			}
 		});
 	}
 }])

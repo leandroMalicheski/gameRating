@@ -70,7 +70,7 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	
 	$scope.desabilitar = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/disableUser", $scope.perfil, headers).success(function(data) {
+		$http.post("http://localhost:8080/updateDisableStatus", $scope.perfil, headers).success(function(data) {
 			$scope.perfil = data;
 			$scope.usuarioDesabilitadoPopup()
 		});
@@ -78,7 +78,7 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	
 	$scope.bloquear = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/blockUser", $scope.perfil, headers).success(function(data) {
+		$http.post("http://localhost:8080/updateBlockStatus", $scope.perfil, headers).success(function(data) {
 			$scope.perfil = data
 			$scope.usuarioBloqueadoPopup()
 		});

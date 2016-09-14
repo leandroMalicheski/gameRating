@@ -98,18 +98,6 @@ function ($scope, $stateParams, $ionicPopup) {
 	}
 }])
    
-.controller('meusComentRiosCtrl', ['$scope', '$stateParams', 
-function ($scope, $stateParams) {
-	$scope.comentariosMock;
-	
-	$scope.carregarComentarios = function(){
-		$scope.comentariosMock = [{id:1,corpo:"Corpo do comentario 1"},{id:2,corpo:"Corpo do comentario 2"},{id:3,corpo:"Corpo do comentario 3"}]
-		console.log("Carreguei a Tela de Comentarios")
-		console.log("cheguei e estou com id abaixo:")
-		console.log($stateParams.id)		
-	}
-}])
-   
 .controller('comentRiosOcultosCtrl', ['$scope', '$stateParams', '$ionicPopup',
 function ($scope, $stateParams, $ionicPopup) {
 	var id = $stateParams.id
@@ -143,105 +131,6 @@ function ($scope, $stateParams) {
 	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
 	console.log("Carreguei a tela de Comentarios Ocultos")
 	console.log($scope.topicosMock)
-}])
-   
-.controller('editarComentRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicHistory', '$state',  
-function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state) {
-	$scope.cometarioMock
-
-	$scope.carregarComentario = function(){
-		$scope.cometarioMock = {id:1,corpo:"Corpo do Comentario"}
-		console.log("Carreguei a Tela de editar comentarios")
-		console.log("Cheguei e estou com id abaixo:")
-		console.log($stateParams.id)		
-	}
-	
-	$scope.addLinkPopup = function(comentarioNovo){
-		$scope.data = {}
-		var myPopup = $ionicPopup.show({
-		       title: 'Adicionar Link',
-		       template: 'Link:<input type="text" ng-model="data.link" placeholder="cole o link aqui">',
-		       scope: $scope,
-		       buttons: [{
-		           text: 'Cancel'
-		        }, {
-		        	text: '<b>Adicionar</b>',
-		            type: 'button-positive',
-		            onTap: function(e) {
-			            if (!$scope.data.link) {
-			            	e.preventDefault();
-			            } else {
-			            	comentarioNovo.corpo = comentarioNovo.corpo + ' ' + $scope.data.link  
-			            	$scope.addLink(comentarioNovo)
-			            }
-		           }
-		        }, ]
-		});
-	}
-	
-	$scope.addLink = function(comentarioNovo){
-		console.log("Vou adicionar um link")
-		console.log(comentarioNovo)
-	}
-	
-	$scope.removerPopup = function (){
-		var confirmPopup = $ionicPopup.confirm({
-		     title: 'Apagar Comentário',
-		     template: 'Quer apagar este comentário ?'
-		});
-		confirmPopup.then(function(res) {
-			if(res) {
-				$scope.remover();
-				
-			} else {
-				console.log('Cancelar');
-			}
-		});
-	}
-	
-	$scope.comentarioRemovidoPopup = function(){
-		var remover = "removido"
-		var alertPopup = $ionicPopup.alert({
-			title: 'Remover Comentário',
-			template: 'O comentário foi '+remover+' com sucesso'
-		});
-	}
-	
-	$scope.remover = function(){
-		console.log("Vou remover o Comentario")
-		$scope.comentarioRemovidoPopup()
-		$ionicHistory.nextViewOptions({
-			disableBack: true
-		});
-		$state.go('menu.meusComentRios2',{})
-	}
-	
-	
-	
-	$scope.adicionarImagem = function(topicoNovo){
-		console.log("Vou adicionar Imagem o Comentario")
-		console.log(topicoNovo)
-	}
-	
-	$scope.salvarPopup = function (topicoNovo){
-		var confirmPopup = $ionicPopup.confirm({
-		     title: 'Salvar Alterações',
-		     template: 'Salvar suas alterações ?'
-		});
-		confirmPopup.then(function(res) {
-			if(res) {
-				$scope.salvar(topicoNovo);
-				alteracoesSalvasPopup($ionicPopup)
-			} else {
-				console.log('Cancelar');
-			}
-		});
-	}
-	
-	$scope.salvar = function(topicoNovo){
-		console.log("Vou salvar o Comentario")
-		console.log(topicoNovo)
-	}
 }])
    
 .controller('cadastrarJogoCtrl', ['$scope', '$stateParams', '$ionicPopup', 
