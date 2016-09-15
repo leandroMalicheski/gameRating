@@ -16,10 +16,10 @@
 			</button>
 		</div>
         <div class="list" ng-show="showUsuarios">
-		<div ng-repeat="usuario in usuariosMock">
+		<div ng-repeat="usuario in usuarios">
 			<a class="item item-thumbnail-left"	ui-sref="menu.perfilUsuRio({id:{{usuario.id}}})"> 
 				<img src="../img/defaultImage.jpg">
-				<h2>{{usuario.usuario}}</h2>
+				<h2>{{usuario.login}}</h2>
 			</a>
 		</div>
 	</div>

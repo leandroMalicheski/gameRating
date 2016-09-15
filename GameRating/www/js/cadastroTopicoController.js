@@ -30,7 +30,6 @@ $scope.addLinkPopup = function(topicoNovo){
 		            	e.preventDefault();
 		            } else {
 		            	topicoNovo.body = topicoNovo.body + ' ' + $scope.data.link  
-		            	$scope.addLink(topicoNovo)
 		            }
 	           }
 	        }, ]

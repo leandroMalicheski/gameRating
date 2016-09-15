@@ -1,42 +1,5 @@
 angular.module('app.controllers', [])
   
-.controller('buscarUsuRioCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-function ($scope, $stateParams, $ionicPopup) {
-	console.log("Carreguei a Tela de buscar usuario!")
-	$scope.usuariosMock;
-	$scope.showUsuarios = false;
-	
-	$scope.search = function(busca){		
-		if(busca === undefined){
-			$scope.buscaVaziaPopup()
-		}else{
-			console.log("Chamei a Busca")
-			console.log(busca)
-			if(busca === "eu"){
-				$scope.showUsuarios = true;
-				$scope.usuariosMock = [{id:1,usuario:"Eu"},{id:2,usuario:"Outro"}]
-			}else{
-				$scope.usuarioNaoEncotradoPopup()
-			}
-		}
-	}
-	
-	$scope.buscaVaziaPopup = function(){
-		var alertPopup = $ionicPopup.alert({
-			title: 'Busca Vazia',
-			template: 'Favor informar um usuário'
-		});
-	}
-	
-	$scope.usuarioNaoEncotradoPopup = function(){
-		var alertPopup = $ionicPopup.alert({
-			title: 'Jogo Não Encontrado',
-			template: 'Nenhum jogo foi encontrado para esta busca'
-		});
-	}
-
-}])
-   
 .controller('esqueceuASenhaCtrl', ['$scope', '$stateParams',  '$ionicPopup', '$state', '$http',
 function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	console.log("carreguei a Tela de Esqueci minha senha")
@@ -74,30 +37,6 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 
 }])
    
-.controller('tPicosOcultosCtrl', ['$scope', '$stateParams', '$ionicPopup',
-function ($scope, $stateParams, $ionicPopup) {
-	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
-	
-	$scope.removerOcultacaoPopup = function(comentarios){
-		var confirmPopup = $ionicPopup.confirm({
-		       title: 'Remover Ocultação',
-		       template: 'Gostaria de remover a ocultação deste(s) Tópicos ?'
-		     });
-		confirmPopup.then(function(res) {
-			if(res) {
-				$scope.removerOcultacao(comentarios);
-			} else {
-				console.log('Cancelar');
-			}
-		});
-	}
-	
-	$scope.removerOcultacao = function(comentarios){
-		console.log("Vou remover a ocultação deste(s) jogos o jogo com o id:")
-		console.log(comentarios)
-	}
-}])
-   
 .controller('comentRiosOcultosCtrl', ['$scope', '$stateParams', '$ionicPopup',
 function ($scope, $stateParams, $ionicPopup) {
 	var id = $stateParams.id
@@ -124,13 +63,6 @@ function ($scope, $stateParams, $ionicPopup) {
 		console.log("Vou remover a ocultação deste(s) jogos o jogo com o id:")
 		console.log(comentarios)
 	}
-}])
-   
-.controller('comentRiosOcultos2Ctrl', ['$scope', '$stateParams', 
-function ($scope, $stateParams) {
-	$scope.topicosMock = [{titulo:"Topico1",checked:true,id:1},{titulo:"Topico2",checked:true,id:2},{titulo:"Topico3",checked:true,id:3}]
-	console.log("Carreguei a tela de Comentarios Ocultos")
-	console.log($scope.topicosMock)
 }])
    
 .controller('cadastrarJogoCtrl', ['$scope', '$stateParams', '$ionicPopup', 

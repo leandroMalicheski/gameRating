@@ -100,6 +100,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $window, $http) {
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		$http.post("http://localhost:8080/updateUser", perfil, headers).success(function(data) {
 			$scope.perfil = perfil
+			$window.localStorage['userOn'] = JSON.stringify(perfil);
 		});
 		
 		

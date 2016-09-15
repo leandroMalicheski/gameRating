@@ -1,13 +1,14 @@
-<body ng-app="app.controllers">
-<ion-view title="Tópicos Ocultos" id="page19">
-    <ion-content padding="true" class="has-header" ng-controller="tPicosOcultosCtrl"">
+<body ng-app="app.tPicosOcultosCtrl">
+<ion-view title="Tópicos Ocultos">
+    <ion-content padding="true" class="has-header" ng-controller="tPicosOcultosCtrl" ng-init="carregarTopicosOcultos()">
         <div>
-	        <button ng-click="removerOcultacaoPopup(topicosMock)" type="button"  id="comentRiosOcultos-button48" class=" button button-stable  icon ion-eye "></button>
+	        <button ng-click="removerOcultacaoPopup(topicos)" type="button"  class=" button button-stable  icon ion-eye "></button>
         </div>
-         <ion-checkbox ng-repeat="topico in topicosMock"
-                      ng-model="topico.checked" 
-                      ng-checked="topico.checked">
-          	{{ topico.titulo }}
+         <div ng-hide="showTopics">
+         	<p>Não há tópicos ocultos no momento</p>
+         </div>
+         <ion-checkbox ng-repeat="topico in topicos" ng-model="topico.checked" ng-checked="topico.checked" ng-show="showTopics">
+	          	{{ topico.title }}
         </ion-checkbox>
     </ion-content>
 </ion-view>

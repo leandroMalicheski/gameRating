@@ -2,7 +2,7 @@ angular.module('app.topicoController', [])
 .controller('tPicoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http', '$window',
 function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	$scope.topico
-	$scope.comentarios
+	$scope.comentarios = []
 	$scope.showComments = false
 	var id = $stateParams.id
 	
@@ -63,7 +63,6 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 			            	e.preventDefault();
 			            } else {
 			            	comentario.body = comentario.body + ' ' + $scope.data.link  
-			            	$scope.addLink(comentario)
 			            }
 		           }
 		        }, ]
