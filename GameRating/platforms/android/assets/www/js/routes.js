@@ -301,6 +301,17 @@ angular.module('app.routes', [])
         }
     }
   })
+  
+  .state('menu.comentario', {
+    url: '/comentario?id',
+    cache: false,
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/comentario.html',
+        controller: 'comentarioCtrl'
+      }
+    }
+  })
 
 $urlRouterProvider.otherwise('/login')
 });

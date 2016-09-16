@@ -4,6 +4,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	$scope.topico
 	$scope.comentarios = []
 	$scope.showComments = false
+	$scope.topicDisable = "ion-eye";
 	var id = $stateParams.id
 	
 	$scope.carregarTopico = function(){
@@ -11,6 +12,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 		var request = "http://localhost:8080/getTopicById?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.topico = data;
+			$scope.checkVisibleClass($scope.topico.visible)
 		});
 		var request = "http://localhost:8080/getCommentsByTopicId?id="+id
 		$http.get(request, headers).success(function(data) {
@@ -36,14 +38,51 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 			$state.go('menu.tPico',$stateParams.id)
 		}
 	}
+	
 	$scope.adicionarImagem = function(topicoNovo){
 		console.log("Vou adicionar Imagem o Tópico")
 		console.log(topicoNovo)
 	}
+	
 	$scope.comentarioAdicionado = function(){
 		var alertPopup = $ionicPopup.alert({
 			title: 'Comentário Adicionado',
 			template: 'Seu Comentário foi adicionado com sucesso'
+		});
+	}
+	
+	$scope.checkVisibleClass = function(visibility){
+		if(visibility){
+			$scope.topicDisable = "ion-eye"
+		}else{
+			$scope.topicDisable = "ion-eye-disabled"
+		}
+	}
+	
+	$scope.ocultarPopup = function(){
+		var ocultar = "remover a ocultação"
+		if($scope.topico.visible){
+			ocultar = "ocultar"
+		}
+		var confirmPopup = $ionicPopup.confirm({
+		       title: 'Ocultar Tópico',
+		       template: 'Gostaria de ' + ocultar + ' este Tópico ?'
+		     });
+		confirmPopup.then(function(res) {
+			if(res) {
+				$scope.ocultar();
+			} else {
+				console.log('Cancelar');
+			}
+		});
+	}
+	
+	$scope.ocultar = function(){
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/updateTopicVisibility", $scope.topico, headers).success(function(data) {
+			$scope.topico = data
+			$scope.checkVisibleClass($scope.topico.visible)
+			alteracoesSalvasPopup($ionicPopup)
 		});
 	}
 	

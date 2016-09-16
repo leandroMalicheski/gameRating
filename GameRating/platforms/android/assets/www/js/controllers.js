@@ -1,5 +1,4 @@
 angular.module('app.controllers', [])
-  
 .controller('esqueceuASenhaCtrl', ['$scope', '$stateParams',  '$ionicPopup', '$state', '$http',
 function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	console.log("carreguei a Tela de Esqueci minha senha")
@@ -36,34 +35,59 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	}
 
 }])
-   
-.controller('comentRiosOcultosCtrl', ['$scope', '$stateParams', '$ionicPopup',
-function ($scope, $stateParams, $ionicPopup) {
+.controller('comentarioCtrl', ['$scope', '$stateParams',  '$ionicPopup', '$state', '$http',
+function ($scope, $stateParams, $ionicPopup, $state, $http) {
+	$scope.commentDisable = "ion-eye";
+	$scope.comentario
 	var id = $stateParams.id
-	$scope.comentariosMock = [{id:1,corpo:"Corpo do comentario 1",checked:true},{id:2,corpo:"Corpo do comentario 2",checked:false},{id:3,corpo:"Corpo do comentario 3",checked:false}]
-	console.log("Carreguei a Tela de Comentarios Ocultos")
-	console.log("cheguei e estou com id abaixo:")
-	console.log($stateParams.id)
 	
-	$scope.removerOcultacaoPopup = function(comentarios){
+	$scope.carregarComentario = function(){
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/getCommentById?id="+id
+		$http.get(request, headers).success(function(data) {
+			$scope.comentario = data
+			$scope.checkVisibleClass($scope.comentario.visible)
+		});
+	}
+	
+	$scope.checkVisibleClass = function(visibility){
+		if(visibility){
+			$scope.commentDisable = "ion-eye"
+		}else{
+			$scope.commentDisable = "ion-eye-disabled"
+		}
+	}
+	
+	$scope.ocultarPopup = function(){
+		var ocultar = "remover a ocultação"
+		if($scope.comentario.visible){
+			ocultar = "ocultar"
+		}
 		var confirmPopup = $ionicPopup.confirm({
-		       title: 'Remover Ocultação',
-		       template: 'Gostaria de remover a ocultação deste(s) comentários ?'
+		       title: 'Ocultar Comentário',
+		       template: 'Gostaria de ' + ocultar + ' este comentário ?'
 		     });
 		confirmPopup.then(function(res) {
 			if(res) {
-				$scope.removerOcultacao(comentarios);
+				$scope.ocultar();
 			} else {
 				console.log('Cancelar');
 			}
 		});
 	}
 	
-	$scope.removerOcultacao = function(comentarios){
-		console.log("Vou remover a ocultação deste(s) jogos o jogo com o id:")
-		console.log(comentarios)
+	$scope.ocultar = function(){
+		var headers = {headers : {'Content-Type' : 'application/json'}};
+		$http.post("http://localhost:8080/updateCommentVisibility", $scope.comentario, headers).success(function(data) {
+			$scope.comentario = data
+			$scope.checkVisibleClass($scope.comentario.visible)
+			alteracoesSalvasPopup($ionicPopup)
+		});
 	}
+	
 }])
+   
+
    
 .controller('cadastrarJogoCtrl', ['$scope', '$stateParams', '$ionicPopup', 
 function ($scope, $stateParams, $ionicPopup) {

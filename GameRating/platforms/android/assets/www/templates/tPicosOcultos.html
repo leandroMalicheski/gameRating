@@ -4,10 +4,10 @@
         <div>
 	        <button ng-click="removerOcultacaoPopup(topicos)" type="button"  class=" button button-stable  icon ion-eye "></button>
         </div>
-         <div ng-hide="showTopics">
+         <div ng-hide="showTopicos">
          	<p>Não há tópicos ocultos no momento</p>
          </div>
-         <ion-checkbox ng-repeat="topico in topicos" ng-model="topico.checked" ng-checked="topico.checked" ng-show="showTopics">
+         <ion-checkbox ng-repeat="topico in topicos" ng-model="topico.checked" ng-checked="topico.checked" ng-show="showTopicos">
 	          	{{ topico.title }}
         </ion-checkbox>
     </ion-content>
