@@ -18,6 +18,8 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 				$scope.mostrarDisable = true;
 				$scope.mostrarEditar = true;
 			}
+			parameters = {params:{'userId': user.id, 'gameId' : id}}
+			$http.get("http://localhost:8080/addVisitedTime",parameters,headers).success(function(data) {});
 		});	
 	}
 	

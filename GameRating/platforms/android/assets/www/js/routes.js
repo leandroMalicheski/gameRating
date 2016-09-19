@@ -302,6 +302,16 @@ angular.module('app.routes', [])
         }
     }
   })
+  .state('menu.relatorio1', {
+	  url: '/relatorio1',
+	  cache: false,
+	  views: {
+		  'side-menu21': {
+			  templateUrl: 'templates/relatorioTopicosJogoCtrl.html',
+			  controller: 'relatorioTopicosJogoCtrl'
+		  }
+	  }
+  })
   
   .state('menu.comentario', {
     url: '/comentario?id',

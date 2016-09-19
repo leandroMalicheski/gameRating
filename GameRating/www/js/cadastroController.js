@@ -1,10 +1,7 @@
 angular.module('app.cadastroController', [])
-.controller('cadastroCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http',
-function ($scope, $stateParams, $ionicPopup, $state, $http) {
-	$scope.carregarImagem = function(){
-		console.log("carregarImagem")
-	}
-	
+.controller('cadastroCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http', '$cordovaImagePicker',
+function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker) {
+	$scope.usuario = {img:'../img/defaultImage.jpg'}
 	$scope.cadastrar = function(usuario){
 		if(usuario === undefined){
 			preenchaCamposPopup($ionicPopup)
@@ -15,6 +12,23 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 			});
 		}
 	}
+	
+	$scope.getImageSaveContact = function() {       
+        var options = {
+	        maximumImagesCount: 1, 
+	        width: 800,
+	        height: 800,
+	        quality: 80            
+	    };
+	 
+	    $cordovaImagePicker.getPictures(options).then(function (results) {
+	        for (var i = 0; i < results.length; i++) {
+	            console.log('Image URI: ' + results[i]);
+	        }
+	    }, function(error) {
+	        console.log('Error: ' + JSON.stringify(error));
+	    });
+	};  
 	
 	$scope.usuarioCadastradoPopup = function(){
 		var myPopup = $ionicPopup.show({
