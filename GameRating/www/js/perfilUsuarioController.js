@@ -5,6 +5,11 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.thumbsupDisable = false;
 	$scope.thumbsdownDisable = false;
 	
+	$scope.showModerador = false;
+	$scope.showSenha = false;
+	$scope.showDisable = false;
+	$scope.showBloquear = false;
+	
 	var id = $stateParams.id
 	$scope.carregarPerfilUsuario = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
@@ -15,6 +20,14 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 				user = JSON.parse($window.localStorage['userOn'] || '[]');
 				params =  {params: {profileId: data.id,userId:user.id}}
 				$http.get('http://localhost:8080/checkReputation',params, headers).success(function(data) {
+					if(user.profile === 0){
+						$scope.showModerador = true;
+						$scope.showSenha = true;
+						$scope.showDisable = true;
+						$scope.showBloquear = true;
+					}else if(user.profile === 1){
+						$scope.showBloquear = true;
+					}
 					if(data.reputation !== ""){
 						if(data.reputation === 0 || data.reputation === '0'){
 							$scope.thumbsupDisable = true;

@@ -2,8 +2,8 @@
 <ion-view title="Jogo" ng-controller="jogo3Ctrl" ng-init="carregarJogo()">
     <ion-content padding="true" class="has-header">
         <div>
-    	    <button type="button" ng-click="ocultarPopup()" class=" button button-stable  icon" ng-class="gameDisable"></button>
-	        <button ui-sref="menu.editarJogo({id:jogo.id})" class=" button button-stable  icon ion-edit "></button>
+    	    <button ng-show="mostrarDisable" type="button" ng-click="ocultarPopup()" class=" button button-stable  icon" ng-class="gameDisable"></button>
+	        <button ng-show="mostrarEditar" ui-sref="menu.editarJogo({id:jogo.id})" class=" button button-stable  icon ion-edit "></button>
 	        <button ui-sref="menu.cadastrarTopico({id:jogo.id})" class=" button button-stable  icon ion-plus "></button>
         </div>
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">

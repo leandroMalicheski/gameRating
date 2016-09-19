@@ -1,10 +1,12 @@
 angular.module('app.jogoTopicoController', [])
-.controller('jogo3Ctrl', ['$scope', '$stateParams','$ionicPopup', '$http', 
-function ($scope, $stateParams, $ionicPopup, $http) {
+.controller('jogo3Ctrl', ['$scope', '$stateParams','$ionicPopup', '$http', '$window',
+function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	var id = $stateParams.id
 	$scope.jogo
 	$scope.topicos
 	$scope.showTopics = false
+	$scope.mostrarDisable = false;
+	$scope.mostrarEditar = false;
 	
 	$scope.carregarJogo = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
@@ -13,6 +15,11 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 			$scope.jogo = data;
 			var request = "http://localhost:8080/getTopicsByGameId?id="+id
 			$http.get(request, headers).success(function(data) {
+				var user = JSON.parse($window.localStorage['userOn'] || '[]');
+				if(user.profile == 0){
+					$scope.mostrarDisable = true;
+					$scope.mostrarEditar = true;
+				}
 				if(data.length !== 0){
 					$scope.topicos = data;
 					$scope.showTopics = true

@@ -36,6 +36,7 @@ angular.module('app.routes', [])
     url: '/side-menu',
     cache: false,
     templateUrl: 'templates/menu.html',
+    controller: 'menuController',
     abstract:true
   })
 

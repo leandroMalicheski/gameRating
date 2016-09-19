@@ -1,16 +1,23 @@
 angular.module('app.jogoController', [])
-.controller('jogo2Ctrl', ['$scope', '$stateParams','$ionicPopup', '$http', 
-function ($scope, $stateParams, $ionicPopup, $http) {
+.controller('jogo2Ctrl', ['$scope', '$stateParams','$ionicPopup', '$http', '$window',
+function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.jogo
 	$scope.gameDisable = "ion-eye"
 	var id = $stateParams.id
+	$scope.mostrarDisable = false;
+	$scope.mostrarEditar = false;
 	
 	$scope.carregarJogo = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var request = "http://localhost:8080/getJogoById?id="+id
 		$http.get(request, headers).success(function(data) {
+			var user = JSON.parse($window.localStorage['userOn'] || '[]');
 			$scope.jogo = data;
 			$scope.checkVisibleClass($scope.jogo.isVisible)
+			if(user.profile == 0){
+				$scope.mostrarDisable = true;
+				$scope.mostrarEditar = true;
+			}
 		});	
 	}
 	

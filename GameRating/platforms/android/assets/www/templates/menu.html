@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="false" ng-init="carregarMenu()">
     <ion-side-menu-content>
         <ion-nav-bar class="bar-stable">
             <ion-nav-back-button></ion-nav-back-button>
@@ -29,19 +29,19 @@
                 <ion-item class="item-icon-right  " id="menu-list-item4" ui-sref="menu.buscarUsuRio" menu-close="">Buscar Usuário
                     <i class="icon ion-android-contacts"></i>
                 </ion-item>
-                <ion-item class="item-icon-right  " id="menu-list-item5" ui-sref="menu.cadastrarJogo" menu-close="">Adicionar Jogo
+                <ion-item class="item-icon-right  " id="menu-list-item5" ui-sref="menu.cadastrarJogo" menu-close="" ng-show="showCadastroJogo">Adicionar Jogo
                     <i class="icon ion-android-add"></i>
                 </ion-item>
-                <ion-item class="item-icon-right  " id="menu-list-item7" ui-sref="menu.comentRiosOcultos2" menu-close="">Comentários Ocultos
+                <ion-item class="item-icon-right  " id="menu-list-item7" ui-sref="menu.comentRiosOcultos2" menu-close="" ng-show="showComentarioO">Comentários Ocultos
                     <i class="icon ion-chatbubble"></i>
                 </ion-item>
-                <ion-item class="item-icon-right  " id="menu-list-item6" ui-sref="menu.tPicosOcultos" menu-close="">Tópicos Ocultos
+                <ion-item class="item-icon-right  " id="menu-list-item6" ui-sref="menu.tPicosOcultos" menu-close="" ng-show="showTopicoO">Tópicos Ocultos
                     <i class="icon ion-android-mail"></i>
                 </ion-item>
-                <ion-item class="item-icon-right  " id="menu-list-item8" ui-sref="menu.configuraEs" menu-close="">Configurações
+                <ion-item class="item-icon-right  " id="menu-list-item8" ui-sref="menu.configuraEs" menu-close="" ng-show="showConfig">Configurações
                     <i class="icon ion-android-settings"></i>
                 </ion-item>
-                <ion-item class="item-icon-right  " id="menu-list-item9" ui-sref="menu.relatRios" menu-close="">Relatórios
+                <ion-item class="item-icon-right  " id="menu-list-item9" ui-sref="menu.relatRios" menu-close="" ng-show="showRelatorios">Relatórios
                     <i class="icon ion-android-clipboard"></i>
                 </ion-item>
             </ion-list>

@@ -4,7 +4,7 @@
         <div>
         	<button ng-click="adicionarImagem(comentario)" type="button" class=" button button-stable  icon ion-android-attach "></button>
 	        <button ng-click="addLinkPopup(comentario)" type="button" class=" button button-stable  icon ion-link "></button>
-	        <button type="button" ng-click="ocultarPopup()" class=" button button-stable  icon" ng-class="topicDisable"></button>
+	        <button type="button" ng-click="ocultarPopup()" ng-show="showDisable" class=" button button-stable  icon" ng-class="topicDisable"></button>
         </div>
         
         <h1 style="color:#000000;">{{topico.title}}</h1>
@@ -19,7 +19,7 @@
         <div ng-show="showComments" ng-repeat="comentario in comentarios">
 	        	<ion-item class="item-thumbnail-left" >
 	        	    <img src="../img/defaultImage.jpg" ui-sref="menu.perfilUsuRio({id:comentario.userId})">
-	                <label ui-sref="menu.comentario({id:comentario.id})">
+	                <label ng-disabled="linkComment" ui-sref="menu.comentario({id:comentario.id})">
 	                	<h2>{{comentario.user}}</h2>
 	                	<p>{{comentario.body}}</p>
 	                </label>

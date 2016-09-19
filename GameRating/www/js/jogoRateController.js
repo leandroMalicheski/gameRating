@@ -36,12 +36,19 @@ function ($scope, $stateParams,$ionicPopup, $http,$window) {
 	$scope.icon3IRate = 'ion-android-star-outline'
 	$scope.icon4IRate = 'ion-android-star-outline'
 	$scope.icon5IRate = 'ion-android-star-outline'	
+		
+	$scope.mostrarDisable = false;
+	$scope.mostrarEditar = false;
    
 $scope.carregarJogo = function(){
 	var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 	user = JSON.parse($window.localStorage['userOn'] || '[]');
 	parameters = {params:{'userId': user.id, 'gameId' : id}}
 	$http.get("http://localhost:8080/getRateInformation",parameters,headers).success(function(data) {
+		if(user.profile == 0){
+			$scope.mostrarDisable = true;
+			$scope.mostrarEditar = true;
+		}
 		if(data.name === null){
 			var request = "http://localhost:8080/getJogoById?id="+id
 			$http.get(request, headers).success(function(data2) {

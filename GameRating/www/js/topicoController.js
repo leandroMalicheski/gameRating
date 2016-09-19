@@ -4,6 +4,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	$scope.topico
 	$scope.comentarios = []
 	$scope.showComments = false
+	$scope.showDisable = false
+	$scope.linkComment = true
 	$scope.topicDisable = "ion-eye";
 	var id = $stateParams.id
 	
@@ -21,6 +23,10 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 				$scope.showComments = true
 			}
 		});
+		if(user.profile !== 2){
+			$scope.showDisable = true
+			$scope.linkComment = false
+		}
 	}
 	
 	$scope.gravarComentario = function(comentario){

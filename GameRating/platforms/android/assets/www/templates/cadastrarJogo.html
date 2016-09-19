@@ -1,42 +1,57 @@
-<body ng-app="app.controllers">
-<ion-view title="Cadastrar Jogo" id="page18">
+<body ng-app="app.cadastrarJogo">
+<ion-view title="Cadastrar Jogo">
     <ion-content padding="true" class="has-header" ng-controller="cadastrarJogoCtrl">
         <div>
-        	<button type="button" ng-click="cadastrar(jogoMock)" class=" button button-stable  icon ion-android-done "></button>
+        	<button type="button" ng-click="cadastrar(jogo)" class=" button button-stable  icon ion-android-done "></button>
         </div>
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
             <img src="../img/defaultImage.jpg" style="max-width:100%; max-height:100%;">
         </div>
         <div>
             <label class="item item-input ">
-                <input type="text" ng-model="jogoMock.titulo" placeholder="t�tulo">
+                <input type="text" ng-model="jogo.name" placeholder="Título">
             </label>
             <label class="item item-input ">
-                <input type="text" ng-model="jogoMock.descricao"  placeholder="descri��o">
+                <input type="text" ng-model="jogo.description"  placeholder="Descrição">
             </label>
             <label class="item item-input ">
-                <input type="text" ng-model="jogoMock.dataLancamento" placeholder="Data de Lan�amento">
+                <input type="text" ng-model="jogo.launchDate" placeholder="Data de Lançamento">
             </label>
             <label class="item item-input ">
-                <input type="text" ng-model="jogoMock.plataformas" placeholder="Plataformas">
+                <input type="text" ng-model="jogo.platforms" placeholder="Plataformas">
             </label>
             <label class="item item-input ">
-                <input type="text" ng-model="jogoMock.desenvolvedores" placeholder="Desenvolvedores">
+                <input type="text" ng-model="jogo.devs" placeholder="Desenvolvedores">
             </label>
             
             <h3 style="color:#000000;">Rating</h3>
-            <ion-item class="range range-positive ">Jogabilidade {{jogoMock.ratingJogabilidade}}
-                <input type="range" ng-model="jogoMock.ratingJogabilidade" value="{{jogoMock.ratingJogabilidade}}" min="0" max="10">
-            </ion-item>
-            <ion-item class="range range-positive ">Diversão {{jogoMock.ratingDiversao}}
-                <input type="range" ng-model="jogoMock.ratingDiversao" value="{{jogoMock.ratingDiversao}}" min="0" max="10">
-            </ion-item>
-            <ion-item class="range range-positive ">Audio {{jogoMock.ratingAudio}}
-                <input type="range" ng-model="jogoMock.ratingAudio" value="{{jogoMock.ratingAudio}}" min="0" max="10">
-            </ion-item>
-            <ion-item class="range range-positive ">Imersão {{jogoMock.ratingImersao}}
-                <input type="range" ng-model="jogoMock.ratingImersao" value="{{jogoMock.ratingImersao}}" min="0" max="10">
-            </ion-item>
+			<label>Jogabilidade: </label><br>
+			<button type="button" ng-click="definirJRate1()" class="button button-stable icon" ng-class="icon1JRate"></button>
+	        <button type="button" ng-click="definirJRate2()" class="button button-stable icon" ng-class="icon2JRate"></button>
+	        <button type="button" ng-click="definirJRate3()" class="button button-stable icon" ng-class="icon3JRate"></button>
+	        <button type="button" ng-click="definirJRate4()" class="button button-stable icon" ng-class="icon4JRate"></button>
+	        <button type="button" ng-click="definirJRate5()" class="button button-stable icon" ng-class="icon5JRate"></button>
+	
+			<br><label>Diversão: </label><br>
+			<button type="button" ng-click="definirDRate1()" class="button button-stable icon" ng-class="icon1DRate"></button>
+	        <button type="button" ng-click="definirDRate2()" class="button button-stable icon" ng-class="icon2DRate"></button>
+	        <button type="button" ng-click="definirDRate3()" class="button button-stable icon" ng-class="icon3DRate"></button>
+	        <button type="button" ng-click="definirDRate4()" class="button button-stable icon" ng-class="icon4DRate"></button>
+	        <button type="button" ng-click="definirDRate5()" class="button button-stable icon" ng-class="icon5DRate"></button>
+			
+			<br><label>Audio: </label><br>
+			<button type="button" ng-click="definirARate1()" class="button button-stable icon" ng-class="icon1ARate"></button>
+	        <button type="button" ng-click="definirARate2()" class="button button-stable icon" ng-class="icon2ARate"></button>
+	        <button type="button" ng-click="definirARate3()" class="button button-stable icon" ng-class="icon3ARate"></button>
+	        <button type="button" ng-click="definirARate4()" class="button button-stable icon" ng-class="icon4ARate"></button>
+	        <button type="button" ng-click="definirARate5()" class="button button-stable icon" ng-class="icon5ARate"></button>
+			
+			<br><label>Imersão: </label><br>
+			<button type="button" ng-click="definirIRate1()" class="button button-stable icon" ng-class="icon1IRate"></button>
+	        <button type="button" ng-click="definirIRate2()" class="button button-stable icon" ng-class="icon2IRate"></button>
+	        <button type="button" ng-click="definirIRate3()" class="button button-stable icon" ng-class="icon3IRate"></button>
+	        <button type="button" ng-click="definirIRate4()" class="button button-stable icon" ng-class="icon4IRate"></button>
+	        <button type="button" ng-click="definirIRate5()" class="button button-stable icon" ng-class="icon5IRate"></button>
         </div>
     </ion-content>
 </ion-view>

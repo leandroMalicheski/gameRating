@@ -89,33 +89,6 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
    
 
    
-.controller('cadastrarJogoCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-function ($scope, $stateParams, $ionicPopup) {
-	console.log("Carreguei a Tela de Cadastro de Jogo")
-	
-	$scope.cadastrar = function(jogo){
-		if(validaJogo($scope.jogoMock, $ionicPopup)){
-			$scope.salvar(jogo);					
-		}else{
-			preenchaCamposPopup($ionicPopup)
-		}
-	}
-	
-	$scope.salvar = function(jogo){
-		console.log("Vou salvar o jogo")
-		console.log(jogo)
-		$scope.jogoSalvoPopup()
-	}
-	
-	$scope.jogoSalvoPopup = function(){
-		var alertPopup = $ionicPopup.alert({
-			title: 'Jogo Adicionado',
-			template: 'O jogo foi adicionado com sucesso'
-		});
-	}
-
-}])
-   
 .controller('configuraEsCtrl', ['$scope', '$stateParams', '$ionicPopup',
 function ($scope, $stateParams, $ionicPopup) {
 }])
