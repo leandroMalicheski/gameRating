@@ -307,8 +307,50 @@ angular.module('app.routes', [])
 	  cache: false,
 	  views: {
 		  'side-menu21': {
-			  templateUrl: 'templates/relatorioTopicosJogoCtrl.html',
+			  templateUrl: 'templates/relatorioTopicosJogo.html',
 			  controller: 'relatorioTopicosJogoCtrl'
+		  }
+	  }
+  })
+  
+  .state('menu.relatorio2', {
+	  url: '/relatorio2',
+	  cache: false,
+	  views: {
+		  'side-menu21': {
+			  templateUrl: 'templates/relatorioComentariosJogo.html',
+			  controller: 'relatorioComentarioJogoCtrl'
+		  }
+	  }
+  })
+  .state('menu.relatorio3', {
+	  url: '/relatorio3',
+	  cache: false,
+	  views: {
+		  'side-menu21': {
+			  templateUrl: 'templates/relatorioViewTopico.html',
+			  controller: 'relatorioViewTopicoCtrl'
+		  }
+	  }
+  })
+  .state('menu.relatorio4', {
+	  url: '/relatorio4',
+	  cache: false,
+	  views: {
+		  'side-menu21': {
+			  templateUrl: 'templates/relatorioDataViewJogo.html',
+			  controller: 'relatorioDataViewJogoCtrl'
+		  }
+	  }
+  })
+  
+  .state('menu.relatorio5', {
+	  url: '/relatorio5',
+	  cache: false,
+	  views: {
+		  'side-menu21': {
+			  templateUrl: 'templates/relatorioDataViewTopico.html',
+			  controller: 'relatorioDataViewTopicoCtrl'
 		  }
 	  }
   })

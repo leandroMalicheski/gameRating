@@ -11,8 +11,9 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	
 	$scope.carregarTopico = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getTopicById?id="+id
-		$http.get(request, headers).success(function(data) {
+		var user = JSON.parse($window.localStorage['userOn'] || '[]');
+		var parameters = {params:{'userId': user.id, 'topicId' : id}}
+		$http.get("http://localhost:8080/getTopicById",parameters, headers).success(function(data) {
 			$scope.topico = data;
 			$scope.checkVisibleClass($scope.topico.visible)
 		});
