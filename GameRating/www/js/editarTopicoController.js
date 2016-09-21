@@ -1,13 +1,13 @@
 angular.module('app.editarTopicoController', [])
-.controller('editarTPicoCtrl', ['$scope', '$stateParams','$ionicPopup', '$state', '$ionicHistory', "$http",
-function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http) {
+.controller('editarTPicoCtrl', ['$scope', '$stateParams','$ionicPopup', '$state', '$ionicHistory', "$http",'$window',
+function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window) {
 	$scope.topico
 	$scope.topicoLocked = "ion-unlocked"
 	var id = $stateParams.id
 		
 	$scope.carregarTopico = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getTopicById?id="+id
+		var request = "http://localhost:8080/getTopicByIdEdit?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.topico = data	
 			$scope.checkVisibleClass($scope.topico.closed)
@@ -15,6 +15,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http) {
 	}
 	
 	$scope.salvar = function(topicoNovo){
+		user = JSON.parse($window.localStorage['userOn'] || '[]');
+		$scope.topico.userId = user.id
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		$http.post("http://localhost:8080/updateTopic", $scope.topico, headers).success(function(data) {});
 	}

@@ -40,6 +40,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 			var headers = {headers : {'Content-Type' : 'application/json'}};
 			$http.post("http://localhost:8080/addComment", comentario, headers).success(function(data) {
 				$scope.comentarios.push(data)
+				$scope.showComments = true;
+				comentario.body = "";
 			});
 			$scope.comentarioAdicionado()
 			$state.go('menu.tPico',$stateParams.id)

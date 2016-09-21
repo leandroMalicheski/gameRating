@@ -1,6 +1,6 @@
 angular.module('app.editarJogoController', [])
-.controller('editarJogoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$http',
-function ($scope, $stateParams, $state, $ionicPopup, $http) {	
+.controller('editarJogoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$http', '$window',
+function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {	
 	$scope.jogo
 	var id = $stateParams.id
 	$scope.icon1Rate = 'ion-android-star-outline'
@@ -38,8 +38,10 @@ function ($scope, $stateParams, $state, $ionicPopup, $http) {
 	}
 	
 	$scope.salvar = function(jogo){
+		user = JSON.parse($window.localStorage['userOn'] || '[]');
+		jogo.userTempId = user.id;
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateGame", $scope.jogo, headers).success(function(data) {
+		$http.post("http://localhost:8080/updateGame", jogo, headers).success(function(data) {
 			alteracoesSalvasPopup($ionicPopup)
 		});
 	}
