@@ -22,12 +22,22 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window
 	}
 	
 	$scope.fechar = function(){
-		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateCloseStatus", $scope.topico, headers).success(function(data) {
-			$scope.topico = data;
-			$scope.checkVisibleClass($scope.topico.closed)
-			$scope.topicoFechadoPopup()
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/checkIfCanClose?id="+$scope.topico.id
+		$http.get(request, headers).success(function(data) {
+			var fechar = data
+			if(fechar === 0){
+				var headers = {headers : {'Content-Type' : 'application/json'}};
+				$http.post("http://localhost:8080/updateCloseStatus", $scope.topico, headers).success(function(data) {
+					$scope.topico = data;
+					$scope.checkVisibleClass($scope.topico.closed)
+					$scope.topicoFechadoPopup()
+				});
+			}else{
+				$scope.topicoNaoFechadoPopup();
+			}
 		});
+		
 	}
 
 	$scope.remover = function(){
@@ -57,6 +67,13 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window
 		var alertPopup = $ionicPopup.alert({
 			title: 'Fechar Tópico',
 			template: 'O tópico foi removido com sucesso'
+		});
+	}
+	
+	$scope.topicoNaoFechadoPopup = function(){
+		var alertPopup = $ionicPopup.alert({
+			title: 'Fechar Tópico',
+			template: 'Não foi possivel fechar o tópico, este ainda foi criado recentemente'
 		});
 	}
 	

@@ -1,0 +1,17 @@
+<body ng-app="app.relatoriosController">
+	<ion-view title="Relatório"> 
+	<ion-content padding="true" class="has-header" ng-controller="relatorioComentarioJogoCtrl" ng-init="gerarRelatorio()">
+		<h3 style="color: #000000; text-align: center;">
+			Quantidade de Comentários por Jogo 
+		</h3>
+		<div class="row header" style="background-color:lightgrey; text-align: center;" >
+	    	<div class="col">Jogo</div>
+	        <div class="col">Número de Comentários</div>
+		</div>
+		<div class="row" ng-repeat="game in gamelist">
+	    	<div class="col">{{game.gameName}}</div>
+	        <div class="col" style="text-align: center;">{{game.numComments}}</div>
+		</div>
+	</ion-content> 
+	</ion-view>
+</body>

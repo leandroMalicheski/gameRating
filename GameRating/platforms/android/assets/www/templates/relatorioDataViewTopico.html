@@ -1,0 +1,19 @@
+<body ng-app="app.relatoriosController">
+	<ion-view title="Relatório"> 
+	<ion-content padding="true" class="has-header" ng-controller="relatorioDataViewTopicoCtrl" ng-init="gerarRelatorio()">
+		<h3 style="color: #000000; text-align: center;">
+			Data de visualização de tópicos 
+		</h3>
+		<div class="row header" style="background-color:lightgrey; text-align: center;" >
+	    	<div class="col">Titulo do Tópico</div>
+	        <div class="col">Data da Ultima Visita</div>
+	        <div class="col">Usuário</div>
+		</div>
+		<div class="row" ng-repeat="topic in topiclist">
+	    	<div class="col">{{topic.title}}</div>
+	        <div class="col" style="text-align: center;">{{topic.visitedDate}}</div>
+	        <div class="col" style="text-align: center;">{{topic.userLogin}}</div>
+		</div>
+	</ion-content> 
+	</ion-view>
+</body>

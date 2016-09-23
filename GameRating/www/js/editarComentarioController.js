@@ -1,6 +1,6 @@
 angular.module('app.editarComentarioController', [])
-.controller('editarComentRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicHistory', '$state','$http',  
-function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http) {
+.controller('editarComentRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicHistory', '$state','$http','$window',  
+function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http,$window) {
 	$scope.comentario
 	var id = $stateParams.id
 	
@@ -89,6 +89,8 @@ function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http) {
 	
 	$scope.salvar = function(topicoNovo){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
+		user = JSON.parse($window.localStorage['userOn'] || '[]');
+		$scope.comentario.user = user.login;
 		$http.post("http://localhost:8080/updateComment", $scope.comentario, headers).success(function(data) {});	
 	}
 }])

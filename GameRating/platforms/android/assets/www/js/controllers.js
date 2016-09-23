@@ -93,12 +93,16 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 function ($scope, $stateParams, $ionicPopup) {
 }])
    
-.controller('tempoDeFechamentoCtrl', ['$scope', '$stateParams', '$ionicPopup', 
-function ($scope, $stateParams, $ionicPopup) {
+.controller('tempoDeFechamentoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$http','$window',
+function ($scope, $stateParams, $ionicPopup,$http,$window) {
 	console.log("Carreguei a Tela de Tempo de Fechamento Minimo")
 	$scope.tempo = {}
 	$scope.carregarTempo = function(){
-		$scope.tempo.dias = 3
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		var request = "http://localhost:8080/getDateConfiguration"
+		$http.get(request, headers).success(function(data) {
+			$scope.tempo.dias = data
+		});
 	}
 	
 	$scope.salvarPopup = function(tempo){
@@ -131,9 +135,10 @@ function ($scope, $stateParams, $ionicPopup) {
 	}
 	
 	$scope.salvar = function(tempo){
-		console.log("Recebi esse tempo:")
-		console.log(tempo)
-		alteracoesSalvasPopup($ionicPopup)
+		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		user = JSON.parse($window.localStorage['userOn'] || '[]');  
+		parameters = {params:{'days': tempo.dias, 'user' : user.login}}
+		$http.get("http://localhost:8080/updateDateConfiguration",parameters,headers).success(function(data) {});
 	}
 
 }])
