@@ -87,11 +87,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	
 }])
    
-
-   
 .controller('configuraEsCtrl', ['$scope', '$stateParams', '$ionicPopup',
-function ($scope, $stateParams, $ionicPopup) {
-}])
+function ($scope, $stateParams, $ionicPopup) {}])
    
 .controller('tempoDeFechamentoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$http','$window',
 function ($scope, $stateParams, $ionicPopup,$http,$window) {
@@ -143,17 +140,8 @@ function ($scope, $stateParams, $ionicPopup,$http,$window) {
 
 }])
    
-.controller('calculoDeRateCtrl', ['$scope', '$stateParams', 
-function ($scope, $stateParams) {
-
-
-}])
-   
 .controller('relatRiosCtrl', ['$scope', '$stateParams', 
-function ($scope, $stateParams) {
-
-
-}])
+function ($scope, $stateParams) {}])
  
 this.preenchaCamposPopup = function(ionicPopup){
 	var alertPopup = ionicPopup.alert({

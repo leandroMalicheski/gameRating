@@ -1,27 +1,32 @@
+<body ng-app="app.rateConfigurationController">
 <ion-view title="Calculo de Rate" id="page25">
-    <ion-content padding="true" class="has-header">
-        <button id="calculoDeRate-button53" class=" button button-stable  icon ion-android-arrow-back "></button>
-        <button id="calculoDeRate-button54" class=" button button-stable  icon ion-android-done "></button>
-        <h3 id="calculoDeRate-heading5" style="color:#000000;">Calculo de Rate</h3>
-        <div id="calculoDeRate-markdown9" style="color:#000000;">
+    <ion-content padding="true" class="has-header" ng-controller="calculoDeRateCtrl" ng-init="carregarConfiguracao()">
+        
+        <button type="button" ng-click="salvarRatingPopup(jogo)" class=" button button-stable  icon ion-android-done "></button>
+        <h3 style="color:#000000;">Calculo de Rate</h3>
+        <div style="color:#000000;">
             <p>Defina os pesos para o calculo de rate médio para cada caracteristica abaixo.</p>
         </div>
-        <form id="calculoDeRate-form18" class="list ">
-            <ion-item class="range range-positive " id="calculoDeRate-range6">Gráfico
-                <input type="range" value="1" min="0" max="2">
-            </ion-item>
-            <ion-item class="range range-positive " id="calculoDeRate-range7">Jogabilidade
-                <input type="range" value="2" min="0" max="2">
-            </ion-item>
-            <ion-item class="range range-positive " id="calculoDeRate-range8">Diversão
-                <input type="range" value="1" min="0" max="2">
-            </ion-item>
-            <ion-item class="range range-positive " id="calculoDeRate-range9">Audio
-                <input type="range" value="0" min="0" max="2">
-            </ion-item>
-            <ion-item class="range range-positive " id="calculoDeRate-range10">Imersão
-                <input type="range" value="1" min="0" max="2">
-            </ion-item>
-        </form>
+
+        <label>Jogabilidade: </label><br>
+		<button type="button" ng-click="definirJRate1()" class="button button-stable icon" ng-class="icon1JRate"></button>
+        <button type="button" ng-click="definirJRate2()" class="button button-stable icon" ng-class="icon2JRate"></button>
+        <button type="button" ng-click="definirJRate3()" class="button button-stable icon" ng-class="icon3JRate"></button>
+
+		<br><label>Diversão: </label><br>
+		<button type="button" ng-click="definirDRate1()" class="button button-stable icon" ng-class="icon1DRate"></button>
+        <button type="button" ng-click="definirDRate2()" class="button button-stable icon" ng-class="icon2DRate"></button>
+        <button type="button" ng-click="definirDRate3()" class="button button-stable icon" ng-class="icon3DRate"></button>
+		
+		<br><label>Audio: </label><br>
+		<button type="button" ng-click="definirARate1()" class="button button-stable icon" ng-class="icon1ARate"></button>
+        <button type="button" ng-click="definirARate2()" class="button button-stable icon" ng-class="icon2ARate"></button>
+        <button type="button" ng-click="definirARate3()" class="button button-stable icon" ng-class="icon3ARate"></button>
+		
+		<br><label>Imersão: </label><br>
+		<button type="button" ng-click="definirIRate1()" class="button button-stable icon" ng-class="icon1IRate"></button>
+        <button type="button" ng-click="definirIRate2()" class="button button-stable icon" ng-class="icon2IRate"></button>
+        <button type="button" ng-click="definirIRate3()" class="button button-stable icon" ng-class="icon3IRate"></button>
     </ion-content>
 </ion-view>
+</body>

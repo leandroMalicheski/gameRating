@@ -92,12 +92,14 @@ $scope.salvarRate = function(jogo){
 	if($scope.isInsert){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		$http.post("http://localhost:8080/addRate", jogo, headers).success(function(data) {
+			$scope.jogo.ratingMedio = data
 			alteracoesSalvasPopup($ionicPopup)
 		});	
 	}else{
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		$http.post("http://localhost:8080/updateRate", jogo, headers).success(function(data) {
-		alteracoesSalvasPopup($ionicPopup)
+			$scope.jogo.ratingMedio = data
+			alteracoesSalvasPopup($ionicPopup)
 		});
 	}
 }
