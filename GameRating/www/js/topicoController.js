@@ -8,6 +8,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	$scope.linkComment = true
 	$scope.topicDisable = "ion-eye";
 	var id = $stateParams.id
+	$scope.isClosed = false;
 	
 	$scope.carregarTopico = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
@@ -16,6 +17,9 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 		$http.get("http://localhost:8080/getTopicById",parameters, headers).success(function(data) {
 			$scope.topico = data;
 			$scope.checkVisibleClass($scope.topico.visible)
+			if($scope.topico.closed){
+				$scope.isClosed = true
+			}
 		});
 		var request = "http://localhost:8080/getCommentsByTopicId?id="+id
 		$http.get(request, headers).success(function(data) {

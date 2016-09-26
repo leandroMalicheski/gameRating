@@ -13,7 +13,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 					$scope.informeRespostaPopup()
 				} else{
 					$http.post("http://localhost:8080/generateUserPassword", usuario, headers).success(function(data) {
-						$scope.senhaGeradaPopup(data.passwordGenerated)																	
+						$scope.senhaGeradaPopup();																	
 					});					
 				}																	
 			});
@@ -23,7 +23,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	$scope.senhaGeradaPopup = function(senhaGerada){
 		var alertPopup = $ionicPopup.alert({
 			title: 'Senha Gerada',
-			template: 'Sua nova senha é: ' + senhaGerada
+			template: 'Sua nova senha foi encaminhada para o seu email cadastrado.'
 		});
 	}
 	

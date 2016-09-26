@@ -8,18 +8,20 @@
                     </strong>Informe os dados abaixo:</p>
             </div>
             <div class="spacer" style="height: 50px;"></div>
-            <label class="item item-input ">
-                <input type="text" placeholder="login" ng-model="usuario.login">
-            </label>
-            <label class="item item-input ">
-                <input type="text" placeholder="email" ng-model="usuario.email">
-            </label>
             <div style="color:#000000;">
                 <p>Qual é o nome do seu cachorro ?</p>
             </div>
             <label class="item item-input ">
                 <input type="text" placeholder="Ex. Bob" ng-model="usuario.passwordTip">
             </label>
+            <div class="spacer" style="height: 5px;"></div>
+            <label class="item item-input ">
+                <input type="text" placeholder="login" ng-model="usuario.login">
+            </label>
+            <div class="spacer" style="height: 5px;"></div>
+            <label class="item item-input ">
+                <input type="text" placeholder="email" ng-model="usuario.email">
+            </label>            
         </div>
         <a ui-sref="login" class=" button button-stable">Cancelar</a>
         <button type="button" ng-click="solicitarSenha(usuario)" class=" button button-stable  ">Enviar</button>

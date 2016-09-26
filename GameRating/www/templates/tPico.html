@@ -30,7 +30,7 @@
         	<label class="item item-input">
         	   <input ng-model="comentario.body" type="text" placeholder="Escreva seu comentario">
     	    </label>
-	        <button ng-click="gravarComentario(comentario)" type="button" class=" button button-stable  button-block ">Enviar</button>
+	        <button ng-click="gravarComentario(comentario)" type="button" class=" button button-stable  button-block " ng-disabled="isClosed" >Enviar</button>
         </div>
     </ion-content>
 </ion-view>
