@@ -8,11 +8,13 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 			preenchaCamposPopup($ionicPopup)
 		}else{
 			var headers = {headers : {'Content-Type' : 'application/json'}};
-			$http.post("http://localhost:8080/userDataValidation", usuario, headers).success(function(data) {
+			var request = getWebServices() + "/userDataValidation"
+			$http.post(request, usuario, headers).success(function(data) {
 				if(data.login === null){
 					$scope.informeRespostaPopup()
 				} else{
-					$http.post("http://localhost:8080/generateUserPassword", usuario, headers).success(function(data) {
+					var request = getWebServices() + "/generateUserPassword"
+					$http.post(request, usuario, headers).success(function(data) {
 						$scope.senhaGeradaPopup();																	
 					});					
 				}																	
@@ -43,7 +45,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	
 	$scope.carregarComentario = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getCommentById?id="+id
+		var request = getWebServices() + "/getCommentById?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.comentario = data
 			$scope.checkVisibleClass($scope.comentario.visible)
@@ -78,7 +80,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $http) {
 	
 	$scope.ocultar = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateCommentVisibility", $scope.comentario, headers).success(function(data) {
+		var request = getWebServices() + "/updateCommentVisibility"
+		$http.post(request, $scope.comentario, headers).success(function(data) {
 			$scope.comentario = data
 			$scope.checkVisibleClass($scope.comentario.visible)
 			alteracoesSalvasPopup($ionicPopup)
@@ -96,7 +99,7 @@ function ($scope, $stateParams, $ionicPopup,$http,$window) {
 	$scope.tempo = {}
 	$scope.carregarTempo = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getDateConfiguration"
+		var request = getWebServices() + "/getDateConfiguration"
 		$http.get(request, headers).success(function(data) {
 			$scope.tempo.dias = data
 		});
@@ -135,7 +138,8 @@ function ($scope, $stateParams, $ionicPopup,$http,$window) {
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		user = JSON.parse($window.localStorage['userOn'] || '[]');  
 		parameters = {params:{'days': tempo.dias, 'user' : user.login}}
-		$http.get("http://localhost:8080/updateDateConfiguration",parameters,headers).success(function(data) {});
+		var request = getWebServices() + "/updateDateConfiguration"
+		$http.get(request,parameters,headers).success(function(data) {});
 	}
 
 }])
@@ -167,7 +171,7 @@ this.validaUsuario = function(usuario, ionicPopup, http){
 		preenchaCamposPopup(ionicPopup)
 	}else{
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/userLoginValidation?login="+usuario
+		var request = getWebServices() + "/userLoginValidation?login="+usuario
 		http.get(request, headers).success(function(data) {
 			if(data.login === null){
 				return true									
@@ -231,3 +235,7 @@ this.validaJogo = function(jogo, ionicPopup){
 		}		
 	}
 }
+
+this.getWebServices = function(){
+	return "http://192.168.147.2:8080" 
+} 

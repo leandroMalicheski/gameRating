@@ -44,13 +44,14 @@ $scope.carregarJogo = function(){
 	var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 	user = JSON.parse($window.localStorage['userOn'] || '[]');
 	parameters = {params:{'userId': user.id, 'gameId' : id}}
-	$http.get("http://localhost:8080/getRateInformation",parameters,headers).success(function(data) {
+	var request = getWebServices() + "/getRateInformation"
+	$http.get(request,parameters,headers).success(function(data) {
 		if(user.profile == 0){
 			$scope.mostrarDisable = true;
 			$scope.mostrarEditar = true;
 		}
 		if(data.name === null){
-			var request = "http://localhost:8080/getJogoById?id="+id
+			var request = getWebServices() + "/getJogoById?id="+id
 			$http.get(request, headers).success(function(data2) {
 				$scope.jogo = data2;
 				$scope.isInsert = true;
@@ -91,13 +92,15 @@ $scope.salvarRate = function(jogo){
 	jogo.userTempId = user.id
 	if($scope.isInsert){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/addRate", jogo, headers).success(function(data) {
+		var request = getWebServices() + "/addRate"
+		$http.post(request, jogo, headers).success(function(data) {
 			$scope.jogo.ratingMedio = data
 			alteracoesSalvasPopup($ionicPopup)
 		});	
 	}else{
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateRate", jogo, headers).success(function(data) {
+		var request = getWebServices() + "/updateRate"
+		$http.post(request, jogo, headers).success(function(data) {
 			$scope.jogo.ratingMedio = data
 			alteracoesSalvasPopup($ionicPopup)
 		});
@@ -124,7 +127,8 @@ $scope.ocultarPopup = function(){
 	
 $scope.ocultar = function(){
 	var headers = {headers : {'Content-Type' : 'application/json'}};
-	$http.post("http://localhost:8080/updateVisibility", $scope.jogo, headers).success(function(data) {
+	var request = getWebServices() + "/updateVisibility"
+	$http.post(request, $scope.jogo, headers).success(function(data) {
 		$scope.jogo = data
 		$scope.checkVisibleClass($scope.jogo.isVisible)
 		alteracoesSalvasPopup($ionicPopup)

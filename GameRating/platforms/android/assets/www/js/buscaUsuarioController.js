@@ -7,7 +7,7 @@ function ($scope, $stateParams, $ionicPopup,$http) {
 	
 	$scope.search = function(busca){		
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/listUserByName?search="+busca
+		var request = getWebServices() + "/listUserByName?search=" + busca
 		$http.get(request, headers).success(function(data) {
 			if(busca === undefined){
 				$scope.buscaVaziaPopup();

@@ -14,14 +14,15 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var user = JSON.parse($window.localStorage['userOn'] || '[]');
 		var parameters = {params:{'userId': user.id, 'topicId' : id}}
-		$http.get("http://localhost:8080/getTopicById",parameters, headers).success(function(data) {
+		var request = getWebServices() + "/getTopicById"
+		$http.get(request,parameters, headers).success(function(data) {
 			$scope.topico = data;
 			$scope.checkVisibleClass($scope.topico.visible)
 			if($scope.topico.closed){
 				$scope.isClosed = true
 			}
 		});
-		var request = "http://localhost:8080/getCommentsByTopicId?id="+id
+		var request = getWebServices() + "/getCommentsByTopicId?id="+id
 		$http.get(request, headers).success(function(data) {
 			if(data.length !== 0){
 				$scope.comentarios = data
@@ -42,7 +43,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 			comentario.userId = user.id
 			comentario.topicId = id
 			var headers = {headers : {'Content-Type' : 'application/json'}};
-			$http.post("http://localhost:8080/addComment", comentario, headers).success(function(data) {
+			var request = getWebServices() + "/addComment"
+			$http.post(request, comentario, headers).success(function(data) {
 				$scope.comentarios.push(data)
 				$scope.showComments = true;
 				comentario.body = "";
@@ -92,7 +94,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	
 	$scope.ocultar = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateTopicVisibility", $scope.topico, headers).success(function(data) {
+		var request = getWebServices() + "/updateTopicVisibility"
+		$http.post(request, $scope.topico, headers).success(function(data) {
 			$scope.topico = data
 			$scope.checkVisibleClass($scope.topico.visible)
 			alteracoesSalvasPopup($ionicPopup)

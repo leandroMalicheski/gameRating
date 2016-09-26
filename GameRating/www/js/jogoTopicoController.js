@@ -10,10 +10,10 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	
 	$scope.carregarJogo = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getJogoById?id="+id
+		var request = getWebServices() + "/getJogoById?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.jogo = data;
-			var request = "http://localhost:8080/getTopicsByGameId?id="+id
+			var request = getWebServices() + "/getTopicsByGameId?id="+id
 			$http.get(request, headers).success(function(data) {
 				var user = JSON.parse($window.localStorage['userOn'] || '[]');
 				if(user.profile == 0){
@@ -58,7 +58,8 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	
 	$scope.ocultar = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateVisibility", $scope.jogo, headers).success(function(data) {
+		var request = getWebServices() + "/updateVisibility"
+		$http.post(request, $scope.jogo, headers).success(function(data) {
 			$scope.jogo = data
 			if($scope.jogo.isVisible){
 				$scope.gameDisable = "ion-eye"

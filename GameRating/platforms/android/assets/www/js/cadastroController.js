@@ -1,13 +1,17 @@
 angular.module('app.cadastroController', [])
-.controller('cadastroCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http', '$cordovaImagePicker',
-function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker) {
+.controller('cadastroCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http', '$cordovaImagePicker', '$ionicPlatform',
+function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker, $ionicPlatform) {
 	$scope.usuario = {img:'../img/defaultImage.jpg'}
+	$scope.collection = {
+	        selectedImage : ''
+	};
 	$scope.cadastrar = function(usuario){
 		if(usuario === undefined){
 			preenchaCamposPopup($ionicPopup)
 		}else if($scope.validaCampos(usuario)){
 			var headers = {headers : {'Content-Type' : 'application/json'}};
-			$http.post("http://localhost:8080/addUser", usuario, headers).success(function(data) {
+			var request = getWebServices() + "/addUser"
+			$http.post(request, usuario, headers).success(function(data) {
 				$scope.usuarioCadastradoPopup()																	
 			});
 		}
@@ -24,6 +28,11 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker)
 	    $cordovaImagePicker.getPictures(options).then(function (results) {
 	        for (var i = 0; i < results.length; i++) {
 	            console.log('Image URI: ' + results[i]);
+	            $scope.collection.selectedImage = results[i];   // We loading only one image so we can use it like this
+	            
+                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){  // Encode URI to Base64 needed for contacts plugin
+                    $scope.collection.selectedImage = base64;
+                });
 	        }
 	    }, function(error) {
 	        console.log('Error: ' + JSON.stringify(error));

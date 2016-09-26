@@ -6,8 +6,9 @@ $scope.salvar = function(topicoNovo){
 	user = JSON.parse($window.localStorage['userOn'] || '[]');
 	topicoNovo.gameId = $stateParams.id
 	topicoNovo.userId = user.id
+	var request = getWebServices() + "/addTopic"
 	var headers = {headers : {'Content-Type' : 'application/json'}};
-	$http.post("http://localhost:8080/addTopic", topicoNovo, headers).success(function(data) {});	
+	$http.post(request, topicoNovo, headers).success(function(data) {});	
 }	
 $scope.adicionarImagem = function(topicoNovo){
 	console.log("Vou adicionar Imagem o Tópico")

@@ -13,13 +13,14 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	var id = $stateParams.id
 	$scope.carregarPerfilUsuario = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getUserById?id="+id
+		var request = getWebServices() + "/getUserById?id="+id
 		$http.get(request, headers).success(function(data) {
 			if(data.length !== 0){
 				$scope.perfil = data
 				user = JSON.parse($window.localStorage['userOn'] || '[]');
 				params =  {params: {profileId: data.id,userId:user.id}}
-				$http.get('http://localhost:8080/checkReputation',params, headers).success(function(data) {
+				var request = getWebServices() + "/checkReputation?id="+id
+				$http.get(request,params, headers).success(function(data) {
 					if(user.profile === 0){
 						$scope.showModerador = true;
 						$scope.showSenha = true;
@@ -46,7 +47,8 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		user = JSON.parse($window.localStorage['userOn'] || '[]');
 		parameters = {params: {profileId: $scope.perfil.id,userId:user.id}}
-		$http.get("http://localhost:8080/giveLike",parameters, headers).success(function(data) {
+		var request = getWebServices() + "/giveLike"
+		$http.get(request,parameters, headers).success(function(data) {
 			if(data.login !== "" || data.login !== null){
 				$scope.perfil = data	
 			}
@@ -59,7 +61,8 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		user = JSON.parse($window.localStorage['userOn'] || '[]');
 		parameters = {params: {profileId: $scope.perfil.id,userId:user.id}}
-		$http.get("http://localhost:8080/giveDislike",parameters, headers).success(function(data) {
+		var request = getWebServices() + "/giveDislike"
+		$http.get(request,parameters, headers).success(function(data) {
 			if(data.login !== "" || data.login !== null){
 				$scope.perfil = data	
 			}
@@ -68,7 +71,8 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	
 	$scope.transformarModerador = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateUserProfile", $scope.perfil, headers).success(function(data) {
+		var request = getWebServices() + "/updateUserProfile"
+		$http.post(request, $scope.perfil, headers).success(function(data) {
 			$scope.perfil = data
 			$scope.usuarioModeradorPopup()
 		});
@@ -76,14 +80,15 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	
 	$scope.alterarSenha = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/resetUserPassword?login="+$scope.perfil.login
+		var request = getWebServices() + "/resetUserPassword?login="+$scope.perfil.login
 		$http.get(request, headers).success(function(data) {});
 		$scope.senhaEncaminhadaPopup()
 	}
 	
 	$scope.desabilitar = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateDisableStatus", $scope.perfil, headers).success(function(data) {
+		var request = getWebServices() + "/updateDisableStatus"
+		$http.post(request, $scope.perfil, headers).success(function(data) {
 			$scope.perfil = data;
 			$scope.usuarioDesabilitadoPopup()
 		});
@@ -91,7 +96,8 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	
 	$scope.bloquear = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateBlockStatus", $scope.perfil, headers).success(function(data) {
+		var request = getWebServices() + "/updateBlockStatus"
+		$http.post(request, $scope.perfil, headers).success(function(data) {
 			$scope.perfil = data
 			$scope.usuarioBloqueadoPopup()
 		});

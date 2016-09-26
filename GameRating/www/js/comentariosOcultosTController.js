@@ -6,7 +6,7 @@ function ($scope, $stateParams, $http) {
 	
 	$scope.carregarTopicos = function (){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getHideCommentsTopics"
+		var request = getWebServices() + "/getHideCommentsTopics"
 		$http.get(request, headers).success(function(data) {
 			if(data.length > 0) {
 				$scope.topicos = data

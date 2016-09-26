@@ -12,7 +12,7 @@ $scope.search = function(busca){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		user = JSON.parse($window.localStorage['userOn'] || '[]');  
 		if(user.profile === 0){
-			var request = "http://localhost:8080/listGamesByNameAdm?search="+busca
+			var request = getWebServices() + "/listGamesByNameAdm?search="+busca
 			$http.get(request, headers).success(function(data) {
 				if(data.length === 0){
 					$scope.jogoNaoEncotradoPopup()
@@ -22,7 +22,7 @@ $scope.search = function(busca){
 				}
 			});						
 		}else{
-			var request = "http://localhost:8080/listGamesByName?search="+busca
+			var request = getWebServices() + "/listGamesByName?search="+busca
 			$http.get(request, headers).success(function(data) {
 				if(data.length === 0){
 					$scope.jogoNaoEncotradoPopup()

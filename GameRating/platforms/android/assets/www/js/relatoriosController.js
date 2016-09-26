@@ -4,7 +4,7 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.gamelist;
 		
 	$scope.gerarRelatorio = function(){
-		var request = "http://localhost:8080/listNumTopicsGame"
+		var request = getWebServices() + "/listNumTopicsGame"
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		$http.get(request, headers).success(function(data) {
 			$scope.gamelist = data;
@@ -16,7 +16,7 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.gamelist;
 		
 	$scope.gerarRelatorio = function(){
-		var request = "http://localhost:8080/listNumCommentsGame"
+		var request = getWebServices() + "/listNumCommentsGame"
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		$http.get(request, headers).success(function(data) {
 			$scope.gamelist = data;
@@ -28,7 +28,7 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.gamelist;
 	
 	$scope.gerarRelatorio = function(){
-		var request = "http://localhost:8080/lastViewGame"
+		var request = getWebServices() + "/lastViewGame"
 			var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		$http.get(request, headers).success(function(data) {
 			$scope.gamelist = data;
@@ -40,7 +40,7 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.topiclist;
 	
 	$scope.gerarRelatorio = function(){
-		var request = "http://localhost:8080/lastViewTopic"
+		var request = getWebServices() + "/lastViewTopic"
 			var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		$http.get(request, headers).success(function(data) {
 			$scope.topiclist = data;
@@ -52,7 +52,7 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.topicList;
 	
 	$scope.gerarRelatorio = function(){
-		var request = "http://localhost:8080/listNumViewsTopic"
+		var request = getWebServices() + "/listNumViewsTopic"
 			var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		$http.get(request, headers).success(function(data) {
 			$scope.topicList = data;

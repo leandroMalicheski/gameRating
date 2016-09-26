@@ -6,7 +6,7 @@ function ($scope, $stateParams, $ionicPopup,$http) {
 	
 	$scope.carregarTopicosOcultos = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/listHideTopics"
+		var request = getWebServices() + "/listHideTopics"
 		$http.get(request, headers).success(function(data) {
 			$scope.topicos = data
 			$scope.showTopicos = true;
@@ -29,7 +29,8 @@ function ($scope, $stateParams, $ionicPopup,$http) {
 	
 	$scope.removerOcultacao = function(topicos){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateTopicsVisibleStatus", topicos, headers).success(function(data) {
+		var request = getWebServices() + "/updateTopicsVisibleStatus"
+		$http.post(request, topicos, headers).success(function(data) {
 			$scope.topicos = data
 		});
 	}

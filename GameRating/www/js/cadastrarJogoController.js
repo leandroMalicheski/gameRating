@@ -44,8 +44,9 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 	$scope.salvar = function(jogo){
 		user = JSON.parse($window.localStorage['userOn'] || '[]');
 		jogo.userTempId = user.id
+		var request = getWebServices() + "/addGame"
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/addGame", jogo, headers).success(function(data) {
+		$http.post(request, jogo, headers).success(function(data) {
 			alteracoesSalvasPopup($ionicPopup)
 		});	
 		$scope.jogoSalvoPopup()

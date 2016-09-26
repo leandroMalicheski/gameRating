@@ -8,7 +8,8 @@ $scope.login = function(usuario){
 	}
 	else if($scope.validaLogin(usuario)){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/login", usuario, headers).success(function(data) {
+		var request = getWebServices() + "/login"
+		$http.post(request, usuario, headers).success(function(data) {
 			if(data.login === null){
 				$scope.loginSenhaInvalido()
 			}else{

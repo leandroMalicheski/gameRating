@@ -25,7 +25,8 @@ function ($scope, $stateParams, $ionicPopup, $window, $http) {
 	
 	$scope.disable = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateDisableStatus", $scope.perfil, headers).success(function(data) {
+		var request = getWebServices() + "/updateDisableStatus"
+		$http.post(request, $scope.perfil, headers).success(function(data) {
 			$scope.perfil = data
 			if($scope.perfil.visible){
 				$scope.disableIcon = "ion-eye"

@@ -6,7 +6,7 @@ function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http,$windo
 	
 	$scope.carregarComentario = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getCommentById?id="+id
+		var request = getWebServices() + "/getCommentById?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.comentario = data			
 		});
@@ -58,7 +58,8 @@ function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http,$windo
 	
 	$scope.remover = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/removeComment", $scope.comentario, headers).success(function(data) {
+		var request = getWebServices() + "/removeComment"
+		$http.post(request, $scope.comentario, headers).success(function(data) {
 			$scope.comentarioRemovidoPopup()
 			$ionicHistory.nextViewOptions({disableBack: true});
 			$state.go('menu.meusComentRios2',{})
@@ -91,6 +92,7 @@ function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http,$windo
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		user = JSON.parse($window.localStorage['userOn'] || '[]');
 		$scope.comentario.user = user.login;
-		$http.post("http://localhost:8080/updateComment", $scope.comentario, headers).success(function(data) {});	
+		var request = getWebServices() + "/updateComment"
+		$http.post(request, $scope.comentario, headers).success(function(data) {});	
 	}
 }])

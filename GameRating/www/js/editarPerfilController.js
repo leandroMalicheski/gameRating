@@ -66,7 +66,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $window, $http) {
 			var util = {}
 			util.passwordEncrypted = object.senhaAntiga;
 			var headers = {headers : {'Content-Type' : 'application/json'}};
-			$http.post("http://localhost:8080/encryptPassword", util, headers).success(function(data) {
+			var request = getWebServices() + "/encryptPassword"
+			$http.post(request, util, headers).success(function(data) {
 				if(data.passwordEncrypted === $scope.perfil.password){
 					if(mediumRegex.test(object.senha)){
 						$scope.alterarSenha($scope.data)			            		
@@ -93,12 +94,14 @@ function ($scope, $stateParams, $ionicPopup, $state, $window, $http) {
 	$scope.alterarSenha = function(data){
 		$scope.perfil.password = data.senha
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateUserPassword", $scope.perfil, headers).success(function(data) {});
+		var request = getWebServices() + "/updateUserPassword"
+		$http.post(request, $scope.perfil, headers).success(function(data) {});
 	}
 	
 	$scope.salvar = function(perfil){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateUser", perfil, headers).success(function(data) {
+		var request = getWebServices() + "/updateUser"
+		$http.post(request, perfil, headers).success(function(data) {
 			$scope.perfil = perfil
 			$window.localStorage['userOn'] = JSON.stringify(perfil);
 		});

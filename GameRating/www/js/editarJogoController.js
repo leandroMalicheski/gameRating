@@ -11,7 +11,7 @@ function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {
 	
 	$scope.carregarJogo = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getJogoById?id="+id
+		var request = getWebServices() + "/getJogoById?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.jogo = data
 			$scope.definirRate(data)
@@ -41,7 +41,8 @@ function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {
 		user = JSON.parse($window.localStorage['userOn'] || '[]');
 		jogo.userTempId = user.id;
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateGame", jogo, headers).success(function(data) {
+		var request = getWebServices() + "/updateGame"
+		$http.post(request, jogo, headers).success(function(data) {
 			alteracoesSalvasPopup($ionicPopup)
 		});
 	}

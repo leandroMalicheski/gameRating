@@ -7,7 +7,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window
 		
 	$scope.carregarTopico = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getTopicByIdEdit?id="+id
+		var request = getWebServices() + "/getTopicByIdEdit?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.topico = data	
 			$scope.checkVisibleClass($scope.topico.closed)
@@ -18,17 +18,19 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window
 		user = JSON.parse($window.localStorage['userOn'] || '[]');
 		$scope.topico.userId = user.id
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateTopic", $scope.topico, headers).success(function(data) {});
+		var request = getWebServices() + "/updateTopic"
+		$http.post(request, $scope.topico, headers).success(function(data) {});
 	}
 	
 	$scope.fechar = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/checkIfCanClose?id="+$scope.topico.id
+		var request = getWebServices() + "/checkIfCanClose?id="+$scope.topico.id
 		$http.get(request, headers).success(function(data) {
 			var fechar = data
 			if(fechar === 0){
 				var headers = {headers : {'Content-Type' : 'application/json'}};
-				$http.post("http://localhost:8080/updateCloseStatus", $scope.topico, headers).success(function(data) {
+				var request = getWebServices() + "/updateCloseStatus"
+				$http.post(request, $scope.topico, headers).success(function(data) {
 					$scope.topico = data;
 					$scope.checkVisibleClass($scope.topico.closed)
 					$scope.topicoFechadoPopup()
@@ -42,7 +44,8 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window
 
 	$scope.remover = function(){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/removeTopic", $scope.topico, headers).success(function(data) {
+		var request = getWebServices() + "/removeTopic"
+		$http.post(request, $scope.topico, headers).success(function(data) {
 			$scope.topicoRemovidoPopup()
 			$ionicHistory.nextViewOptions({disableBack: true});
 			$state.go('menu.meusTPicos',{})

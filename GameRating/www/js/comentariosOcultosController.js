@@ -6,7 +6,7 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.carregarComentarios = function (){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getHideCommentsTopicsByTopicId?id="+id
+		var request = getWebServices() + "/getHideCommentsTopicsByTopicId?id="+id
 		$http.get(request, headers).success(function(data) {
 			if(data.length > 0) {
 				$scope.comentarios = data
@@ -30,7 +30,8 @@ function ($scope, $stateParams, $ionicPopup, $http) {
 	
 	$scope.removerOcultacao = function(comentarios){
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateCommetsVisibleStatus", comentarios, headers).success(function(data) {
+		var request = getWebServices() + "/updateCommetsVisibleStatus"
+		$http.post(request, comentarios, headers).success(function(data) {
 			$scope.comentarios = data
 		});
 	}

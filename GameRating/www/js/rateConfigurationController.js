@@ -21,7 +21,7 @@ function ($scope, $stateParams, $http, $window, $ionicPopup) {
 		
 	$scope.carregarConfiguracao = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = "http://localhost:8080/getRateConfiguration"
+		var request = getWebServices() + "/getRateConfiguration"
 		$http.get(request, headers).success(function(data) {
 			$scope.rateConfiguraion = data
 			$scope.definirJogabilidadeRate(data)
@@ -48,7 +48,8 @@ function ($scope, $stateParams, $http, $window, $ionicPopup) {
 		user = JSON.parse($window.localStorage['userOn'] || '[]');
 		$scope.rateConfiguraion.userLogin = user.login
 		var headers = {headers : {'Content-Type' : 'application/json'}};
-		$http.post("http://localhost:8080/updateRateConfiguration", $scope.rateConfiguraion, headers).success(function(data) {});
+		var request = getWebServices() + "/updateRateConfiguration"
+		$http.post(request, $scope.rateConfiguraion, headers).success(function(data) {});
 	}
 	
 	$scope.definirJogabilidadeRate = function(data){
