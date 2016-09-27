@@ -166,21 +166,7 @@ this.emailInvalidoPopup = function(ionicPopup){
 		template: 'Favor preenchar um email válido'
 	});
 }
-this.validaUsuario = function(usuario, ionicPopup, http){
-	if(usuario === undefined){
-		preenchaCamposPopup(ionicPopup)
-	}else{
-		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
-		var request = getWebServices() + "/userLoginValidation?login="+usuario
-		http.get(request, headers).success(function(data) {
-			if(data.login === null){
-				return true									
-			}else{
-				usuarioInvalidoPopup(ionicPopup)
-			}
-		});		
-	}
-}
+
 this.usuarioInvalidoPopup = function(ionicPopup){
 	var alertPopup = ionicPopup.alert({
 		title: 'Usuário Inválido',

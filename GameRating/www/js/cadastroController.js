@@ -15,7 +15,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker,
 		}
 	}
 	
-	$scope.getImageSaveContact = function() {       
+	$scope.getImageFromGallery = function() {       
         var options = {
 	        maximumImagesCount: 1, 
 	        width: 640,
@@ -26,9 +26,9 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker,
 	    $cordovaImagePicker.getPictures(options).then(function (results) {
 	        for (var i = 0; i < results.length; i++) {
 	            console.log('Image URI: ' + results[i]);
-	            $scope.collection.selectedImage = results[i];   // We loading only one image so we can use it like this
+	            $scope.collection.selectedImage = results[i];
 	            
-                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){  // Encode URI to Base64 needed for contacts plugin
+                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
                     $scope.usuario.img = "data:image/png;base64,"+base64;
                 });
 	        }
@@ -58,7 +58,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker,
 			validade = false
 		}else if (!validaEmail(usuario.email, $ionicPopup)){
 			validade = false
-		}else if (validaUsuario(usuario.login, $ionicPopup, $http)){
+		}else if ($scope.validaUsuario(usuario.login, $ionicPopup, $http)){
 			validade = false
 		}else if (!validaSenha(usuario, $ionicPopup)){
 			validade = false
@@ -68,4 +68,21 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $cordovaImagePicker,
 		}
 		return validade
 	}	
+	
+	$scope.validaUsuario = function(usuario, ionicPopup, http){
+		if(usuario === undefined){
+			preenchaCamposPopup(ionicPopup)
+		}else{
+			var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
+			var request = getWebServices() + "/userLoginValidation?login="+usuario
+			http.get(request, headers).success(function(data) {
+				if(data.login === null){
+					return true									
+				}else{
+					usuarioInvalidoPopup(ionicPopup)
+					return false
+				}
+			});		
+		}
+	}
 }])

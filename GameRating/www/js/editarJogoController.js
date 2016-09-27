@@ -18,6 +18,28 @@ function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {
 		});					
 	}
 	
+	$scope.getImageFromGallery = function() {       
+        var options = {
+	        maximumImagesCount: 1, 
+	        width: 640,
+	        height: 480,
+	        quality: 80            
+	    };
+	 
+	    $cordovaImagePicker.getPictures(options).then(function (results) {
+	        for (var i = 0; i < results.length; i++) {
+	            console.log('Image URI: ' + results[i]);
+	            $scope.collection.selectedImage = results[i];   
+	            
+                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){
+                    $scope.jogo.img = "data:image/png;base64,"+base64;
+                });
+	        }
+	    }, function(error) {
+	        console.log('Error: ' + JSON.stringify(error));
+	    });
+	}; 
+	
 	$scope.salvarPopup = function(jogo){
 		var confirmPopup = $ionicPopup.confirm({
 		       title: 'Salvar Alterações',
