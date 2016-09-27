@@ -24,7 +24,7 @@
 	<div class="list" ng-show="showJogos">
 		<div ng-repeat="jogo in jogos">
 			<a class="item item-thumbnail-left"	ui-sref="menu.jogo2({id:{{jogo.id}}})"> 
-				<img src="../img/defaultImage.jpg">
+				<img ng-src="{{jogo.img}}">
 				<h2>{{jogo.name}}</h2>
 			</a>
 		</div>

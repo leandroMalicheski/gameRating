@@ -18,7 +18,7 @@
         <div class="list" ng-show="showUsuarios">
 		<div ng-repeat="usuario in usuarios">
 			<a class="item item-thumbnail-left"	ui-sref="menu.perfilUsuRio({id:{{usuario.id}}})"> 
-				<img src="../img/defaultImage.jpg">
+				<img ng-src="{{usuario.img}}">
 				<h2>{{usuario.login}}</h2>
 			</a>
 		</div>

@@ -5,7 +5,7 @@
 			<button type="button" ng-click="ocultarPopup()" class=" button button-stable  icon" ng-class="commentDisable"></button>
         </div>
         <ion-item class="item-thumbnail-left" >
-	       	<img src="../img/defaultImage.jpg" ui-sref="menu.perfilUsuRio({id:comentario.userId})">
+	       	<img ng-src="{{usuario.img}}" ui-sref="menu.perfilUsuRio({id:comentario.userId})">
 	        <label ui-sref="menu.perfilUsuRio({id:comentario.userId})">
 	        	<h2>{{comentario.body}}</h2>
 	    	</label>
