@@ -2,14 +2,17 @@
 <ion-view title="Tópico">
     <ion-content padding="true" class="has-header" ng-controller="tPicoCtrl" ng-init="carregarTopico()">
         <div>
-        	<button ng-click="adicionarImagem(comentario)" type="button" class=" button button-stable  icon ion-android-attach "></button>
-	        <button ng-click="addLinkPopup(comentario)" type="button" class=" button button-stable  icon ion-link "></button>
+        	<button ng-disabled="isClosed" ng-click="adicionarImagem(comentario)" type="button" class=" button button-stable  icon ion-android-attach "></button>
+	        <button ng-disabled="isClosed" ng-click="addLinkPopup(comentario)" type="button" class=" button button-stable  icon ion-link "></button>
 	        <button type="button" ng-click="ocultarPopup()" ng-show="showDisable" class=" button button-stable  icon" ng-class="topicDisable"></button>
         </div>
         
         <h1 style="color:#000000;">{{topico.title}}</h1>
         <div style="color:#000000;">
             <p>{{topico.body}}</p>
+        </div>
+        <div style="color:#000000;" ng-show="showTopicImage">
+            <img ng-src="{{topico.img}}" style="max-width:40%; max-height:40%;">
         </div>
         <div class="spacer" style="height: 50px;"></div>
         <div style="color: #000000;" ng-hide="showComments">
@@ -22,6 +25,7 @@
 	                <label ng-disabled="linkComment" ui-sref="menu.comentario({id:comentario.id})">
 	                	<h2>{{comentario.user}}</h2>
 	                	<p>{{comentario.body}}</p>
+	                	<img ng-src="{{comentario.img}}" style="max-width:40%; max-height:40%;">
 	                </label>
 	            </ion-item>
         </div>

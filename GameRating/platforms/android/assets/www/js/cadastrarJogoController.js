@@ -47,9 +47,8 @@ function ($scope, $stateParams, $ionicPopup, $http, $window) {
 		var request = getWebServices() + "/addGame"
 		var headers = {headers : {'Content-Type' : 'application/json'}};
 		$http.post(request, jogo, headers).success(function(data) {
-			alteracoesSalvasPopup($ionicPopup)
+			$scope.jogoSalvoPopup()			
 		});	
-		$scope.jogoSalvoPopup()
 	}
 	
 	$scope.jogoSalvoPopup = function(){

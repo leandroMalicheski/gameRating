@@ -1,12 +1,14 @@
 angular.module('app.topicoController', [])
-.controller('tPicoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http', '$window',
-function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
+.controller('tPicoCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$http', '$window', '$cordovaImagePicker', '$ionicPlatform',
+function ($scope, $stateParams, $ionicPopup, $state, $http, $window, $cordovaImagePicker, $ionicPlatform) {
 	$scope.topico
+	$scope.collection = {selectedImage : ''};
 	$scope.comentarios = []
 	$scope.showComments = false
 	$scope.showDisable = false
 	$scope.linkComment = true
 	$scope.topicDisable = "ion-eye";
+	$scope.showTopicImage = false;
 	var id = $stateParams.id
 	$scope.isClosed = false;
 	
@@ -20,6 +22,9 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 			$scope.checkVisibleClass($scope.topico.visible)
 			if($scope.topico.closed){
 				$scope.isClosed = true
+			}
+			if($scope.topico.img !== null){
+				$scope.showTopicImage = true
 			}
 		});
 		var request = getWebServices() + "/getCommentsByTopicId?id="+id
@@ -54,9 +59,40 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 		}
 	}
 	
-	$scope.adicionarImagem = function(topicoNovo){
-		console.log("Vou adicionar Imagem o Tópico")
-		console.log(topicoNovo)
+	$scope.adicionarImagem = function(comentario){
+		var options = {
+		        maximumImagesCount: 1, 
+		        width: 640,
+		        height: 480,
+		        quality: 80            
+		    };
+		 
+		    $cordovaImagePicker.getPictures(options).then(function (results) {
+		        for (var i = 0; i < results.length; i++) {
+		            console.log('Image URI: ' + results[i]);
+		            $scope.collection.selectedImage = results[i];
+		            
+	                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
+	                	comentario.img = "data:image/png;base64,"+base64;
+	                	user = JSON.parse($window.localStorage['userOn'] || '[]');
+	        			comentario.userId = user.id
+	        			comentario.topicId = id
+	        			var headers = {headers : {'Content-Type' : 'application/json'}};
+	        			var request = getWebServices() + "/addComment"
+	                	$http.post(request, comentario, headers).success(function(data) {
+	            			$scope.comentarios.push(data)
+	            			$scope.showComments = true;
+	            			comentario.body = "";
+	            		});
+	            		$scope.comentarioAdicionado()
+	            		$state.go('menu.tPico',$stateParams.id)
+	                });
+		        }
+		    }, function(error) {
+		        console.log('Error: ' + JSON.stringify(error));
+		    });
+		
+		
 	}
 	
 	$scope.comentarioAdicionado = function(){

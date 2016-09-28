@@ -7,6 +7,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 	$scope.showDisable = false
 	$scope.linkComment = true
 	$scope.topicDisable = "ion-eye";
+	$scope.showTopicImage = false;
 	var id = $stateParams.id
 	$scope.isClosed = false;
 	
@@ -20,6 +21,9 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window) {
 			$scope.checkVisibleClass($scope.topico.visible)
 			if($scope.topico.closed){
 				$scope.isClosed = true
+			}
+			if($scope.topico.img !== null){
+				$scope.showTopicImage = true
 			}
 		});
 		var request = getWebServices() + "/getCommentsByTopicId?id="+id

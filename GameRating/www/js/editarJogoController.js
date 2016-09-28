@@ -1,7 +1,8 @@
 angular.module('app.editarJogoController', [])
-.controller('editarJogoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$http', '$window',
-function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {	
+.controller('editarJogoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$http', '$window', '$cordovaImagePicker', '$ionicPlatform', 
+function ($scope, $stateParams, $state, $ionicPopup, $http, $window, $cordovaImagePicker, $ionicPlatform) {	
 	$scope.jogo
+	$scope.collection = {selectedImage : ''};
 	var id = $stateParams.id
 	$scope.icon1Rate = 'ion-android-star-outline'
 	$scope.icon2Rate = 'ion-android-star-outline'
@@ -9,6 +10,28 @@ function ($scope, $stateParams, $state, $ionicPopup, $http, $window) {
 	$scope.icon4Rate = 'ion-android-star-outline'
 	$scope.icon5Rate = 'ion-android-star-outline'
 	
+	$scope.getImageFromGallery = function() {       
+        var options = {
+	        maximumImagesCount: 1, 
+	        width: 640,
+	        height: 480,
+	        quality: 80            
+	    };
+	 
+	    $cordovaImagePicker.getPictures(options).then(function (results) {
+	        for (var i = 0; i < results.length; i++) {
+	            console.log('Image URI: ' + results[i]);
+	            $scope.collection.selectedImage = results[i];
+	            
+                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
+                    $scope.jogo.img = "data:image/png;base64,"+base64;
+                });
+	        }
+	    }, function(error) {
+	        console.log('Error: ' + JSON.stringify(error));
+	    });
+	}; 
+		
 	$scope.carregarJogo = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var request = getWebServices() + "/getJogoById?id="+id

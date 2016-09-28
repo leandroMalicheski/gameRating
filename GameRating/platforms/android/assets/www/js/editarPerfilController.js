@@ -1,6 +1,6 @@
 angular.module('app.editarPerfilController', [])
-.controller('editarPerfilCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$window','$http',
-function ($scope, $stateParams, $ionicPopup, $state, $window, $http) {
+.controller('editarPerfilCtrl', ['$scope', '$stateParams', '$ionicPopup', '$state', '$window','$http', '$cordovaImagePicker', '$ionicPlatform',
+function ($scope, $stateParams, $ionicPopup, $state, $window, $http, $cordovaImagePicker, $ionicPlatform) {
 	$scope.perfil
 	$scope.carregarPerfil = function(){
 		$scope.perfil = JSON.parse($window.localStorage['userOn'] || '[]');
@@ -110,7 +110,25 @@ function ($scope, $stateParams, $ionicPopup, $state, $window, $http) {
 	}
 	
 	$scope.carregarImagem = function(){
-		console.log("Carregar Imagem")
+		var options = {
+		        maximumImagesCount: 1, 
+		        width: 640,
+		        height: 480,
+		        quality: 80            
+		    };
+		 
+		    $cordovaImagePicker.getPictures(options).then(function (results) {
+		        for (var i = 0; i < results.length; i++) {
+		            console.log('Image URI: ' + results[i]);
+		            $scope.collection.selectedImage = results[i];
+		            
+	                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
+	                    $scope.perfil.img = "data:image/png;base64,"+base64;
+	                });
+		        }
+		    }, function(error) {
+		        console.log('Error: ' + JSON.stringify(error));
+		    });
 	}
 
 }])

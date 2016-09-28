@@ -223,5 +223,6 @@ this.validaJogo = function(jogo, ionicPopup){
 }
 
 this.getWebServices = function(){
-	return "http://localhost:8080" 
+//	return "http://localhost:8080" 
+	return "http://192.168.0.162:8080" 
 } 
