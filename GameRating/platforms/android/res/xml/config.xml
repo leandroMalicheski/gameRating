@@ -14,6 +14,9 @@
     <feature name="Base64">
         <param name="android-package" value="com.badrit.Base64.Base64Plugin" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
     <allow-intent href="market:*" />
     <name>Game Rating</name>
     <description>

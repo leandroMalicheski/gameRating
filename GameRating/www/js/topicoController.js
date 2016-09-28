@@ -60,39 +60,29 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window, $cordovaIma
 	}
 	
 	$scope.adicionarImagem = function(comentario){
-		var options = {
-		        maximumImagesCount: 1, 
-		        width: 640,
-		        height: 480,
-		        quality: 80            
-		    };
-		 
-		    $cordovaImagePicker.getPictures(options).then(function (results) {
-		        for (var i = 0; i < results.length; i++) {
-		            console.log('Image URI: ' + results[i]);
-		            $scope.collection.selectedImage = results[i];
-		            
-	                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
-	                	comentario.img = "data:image/png;base64,"+base64;
-	                	user = JSON.parse($window.localStorage['userOn'] || '[]');
-	        			comentario.userId = user.id
-	        			comentario.topicId = id
-	        			var headers = {headers : {'Content-Type' : 'application/json'}};
-	        			var request = getWebServices() + "/addComment"
-	                	$http.post(request, comentario, headers).success(function(data) {
-	            			$scope.comentarios.push(data)
-	            			$scope.showComments = true;
-	            			comentario.body = "";
-	            		});
-	            		$scope.comentarioAdicionado()
-	            		$state.go('menu.tPico',$stateParams.id)
+		var options = {maximumImagesCount: 1, width: 640, height: 480, quality: 80};
+		$cordovaImagePicker.getPictures(options).then(function (results) {
+			for (var i = 0; i < results.length; i++) {
+		        $scope.collection.selectedImage = results[i];
+	            window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
+	            	comentario.img = base64;
+	                user = JSON.parse($window.localStorage['userOn'] || '[]');
+	        		comentario.userId = user.id
+	        		comentario.topicId = id
+	        		var headers = {headers : {'Content-Type' : 'application/json'}};
+	        		var request = getWebServices() + "/addComment"
+	        		$http.post(request, comentario, headers).success(function(data) {
+	            		$scope.comentarios.push(data)
+	            		$scope.showComments = true;
+	            		comentario.body = "";
 	                });
-		        }
-		    }, function(error) {
+	            	$scope.comentarioAdicionado()
+	            	$state.go('menu.tPico',$stateParams.id)
+	            });
+			}
+		}, function(error) {
 		        console.log('Error: ' + JSON.stringify(error));
-		    });
-		
-		
+		});
 	}
 	
 	$scope.comentarioAdicionado = function(){

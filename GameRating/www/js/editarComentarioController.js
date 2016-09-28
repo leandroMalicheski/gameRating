@@ -1,14 +1,21 @@
 angular.module('app.editarComentarioController', [])
-.controller('editarComentRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicHistory', '$state','$http','$window',  
-function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http,$window) {
+.controller('editarComentRioCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicHistory', '$state','$http','$window','$cordovaImagePicker', '$ionicPlatform',  
+function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http, $window, $cordovaImagePicker, $ionicPlatform) {
 	$scope.comentario
+	$scope.collection = {selectedImage : ''};
+	$scope.showInput = false;
+	$scope.disableImageButton = false;
 	var id = $stateParams.id
 	
 	$scope.carregarComentario = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var request = getWebServices() + "/getCommentById?id="+id
 		$http.get(request, headers).success(function(data) {
-			$scope.comentario = data			
+			$scope.comentario = data		
+			if($scope.comentario.body !== null){
+				$scope.showInput = true;
+				$scope.disableImageButton = true;
+			}
 		});
 	}
 	
@@ -68,9 +75,18 @@ function ($scope, $stateParams, $ionicPopup, $ionicHistory, $state, $http,$windo
 	
 	
 	
-	$scope.adicionarImagem = function(topicoNovo){
-		console.log("Vou adicionar Imagem o Comentario")
-		console.log(topicoNovo)
+	$scope.adicionarImagem = function(comentario){
+		var options = {maximumImagesCount: 1, width: 640, height: 480, quality: 80};
+		$cordovaImagePicker.getPictures(options).then(function (results) {
+			for (var i = 0; i < results.length; i++) {
+		        $scope.collection.selectedImage = results[i];
+	            window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){
+	            	$scope.comentario.img = base64
+	            });
+			}
+	    }, function(error) {
+	    	console.log('Error: ' + JSON.stringify(error));
+	    });
 	}
 	
 	$scope.salvarPopup = function (topicoNovo){

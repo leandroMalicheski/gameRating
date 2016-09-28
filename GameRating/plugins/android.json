@@ -18,6 +18,9 @@
         },
         "com-badrit-base64": {
             "PACKAGE_NAME": "game.rating"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "game.rating"
         }
     },
     "dependent_plugins": {

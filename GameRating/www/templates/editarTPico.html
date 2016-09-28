@@ -15,6 +15,9 @@
             <label class="item item-input">
                 <textarea ng-model="topico.body">{{topico.body}}</textarea>
             </label>
+            <div style="color:#000000;" ng-show="showTopicImage">
+            	<img ng-src="{{topico.img}}" style="max-width:40%; max-height:40%;">
+        	</div>
         </form>
     </ion-content>
 </ion-view>

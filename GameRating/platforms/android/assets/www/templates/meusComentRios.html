@@ -3,7 +3,8 @@
     <ion-content padding="true" class="has-header" ng-controller="meusComentRiosCtrl" ng-init="carregarComentarios()">
         <ion-list>
            <ion-item ng-repeat="comentario in comentarios" ui-sref="menu.editarComentRio({id:{{comentario.id}}})" class="item-icon-right" >
-	       		{{comentario.body}}
+	       		<h2>{{comentario.body}}</h2>
+	       		<img ng-src="{{comentario.img}}" style="max-width:40%; max-height:40%;">
            </ion-item>
         </ion-list>
     </ion-content>

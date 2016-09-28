@@ -1,16 +1,21 @@
 angular.module('app.editarTopicoController', [])
-.controller('editarTPicoCtrl', ['$scope', '$stateParams','$ionicPopup', '$state', '$ionicHistory', "$http",'$window',
-function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window) {
+.controller('editarTPicoCtrl', ['$scope', '$stateParams','$ionicPopup', '$state', '$ionicHistory', "$http",'$window', '$cordovaImagePicker', '$ionicPlatform',
+function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window,$cordovaImagePicker,$ionicPlatform) {
 	$scope.topico
 	$scope.topicoLocked = "ion-unlocked"
+	$scope.collection = {selectedImage : ''};
 	var id = $stateParams.id
-		
+	$scope.showTopicImage = false;
+	
 	$scope.carregarTopico = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
 		var request = getWebServices() + "/getTopicByIdEdit?id="+id
 		$http.get(request, headers).success(function(data) {
 			$scope.topico = data	
 			$scope.checkVisibleClass($scope.topico.closed)
+			if($scope.topico.img !== null){
+				$scope.showTopicImage = true
+			}
 		});
 	}
 	
@@ -132,8 +137,17 @@ function ($scope, $stateParams, $ionicPopup, $state, $ionicHistory,$http,$window
 	}
 	
 	$scope.adicionarImagem = function(topicoNovo){
-		console.log("Vou adicionar Imagem o Tópico")
-		console.log(topicoNovo)
+		var options = {maximumImagesCount: 1, width: 640, height: 480, quality: 80};
+		$cordovaImagePicker.getPictures(options).then(function (results) {
+			for (var i = 0; i < results.length; i++) {
+		        $scope.collection.selectedImage = results[i];
+	            window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){
+	            	$scope.topico.img = base64
+	            });
+			}
+	    }, function(error) {
+	    	console.log('Error: ' + JSON.stringify(error));
+	    });
 	}
 	
 	$scope.salvarPopup = function (topicoNovo){

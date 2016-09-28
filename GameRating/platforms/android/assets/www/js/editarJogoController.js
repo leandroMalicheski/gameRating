@@ -2,6 +2,7 @@ angular.module('app.editarJogoController', [])
 .controller('editarJogoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$http', '$window', '$cordovaImagePicker', '$ionicPlatform', 
 function ($scope, $stateParams, $state, $ionicPopup, $http, $window, $cordovaImagePicker, $ionicPlatform) {	
 	$scope.jogo
+	$scope.collection = {selectedImage : ''};
 	var id = $stateParams.id
 	$scope.icon1Rate = 'ion-android-star-outline'
 	$scope.icon2Rate = 'ion-android-star-outline'
@@ -19,11 +20,9 @@ function ($scope, $stateParams, $state, $ionicPopup, $http, $window, $cordovaIma
 	 
 	    $cordovaImagePicker.getPictures(options).then(function (results) {
 	        for (var i = 0; i < results.length; i++) {
-	            console.log('Image URI: ' + results[i]);
 	            $scope.collection.selectedImage = results[i];
-	            
                 window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
-                    $scope.jogo.img = "data:image/png;base64,"+base64;
+                    $scope.jogo.img = base64;
                 });
 	        }
 	    }, function(error) {

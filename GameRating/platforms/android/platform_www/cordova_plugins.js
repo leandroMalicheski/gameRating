@@ -80,6 +80,13 @@ module.exports = [
         "clobbers": [
             "navigator.Base64"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "clobbers": [
+            "device"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -89,7 +96,8 @@ module.exports.metadata =
     "cordova-plugin-image-picker": "1.1.1",
     "cordova-plugin-compat": "1.0.0",
     "cordova-plugin-contacts": "2.2.0",
-    "com-badrit-base64": "0.2.0"
+    "com-badrit-base64": "0.2.0",
+    "cordova-plugin-device": "1.1.3"
 };
 // BOTTOM OF METADATA
 });

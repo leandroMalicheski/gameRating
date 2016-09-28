@@ -10,32 +10,19 @@ $scope.salvar = function(topicoNovo){
 	var headers = {headers : {'Content-Type' : 'application/json'}};
 	$http.post(request, topicoNovo, headers).success(function(data) {});	
 }	
+
 $scope.adicionarImagem = function(topicoNovo){
-	var options = {
-	        maximumImagesCount: 1, 
-	        width: 640,
-	        height: 480,
-	        quality: 80            
-	    };
-	 
-	    $cordovaImagePicker.getPictures(options).then(function (results) {
-	        for (var i = 0; i < results.length; i++) {
-	            console.log('Image URI: ' + results[i]);
-	            $scope.collection.selectedImage = results[i];
-	            
-                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
-                	topicoNovo.img = "data:image/png;base64,"+base64;
-                    user = JSON.parse($window.localStorage['userOn'] || '[]');
-                	topicoNovo.gameId = $stateParams.id
-                	topicoNovo.userId = user.id
-                	var request = getWebServices() + "/addTopic"
-                	var headers = {headers : {'Content-Type' : 'application/json'}};
-                	$http.post(request, topicoNovo, headers).success(function(data) {});
-                });
-	        }
-	    }, function(error) {
-	        console.log('Error: ' + JSON.stringify(error));
-	    });
+	var options = {maximumImagesCount: 1, width: 640, height: 480, quality: 80};
+	$cordovaImagePicker.getPictures(options).then(function (results) {
+		for (var i = 0; i < results.length; i++) {
+	        $scope.collection.selectedImage = results[i];
+	        window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
+            	topicoNovo.img = base64;
+	        });
+		}
+	}, function(error) {
+		console.log('Error: ' + JSON.stringify(error));
+	});
 }
 	
 $scope.addLinkPopup = function(topicoNovo){

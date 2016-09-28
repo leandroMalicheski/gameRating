@@ -116,20 +116,18 @@ function ($scope, $stateParams, $ionicPopup, $state, $window, $http, $cordovaIma
 		        width: 640,
 		        height: 480,
 		        quality: 80            
-		    };
+		};
 		 
-		    $cordovaImagePicker.getPictures(options).then(function (results) {
-		        for (var i = 0; i < results.length; i++) {
-		            console.log('Image URI: ' + results[i]);
-		            $scope.collection.selectedImage = results[i];
-		            
-	                window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
-	                    $scope.perfil.img = "data:image/png;base64,"+base64;
-	                });
-		        }
-		    }, function(error) {
+		$cordovaImagePicker.getPictures(options).then(function (results) {
+			for (var i = 0; i < results.length; i++) {
+		        $scope.collection.selectedImage = results[i];
+	            window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
+	            	$scope.perfil.img = base64;
+	            });
+			}
+		}, function(error) {
 		        console.log('Error: ' + JSON.stringify(error));
-		    });
+		});
 	}
 
 }])

@@ -1,13 +1,14 @@
-<body ng-app="app.controllers">
+<body ng-app="app.comentarioController">
 <ion-view title="Comentário">
     <ion-content padding="true" class="has-header" ng-controller="comentarioCtrl" ng-init="carregarComentario()">
         <div> 
 			<button type="button" ng-click="ocultarPopup()" class=" button button-stable  icon" ng-class="commentDisable"></button>
         </div>
         <ion-item class="item-thumbnail-left" >
-	       	<img ng-src="{{usuario.img}}" ui-sref="menu.perfilUsuRio({id:comentario.userId})">
+	       	<img ng-src="{{comentario.userImg}}" ui-sref="menu.perfilUsuRio({id:comentario.userId})">
 	        <label ui-sref="menu.perfilUsuRio({id:comentario.userId})">
 	        	<h2>{{comentario.body}}</h2>
+	        	<img ng-src="{{comentario.img}}" style="max-width:40%; max-height:40%;">
 	    	</label>
 	    </ion-item>
     </ion-content>

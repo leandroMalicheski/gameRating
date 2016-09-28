@@ -1,7 +1,7 @@
-<body ng-app="app.meusComentariosTController">
+<body ng-app="app.comentariosOcultosController">
 <ion-view title="Comentários ocultos" >
     <ion-content padding="true" class="has-header" ng-controller="comentRiosOcultos2Ctrl" ng-init="carregarTopicos()">
-        <div ng-hide="showTopics">
+        <div ng-hide="showTopicos">
          	<p>Não há comentários ocultos no momento</p>
          </div>
         <ion-item ng-repeat="topico in topicos" ui-sref="menu.comentRiosOcultos({id:{{topico.id}}})" class="item-icon-right" >
