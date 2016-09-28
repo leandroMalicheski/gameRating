@@ -1,15 +1,13 @@
 <body ng-app="app.controllers">
 <ion-view title="Tempo de Fechamento">
     <ion-content padding="true" class="has-header" ng-controller="tempoDeFechamentoCtrl" ng-init="carregarTempo()">
-        <div>
+        <div class="rightBt">
         	<button type="buton" ng-click="salvarPopup(tempo)" id="tempoDeFechamento-button51" class=" button button-stable  icon ion-android-done "></button>
         </div>
-        <h3 style="color:#000000;">Tempo Minimo</h3>
-        <div class="list ">
-            <label class="item item-input">
-                <input type="number" ng-model="tempo.dias" value={{tempo.dias}}>
-            </label>
-        </div>
+        <h3 class="textCenter">Tempo Minimo</h3>
+       	<label class="item item-input">
+       		<input type="number" ng-model="tempo.dias" value={{tempo.dias}}>
+        </label>
     </ion-content>
 </ion-view>
 </body>

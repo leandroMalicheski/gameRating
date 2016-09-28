@@ -1,32 +1,38 @@
 <body ng-app="app.rateConfigurationController">
 <ion-view title="Calculo de Rate" id="page25">
     <ion-content padding="true" class="has-header" ng-controller="calculoDeRateCtrl" ng-init="carregarConfiguracao()">
-        
-        <button type="button" ng-click="salvarRatingPopup(jogo)" class=" button button-stable  icon ion-android-done "></button>
-        <h3 style="color:#000000;">Calculo de Rate</h3>
-        <div style="color:#000000;">
+        <div class="rightBt">
+        	<button type="button" ng-click="salvarRatingPopup(jogo)" class=" button button-stable  icon ion-android-done "></button>
+        </div>
+        <h3 class="textCenter">Calculo de Rate</h3>
+        <div class="textCenter">
             <p>Defina os pesos para o calculo de rate médio para cada caracteristica abaixo.</p>
         </div>
-
-        <label>Jogabilidade: </label><br>
-		<button type="button" ng-click="definirJRate1()" class="button button-stable icon" ng-class="icon1JRate"></button>
-        <button type="button" ng-click="definirJRate2()" class="button button-stable icon" ng-class="icon2JRate"></button>
-        <button type="button" ng-click="definirJRate3()" class="button button-stable icon" ng-class="icon3JRate"></button>
-
-		<br><label>Diversão: </label><br>
-		<button type="button" ng-click="definirDRate1()" class="button button-stable icon" ng-class="icon1DRate"></button>
-        <button type="button" ng-click="definirDRate2()" class="button button-stable icon" ng-class="icon2DRate"></button>
-        <button type="button" ng-click="definirDRate3()" class="button button-stable icon" ng-class="icon3DRate"></button>
-		
-		<br><label>Audio: </label><br>
-		<button type="button" ng-click="definirARate1()" class="button button-stable icon" ng-class="icon1ARate"></button>
-        <button type="button" ng-click="definirARate2()" class="button button-stable icon" ng-class="icon2ARate"></button>
-        <button type="button" ng-click="definirARate3()" class="button button-stable icon" ng-class="icon3ARate"></button>
-		
-		<br><label>Imersão: </label><br>
-		<button type="button" ng-click="definirIRate1()" class="button button-stable icon" ng-class="icon1IRate"></button>
-        <button type="button" ng-click="definirIRate2()" class="button button-stable icon" ng-class="icon2IRate"></button>
-        <button type="button" ng-click="definirIRate3()" class="button button-stable icon" ng-class="icon3IRate"></button>
+		<div class="spacer" style="height: 25px;"></div>
+        <div class="centerBt">
+	        <h4>Jogabilidade</h4>
+			<button type="button" ng-click="definirJRate1()" class="button button-stable icon" ng-class="icon1JRate"></button>
+	        <button type="button" ng-click="definirJRate2()" class="button button-stable icon" ng-class="icon2JRate"></button>
+	        <button type="button" ng-click="definirJRate3()" class="button button-stable icon" ng-class="icon3JRate"></button>
+        </div>
+		<div class="centerBt">
+			<h4>Diversão</h4>
+			<button type="button" ng-click="definirDRate1()" class="button button-stable icon" ng-class="icon1DRate"></button>
+	        <button type="button" ng-click="definirDRate2()" class="button button-stable icon" ng-class="icon2DRate"></button>
+	        <button type="button" ng-click="definirDRate3()" class="button button-stable icon" ng-class="icon3DRate"></button>
+		</div>
+		<div class="centerBt">
+			<h4>Audio</h4>
+			<button type="button" ng-click="definirARate1()" class="button button-stable icon" ng-class="icon1ARate"></button>
+	        <button type="button" ng-click="definirARate2()" class="button button-stable icon" ng-class="icon2ARate"></button>
+	        <button type="button" ng-click="definirARate3()" class="button button-stable icon" ng-class="icon3ARate"></button>
+		</div>
+		<div class="centerBt">
+			<h4>Imersão</h4>
+			<button type="button" ng-click="definirIRate1()" class="button button-stable icon" ng-class="icon1IRate"></button>
+	        <button type="button" ng-click="definirIRate2()" class="button button-stable icon" ng-class="icon2IRate"></button>
+	        <button type="button" ng-click="definirIRate3()" class="button button-stable icon" ng-class="icon3IRate"></button>
+		</div>
     </ion-content>
 </ion-view>
 </body>

@@ -1,54 +1,59 @@
 <body ng-app="app.cadastrarJogo">
 <ion-view title="Cadastrar Jogo">
     <ion-content padding="true" class="has-header" ng-controller="cadastrarJogoCtrl">
-        <div>
+        <div class="rightBt">
         	<button type="button" ng-click="cadastrar(jogo)" class=" button button-stable  icon ion-android-done "></button>
         </div>
-        <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
-            <a ng-click="getImageFromGallery()">
-           		<img ng-src="{{jogo.img}}" ng-model="jogo.img" style="max-width:100%; max-height:100%;">
-        	</a>
-        </div>
+        <div class="spacer" style="height: 5px;"></div>
+        <a ng-click="getImageFromGallery()">
+        	<img ng-src="{{jogo.img}}" ng-model="jogo.img" style="max-width:100%; max-height:100%;" class="imageCenter">
+        </a>
         <div>
+            <div class="spacer" style="height: 5px;"></div>
             <label class="item item-input ">
                 <input type="text" ng-model="jogo.name" placeholder="Título">
             </label>
+            <div class="spacer" style="height: 5px;"></div>
             <label class="item item-input ">
                 <input type="text" ng-model="jogo.description"  placeholder="Descrição">
             </label>
+            <div class="spacer" style="height: 5px;"></div>
             <label class="item item-input ">
                 <input type="text" ng-model="jogo.launchDate" placeholder="Data de Lançamento">
             </label>
+            <div class="spacer" style="height: 5px;"></div>
             <label class="item item-input ">
                 <input type="text" ng-model="jogo.platforms" placeholder="Plataformas">
             </label>
+            <div class="spacer" style="height: 5px;"></div>
             <label class="item item-input ">
                 <input type="text" ng-model="jogo.devs" placeholder="Desenvolvedores">
             </label>
             
-            <h3 style="color:#000000;">Rating</h3>
-			<label>Jogabilidade: </label><br>
+            <h3 class="textCenter">Rating</h3>
+			<div class="spacer" style="height: 15px;"></div>
+			<h4>Jogabilidade: </h4>
 			<button type="button" ng-click="definirJRate1()" class="button button-stable icon" ng-class="icon1JRate"></button>
 	        <button type="button" ng-click="definirJRate2()" class="button button-stable icon" ng-class="icon2JRate"></button>
 	        <button type="button" ng-click="definirJRate3()" class="button button-stable icon" ng-class="icon3JRate"></button>
 	        <button type="button" ng-click="definirJRate4()" class="button button-stable icon" ng-class="icon4JRate"></button>
 	        <button type="button" ng-click="definirJRate5()" class="button button-stable icon" ng-class="icon5JRate"></button>
 	
-			<br><label>Diversão: </label><br>
+			<h4>Diversão: </h4>
 			<button type="button" ng-click="definirDRate1()" class="button button-stable icon" ng-class="icon1DRate"></button>
 	        <button type="button" ng-click="definirDRate2()" class="button button-stable icon" ng-class="icon2DRate"></button>
 	        <button type="button" ng-click="definirDRate3()" class="button button-stable icon" ng-class="icon3DRate"></button>
 	        <button type="button" ng-click="definirDRate4()" class="button button-stable icon" ng-class="icon4DRate"></button>
 	        <button type="button" ng-click="definirDRate5()" class="button button-stable icon" ng-class="icon5DRate"></button>
 			
-			<br><label>Audio: </label><br>
+			<h4>Audio: </h4>
 			<button type="button" ng-click="definirARate1()" class="button button-stable icon" ng-class="icon1ARate"></button>
 	        <button type="button" ng-click="definirARate2()" class="button button-stable icon" ng-class="icon2ARate"></button>
 	        <button type="button" ng-click="definirARate3()" class="button button-stable icon" ng-class="icon3ARate"></button>
 	        <button type="button" ng-click="definirARate4()" class="button button-stable icon" ng-class="icon4ARate"></button>
 	        <button type="button" ng-click="definirARate5()" class="button button-stable icon" ng-class="icon5ARate"></button>
 			
-			<br><label>Imersão: </label><br>
+			<h4>Imersão: </h4>
 			<button type="button" ng-click="definirIRate1()" class="button button-stable icon" ng-class="icon1IRate"></button>
 	        <button type="button" ng-click="definirIRate2()" class="button button-stable icon" ng-class="icon2IRate"></button>
 	        <button type="button" ng-click="definirIRate3()" class="button button-stable icon" ng-class="icon3IRate"></button>

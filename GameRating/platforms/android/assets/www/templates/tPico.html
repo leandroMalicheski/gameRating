@@ -7,15 +7,17 @@
 	        <button type="button" ng-click="ocultarPopup()" ng-show="showDisable" class=" button button-stable  icon" ng-class="topicDisable"></button>
         </div>
         
-        <h1 style="color:#000000;">{{topico.title}}</h1>
-        <div style="color:#000000;">
-            <p>{{topico.body}}</p>
+        <div class="topicHeader">
+       	 	<h1 class="textCenter" >{{topico.title}}</h1>
         </div>
-        <div style="color:#000000;" ng-show="showTopicImage">
-            <img ng-src="{{topico.img}}" style="max-width:40%; max-height:40%;">
+        <div  class="topicBody">
+			<p>{{topico.body}}</p>
+	        <div style="color:#000000;" ng-show="showTopicImage">
+	            <img ng-src="{{topico.img}}" class="imageCenter" style="max-width:40%; max-height:40%;">
+	        </div>
         </div>
         <div class="spacer" style="height: 50px;"></div>
-        <div style="color: #000000;" ng-hide="showComments">
+        <div class="textCenter" ng-hide="showComments">
 			<p>Ainda não há comentários para este Tópico.</p>
 			<p>Crie um, Comente e divida experiências.</p>
 		</div>

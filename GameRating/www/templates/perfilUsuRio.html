@@ -1,25 +1,24 @@
 <body ng-app="app.pefilUsuarioController">
 <ion-view title="Perfil Usuário">
     <ion-content padding="true" class="has-header" ng-controller="perfilUsuRioCtrl" ng-init="carregarPerfilUsuario()">
-	    <div>
+	    <div class="rightBt">
 	        <button type="button" ng-click="transformarModeradorPopup()" ng-show="showModerador" class=" button button-stable  icon ion-android-star "></button>
 	        <button type="button" ng-click="alterarSenhaPopup()" ng-show="showSenha" class=" button button-stable  icon ion-ios-settings "></button>
 	        <button type="button" ng-click="desabilitarPopup()" ng-show="showDisable" class=" button button-stable  icon ion-android-close "></button>
 	        <button type="button" ng-click="bloquearPopup()" ng-show="showBloquear" class=" button button-stable  icon ion-android-lock "></button>
 	    </div>
-        <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
-            <img ng-src="{{perfil.img}}" style="max-width:100%; max-height:100%;">
-        </div>
+	    <div class="spacer" style="height: 20px;" ></div>
+		<img ng-src="{{perfil.img}}" style="max-width:100%; max-height:100%;" class="imageCenter">
+        <div class="spacer" style="height: 15px;" ></div>
         <div>
-        	<h2 style="color:#000000;">{{perfil.login}}</h2>
-            <p>
-            	<strong>Tópicos: </strong>{{perfil.topics}}
-            </p>
-            <p>
-            	<strong>Comentários: </strong>{{perfil.comments}}</p>
+        	<h2 class="userNamePerfil">{{perfil.login}}</h2>
+            <p><strong style="text-decoration: underline;">Tópicos:</strong> {{perfil.topics}}</p>
+            <p><strong style="text-decoration: underline;">Comentários:</strong> {{perfil.comments}}</p>
         </div>
-        <button type="button" ng-click="dislike()" ng-disabled="thumbsdownDisable" class=" button button-light  icon-right ion-thumbsdown">{{perfil.dislikes}}</button>
-        <button type="button" ng-click="like()" ng-disabled="thumbsupDisable" class=" button button-light  icon-right ion-thumbsup">{{perfil.likes}}</button>
+        <div class="centerBt">
+	        <button type="button" ng-click="dislike()" ng-disabled="thumbsdownDisable" class=" button button-light  icon-right ion-thumbsdown">{{perfil.dislikes}}</button>
+	        <button type="button" ng-click="like()" ng-disabled="thumbsupDisable" class=" button button-light  icon-right ion-thumbsup">{{perfil.likes}}</button>
+        </div>
     </ion-content>
 </ion-view>
 </body>

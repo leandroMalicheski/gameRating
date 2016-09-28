@@ -1,17 +1,18 @@
 <body ng-app="app.controllers">
 <ion-view title="Editar Comentário">
     <ion-content padding="true" class="has-header" ng-controller="editarComentRioCtrl" ng-init="carregarComentario()">
-        <div> 
+        <div class="rightBt"> 
 			<button ng-click="removerPopup()" type="button" class=" button button-stable  icon ion-android-delete "></button>
 	        <button ng-disabled="disableImageButton" ng-click="adicionarImagem(comentario)" type="button" class=" button button-stable  icon ion-android-attach "></button>
 	        <button ng-click="addLinkPopup(comentario)" type="button" class=" button button-stable  icon ion-link "></button>
 	        <button ng-click="salvarPopup(comentario)" type="button" class=" button button-stable  icon ion-android-done "></button>
         </div>
+        <div class="spacer" style="height: 5px;"></div>
         <div class="list ">
-            <label class="item item-input">
-                <input ng-show="showInput" type="text" ng-model="comentario.body" value="{{comentario.body}}">
-                <img ng-src="{{comentario.img}}" style="max-width:40%; max-height:40%;">
+            <label class="item item-input" ng-show="showInput">
+                <input type="text" ng-model="comentario.body" value="{{comentario.body}}">
             </label>
+			<img ng-src="{{comentario.img}}" class="imageCenter" style="max-width:100%; max-height:100%;">
         </div>
     </ion-content>
 </ion-view>

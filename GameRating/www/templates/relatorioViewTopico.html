@@ -1,15 +1,15 @@
 <body ng-app="app.relatoriosController">
 	<ion-view title="Relatório"> 
 	<ion-content padding="true" class="has-header" ng-controller="relatorioViewTopicoCtrl" ng-init="gerarRelatorio()">
-		<h3 style="color: #000000; text-align: center;">
+		<h3 class="textCenter">
 			Numero de Acessos por Tópico 
 		</h3>
-		<div class="row header" style="background-color:lightgrey; text-align: center;" >
+		<div class="row header relatorioHeader" style="background-color:lightgrey; text-align: center;" >
 	    	<div class="col">Título Tópico</div>
 	        <div class="col">Quantidade de Acessos</div>
 		</div>
-		<div class="row" ng-repeat="topic in topicList">
-	    	<div class="col">{{topic.title}}</div>
+		<div class="row relatorioRow" ng-repeat="topic in topicList">
+	    	<div class="col relatorioDados">{{topic.title}}</div>
 	        <div class="col" style="text-align: center;">{{topic.visitedTimes}}</div>
 		</div>
 	</ion-view>

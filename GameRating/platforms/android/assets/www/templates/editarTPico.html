@@ -1,23 +1,27 @@
 <body ng-app="app.editarTopicoController">
 <ion-view title="Editar Tópico">
     <ion-content padding="true" class="has-header" ng-controller="editarTPicoCtrl" ng-init="carregarTopico()">
-		<div>
+		<div class="rightBt">
 	        <button ng-click="fecharPopup()" type="button" class=" button button-stable  icon" ng-class="topicoLocked"></button>
 	        <button ng-click="removerPopup()" type="button" class=" button button-stable  icon ion-android-delete "></button>
 	        <button ng-click="adicionarImagem(topico)" type="button" class=" button button-stable  icon ion-android-attach "></button>
 	        <button ng-click="addLinkPopup(topico)" type="button" class=" button button-stable  icon ion-link "></button>
 	        <button ng-click="salvarPopup(topico)" type="button" class=" button button-stable  icon ion-android-done "></button>
 		</div>       
+		<div class="spacer" style="height: 10px;"></div>
         <form class="list">
+            <span class="input-label">Titulo:</span>
             <label class="item item-input">
                 <input type="text" ng-model="topico.title" value="{{topico.title}}">
             </label>
+            <div class="spacer" style="height: 5px;"></div>
+            <span class="input-label">Conteudo:</span>
             <label class="item item-input">
                 <textarea ng-model="topico.body">{{topico.body}}</textarea>
             </label>
-            <div style="color:#000000;" ng-show="showTopicImage">
-            	<img ng-src="{{topico.img}}" style="max-width:40%; max-height:40%;">
-        	</div>
+            <div class="spacer" style="height: 5px;"></div>
+            <span ng-show="showTopicImage" class="input-label">Imagem:</span>
+           	<img ng-show="showTopicImage" ng-src="{{topico.img}}" style="max-width:40%; max-height:40%;" class="imageCenter">
         </form>
     </ion-content>
 </ion-view>

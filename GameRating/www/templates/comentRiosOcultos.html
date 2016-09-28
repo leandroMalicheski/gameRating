@@ -1,12 +1,11 @@
 <body ng-app="app.comentariosOcultosController">
 <ion-view title="Comentários Ocultos">
     <ion-content padding="true" class="has-header" ng-controller="comentRiosOcultosCtrl" ng-init="carregarComentarios()">
-        <div>
+        <div class="rightBt">
     	    <button ng-click="removerOcultacaoPopup(comentarios)" type="button"  class=" button button-stable  icon ion-eye"></button>
         </div>
-        <ion-checkbox ng-repeat="comentario in comentarios"
-                      ng-model="comentario.checked" 
-                      ng-checked="comentario.checked">
+        <div class="spacer" style="height: 5px;"></div>
+        <ion-checkbox ng-repeat="comentario in comentarios" ng-model="comentario.checked"  ng-checked="comentario.checked">
           	{{ comentario.body }}
           	<img ng-src="{{comentario.img}}" style="vertical-align: middle; margin-left:5%; position: absolute;  top: 0px;  height:100%;">
         </ion-checkbox>

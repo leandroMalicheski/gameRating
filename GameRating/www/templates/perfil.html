@@ -1,25 +1,24 @@
 <body ng-app="app.perfilController">
 <ion-view title="Perfil">
     <ion-content padding="true" class="has-header" ng-controller="perfilCtrl" ng-init="carregarPerfil()">
-        <div>
+        <div class="rightBt">
             <button type="button" ng-click="desabilitarPopup()" class="button button-stable  icon" ng-class="disableIcon"></button>
         	<a ui-sref="menu.editarPerfil" class="button button-stable  icon ion-android-create "></a>
         </div>
-		<div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
-			 <img ng-src="{{perfil.img}}" style="max-width:100%; max-height:100%;">
-		</div>
-        <br>
+        <div class="spacer" style="height: 5px;"></div>
+		<img ng-src="{{perfil.img}}" class="imageCenter" style="max-width:100%; max-height:100%;">
+		<div class="spacer" style="height: 10px;"></div>
         <div>
-            <label class="item item-input ">
+            <label class="item item-input">
                 <input type="text" value={{perfil.name}} disabled>
             </label>
-            <label class="item item-input ">
+            <label class="item item-input">
                 <input type="text" value={{perfil.email}} disabled>
             </label>
-            <label class="item item-input ">
+            <label class="item item-input">
                 <input type="text" value={{perfil.login}} disabled>
             </label>
-            <label class="item item-input item-stacked-label ">
+            <label class="item item-input item-stacked-label">
                 <span class="input-label">Qual o nome do seu cachorro ?</span>
                 <input type="text" value={{perfil.passwordTip}} disabled>
             </label>

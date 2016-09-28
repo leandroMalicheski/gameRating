@@ -1,23 +1,24 @@
 <body ng-app="app.jogoRateController">
 <ion-view title="Jogo">
     <ion-content padding="true" class="has-header" ng-controller="jogoCtrl" ng-init="carregarJogo()">
-       <div>
+       <div class="rightBt">
     	    <button ng-show="mostrarDisable" type="button" ng-click="ocultarPopup()" class=" button button-stable  icon" ng-class="gameDisable"></button>
 	        <button ng-show="mostrarEditar" ui-sref="menu.editarJogo({id:jogo.id})" class=" button button-stable  icon ion-edit "></button>
 	        <button type="button" ng-click="salvarRatingPopup(jogo)" class=" button button-stable  icon ion-android-done "></button>
         </div>
+        <div class="spacer" style="height: 5px;"></div>
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
             <img ng-src="{{jogo.img}}" style="max-width:100%; max-height:100%;">
         </div>
-        <h3 style="color:#000000;">{{jogo.name}}</h3>
-        <div>
+        <h3 class="textCenter">{{jogo.name}}</h3>
+        <div class="centerBt">
             <button type="button" class="button button-stable icon" ng-class="icon1Rate"></button>
             <button type="button" class="button button-stable icon" ng-class="icon2Rate"></button>
             <button type="button" class="button button-stable icon" ng-class="icon3Rate"></button>
             <button type="button" class="button button-stable icon" ng-class="icon4Rate"></button>
             <button type="button" class="button button-stable icon" ng-class="icon5Rate"></button>
         </div>
-        <h3 style="color:#000000;">Rating</h3>
+        <h3>Rating</h3>
 		<label>Jogabilidade: </label><br>
 		<button type="button" ng-click="definirJRate1()" class="button button-stable icon" ng-class="icon1JRate"></button>
         <button type="button" ng-click="definirJRate2()" class="button button-stable icon" ng-class="icon2JRate"></button>
@@ -46,10 +47,10 @@
         <button type="button" ng-click="definirIRate4()" class="button button-stable icon" ng-class="icon4IRate"></button>
         <button type="button" ng-click="definirIRate5()" class="button button-stable icon" ng-class="icon5IRate"></button>
         
-        <div class=" button-bar ">
-           <a ui-sref="menu.jogo2({id:jogo.id})" class=" button button-stable  button-block ">Jogo</a>
-           <button id="jogo-button59" class=" button button-stable  button-block ">Rate</button>
-           <a ui-sref="menu.jogo3({id:jogo.id})" class=" button button-stable  button-block ">Forum</a>
+		<div class=" button-bar ">
+	    	<a ui-sref="menu.jogo2({id:jogo.id})" class=" button button-stable  button-block ">Jogo</a>
+	        <button id="jogo-button59" class=" button button-stable  button-block ">Rate</button>
+	        <a ui-sref="menu.jogo3({id:jogo.id})" class=" button button-stable  button-block ">Forum</a>
 		</div>
     </ion-content>
 </ion-view>

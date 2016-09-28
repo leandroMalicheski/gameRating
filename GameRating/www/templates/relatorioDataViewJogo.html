@@ -1,17 +1,17 @@
 <body ng-app="app.relatoriosController">
 	<ion-view title="Relatório"> 
 	<ion-content padding="true" class="has-header" ng-controller="relatorioDataViewJogoCtrl" ng-init="gerarRelatorio()">
-		<h3 style="color: #000000; text-align: center;">
+		<h3 class="textCenter">
 			Data de visualização de jogos 
 		</h3>
-		<div class="row header" style="background-color:lightgrey; text-align: center;" >
+		<div class="row header relatorioHeader" style="background-color:lightgrey; text-align: center;" >
 	    	<div class="col">Jogo</div>
 	        <div class="col">Data da Ultima Visita</div>
 	        <div class="col">Usuário</div>
 		</div>
-		<div class="row" ng-repeat="game in gamelist">
-	    	<div class="col">{{game.name}}</div>
-	        <div class="col" style="text-align: center;">{{game.visitedDate}}</div>
+		<div class="row relatorioRow" ng-repeat="game in gamelist">
+	    	<div class="col relatorioDados">{{game.name}}</div>
+	        <div class="col relatorioDados" style="text-align: center;">{{game.visitedDate}}</div>
 	        <div class="col" style="text-align: center;">{{game.userLogin}}</div>
 		</div>
 	</ion-content> 

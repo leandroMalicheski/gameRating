@@ -1,7 +1,7 @@
 <body ng-app="app.jogoTopicoController">
 <ion-view title="Jogo" ng-controller="jogo3Ctrl" ng-init="carregarJogo()">
     <ion-content padding="true" class="has-header">
-        <div>
+        <div class="rightBt">
     	    <button ng-show="mostrarDisable" type="button" ng-click="ocultarPopup()" class=" button button-stable  icon" ng-class="gameDisable"></button>
 	        <button ng-show="mostrarEditar" ui-sref="menu.editarJogo({id:jogo.id})" class=" button button-stable  icon ion-edit "></button>
 	        <button ui-sref="menu.cadastrarTopico({id:jogo.id})" class=" button button-stable  icon ion-plus "></button>
@@ -9,11 +9,11 @@
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
             <img ng-src="{{jogo.img}}" style="max-width:100%; max-height:100%;">
         </div>
-        <h3 style="color:#000000;">{{jogo.titulo}}</h3>
+        <h3 class="textCenter">{{jogo.name}}</h3>
         
-        <div style="color: #000000;" ng-hide="showTopics">
-			<p>Ainda não há tópicos para este jogo.</p>
-			<p>Crie um, Comente e divida experiências.</p>
+        <div ng-hide="showTopics">
+			<p class="textCenter">Ainda não há tópicos para este jogo.</p>
+			<p class="textCenter">Crie um, Comente e divida experiências.</p>
 		</div>
         <ion-list ng-show="showTopics">
 	        <ion-item ng-repeat="topico in topicos" class="item-icon-right" ui-sref="menu.tPico({id:topico.id})">
