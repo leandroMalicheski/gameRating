@@ -1,7 +1,7 @@
 <body ng-app="app.editarJogoController">
 <ion-view title="Editar Jogo">
     <ion-content padding="true" class="has-header" ng-controller="editarJogoCtrl" ng-init="carregarJogo()">
-        <div>
+         <div class="rightBt">
         	<button type="button" ng-click="salvarPopup(jogo)" class=" button button-stable  icon ion-android-done "></button>
         </div>
         <div style="margin: 0px; text-align: center; background-color: rgb(232, 235, 239);">
@@ -27,7 +27,7 @@
             </label>
             
             <h3 style="color:#000000;">Rating</h3>
-            <div>
+            <div class="centerBt">
 	            <button type="button" disabled class="button button-stable icon" ng-class="icon1Rate"></button>
 	        	<button type="button" disabled class="button button-stable icon" ng-class="icon2Rate"></button>
 	        	<button type="button" disabled class="button button-stable icon" ng-class="icon3Rate"></button>

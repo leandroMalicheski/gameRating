@@ -1,19 +1,22 @@
 <body ng-app="app.cadastroTopicoController">
 <ion-view title="Adicionar Tópico">
     <ion-content padding="true" class="has-header" ng-controller="cadastrarTopicoCtrl">
-		<div>
+		<div class="rightBt">
 	        <button ng-click="adicionarImagem(topico)" type="button" class=" button button-stable  icon ion-android-attach "></button>
 	        <button ng-click="addLinkPopup(topico)" type="button" class=" button button-stable  icon ion-link "></button>
 	        <button ng-click="salvarPopup(topico)" type="button" class=" button button-stable  icon ion-android-done "></button>
-		</div>       
+		</div>  
+		<div class="spacer" style="height: 5px;"></div>     
         <form class="list">
             <label class="item item-input">
                 <input type="text" ng-model="topico.title" placeholder="Titulo do Tópico *">
             </label>
+            <div class="spacer" style="height: 5px;"></div>
             <label class="item item-input">
                 <textarea ng-model="topico.body" placeholder="Corpo do Tópico *"></textarea>
             </label>
-            <img ng-src="{{topico.img}}" ng-model="topico.img" style="max-width:100%; max-height:100%;">
+            <div class="spacer" style="height: 5px;"></div>
+            <img ng-src="{{topico.img}}" ng-model="topico.img" class="imageCenter" style="max-width:100%; max-height:100%;">
         </form>
     </ion-content>
 </ion-view>

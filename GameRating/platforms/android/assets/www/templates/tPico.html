@@ -1,12 +1,12 @@
 <body ng-app="app.topicoController">
 <ion-view title="Tópico">
     <ion-content padding="true" class="has-header" ng-controller="tPicoCtrl" ng-init="carregarTopico()">
-        <div>
+         <div class="rightBt">
         	<button ng-disabled="isClosed" ng-click="adicionarImagem(comentario)" type="button" class=" button button-stable  icon ion-android-attach "></button>
 	        <button ng-disabled="isClosed" ng-click="addLinkPopup(comentario)" type="button" class=" button button-stable  icon ion-link "></button>
 	        <button type="button" ng-click="ocultarPopup()" ng-show="showDisable" class=" button button-stable  icon" ng-class="topicDisable"></button>
         </div>
-        
+        <div class="spacer" style="height: 5px;"></div>
         <div class="topicHeader">
        	 	<h1 class="textCenter" >{{topico.title}}</h1>
         </div>
