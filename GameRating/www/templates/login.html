@@ -1,7 +1,7 @@
 <body ng-app="app.login">
 	<ion-view title="Login"> 
-		<ion-content padding="true" class="has-header" ng-controller="loginCtrl">
-			<img src="..\img\logo.png" class="imageCenter"></img>
+		<ion-content padding="true" class="has-header" ng-controller="loginCtrl" ng-init="carregar()">
+			<img ng-src="{{logo}}" class="imageCenter" style="max-height: 40%; max-width: 100%"></img>
 			<div class="list">
 				<ion-list> 
 					<label class="item item-input">

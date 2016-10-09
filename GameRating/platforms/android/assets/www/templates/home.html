@@ -1,6 +1,6 @@
 <body ng-app="app.homeController">
 	<ion-view title="Home"> 
-	<ion-content padding="true" class="has-header" ng-controller="homeCtrl">
+	<ion-content padding="true" class="has-header" ng-controller="homeCtrl"  ng-init="carregar()">
 	<div class="list">
 		<div class="item item-input">
 			<i class="icon ion-search placeholder-icon"></i> 
@@ -11,7 +11,7 @@
 		</button>
 	</div>
 	<div ng-hide="showJogos">
-		<img src="..\img\logo.png" class="imageCenter" style="max-height: 40%; max-width: 40%"></img>
+		<img ng-src="{{logo}}" class="imageCenter" style="max-height: 40%; max-width: 40%"></img>
 		<h3 class="titleCenter">
 			Bem Vindo ao App Game Rating!
 		</h3>

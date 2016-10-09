@@ -1,6 +1,8 @@
 angular.module('app.cadastroTopicoController', [])
-.controller('cadastrarTopicoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$ionicHistory','$http','$window',
-function ($scope, $stateParams, $state, $ionicPopup, $ionicHistory, $http, $window) {	
+.controller('cadastrarTopicoCtrl', ['$scope', '$stateParams', '$state', '$ionicPopup', '$ionicHistory','$http','$window',  '$cordovaImagePicker', '$ionicPlatform',
+function ($scope, $stateParams, $state, $ionicPopup, $ionicHistory, $http, $window, $cordovaImagePicker, $ionicPlatform) {	
+	
+$scope.collection = {selectedImage : ''};
 	
 $scope.salvar = function(topicoNovo){
 	user = JSON.parse($window.localStorage['userOn'] || '[]');

@@ -11,6 +11,7 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window, $cordovaIma
 	$scope.showTopicImage = false;
 	var id = $stateParams.id
 	$scope.isClosed = false;
+	$scope.comentario = {}
 	
 	$scope.carregarTopico = function(){
 		var headers = {headers : {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}};
@@ -60,21 +61,21 @@ function ($scope, $stateParams, $ionicPopup, $state, $http, $window, $cordovaIma
 	}
 	
 	$scope.adicionarImagem = function(comentario){
-		var options = {maximumImagesCount: 1, width: 640, height: 480, quality: 80};
-		$cordovaImagePicker.getPictures(options).then(function (results) {
-			for (var i = 0; i < results.length; i++) {
-		        $scope.collection.selectedImage = results[i];
+		 var options = {maximumImagesCount: 1, width: 640, height: 480, quality: 80};
+		    $cordovaImagePicker.getPictures(options).then(function (results) {
+		    for (var i = 0; i < results.length; i++) {
+		    	$scope.collection.selectedImage = results[i];
 	            window.plugins.Base64.encodeFile($scope.collection.selectedImage, function(base64){ 
-	            	comentario.img = base64;
+	            	$scope.comentario.img = base64;
 	                user = JSON.parse($window.localStorage['userOn'] || '[]');
-	        		comentario.userId = user.id
-	        		comentario.topicId = id
+	                $scope.comentario.userId = user.id
+	                $scope.comentario.topicId = id
 	        		var headers = {headers : {'Content-Type' : 'application/json'}};
 	        		var request = getWebServices() + "/addComment"
-	        		$http.post(request, comentario, headers).success(function(data) {
+	        		$http.post(request, $scope.comentario, headers).success(function(data) {
 	            		$scope.comentarios.push(data)
 	            		$scope.showComments = true;
-	            		comentario.body = "";
+	            		$scope.comentario.body = "";
 	                });
 	            	$scope.comentarioAdicionado()
 	            	$state.go('menu.tPico',$stateParams.id)
