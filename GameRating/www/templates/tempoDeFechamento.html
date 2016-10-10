@@ -4,9 +4,9 @@
         <div class="rightBt">
         	<button type="buton" ng-click="salvarPopup(tempo)" id="tempoDeFechamento-button51" class=" button button-stable  icon ion-android-done "></button>
         </div>
-        <h3 class="textCenter">Tempo Minimo</h3>
+        <h3 class="textCenter">Tempo Mínimo</h3>
        	<label class="item item-input">
-       		<input type="number" ng-model="tempo.dias" value={{tempo.dias}}>
+       		<input type="number" ng-model="tempo.dias" pattern="[0-9]" value={{tempo.dias}}>
         </label>
     </ion-content>
 </ion-view>
